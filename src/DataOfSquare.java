@@ -1,7 +1,9 @@
-
 import java.util.ArrayList;
 import java.awt.Color;
 
+/**
+OBSOLETE -- TO BE REPLACED WITH GAMESPACE
+ */
 public class DataOfSquare
 {
 

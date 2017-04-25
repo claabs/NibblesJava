@@ -1,14 +1,19 @@
-
 import java.awt.GridLayout;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 
+/**
+
+   @author Jake Ira
+   @author Charlie Laabs
+   @author Noah Moss
+   @author Nick Sosinski
+   @author Ed VanDerJagt
+ */
 class GameGridFrame extends JFrame
 {
-
-   private static final long serialVersionUID = -2542001418764869760L;
-   public static ArrayList<ArrayList<DataOfSquare>> Grid;
+   public static ArrayList<ArrayList<GameSpace>> Grid;
    public static int width = 20;
    public static int height = 20;
 
@@ -16,7 +21,7 @@ class GameGridFrame extends JFrame
    {
 
       // Creates the arraylist that'll contain the threads
-      Grid = new ArrayList<ArrayList<DataOfSquare>>();
+      Grid = new ArrayList<ArrayList<GameSpace>>();
       ArrayList<DataOfSquare> data;
 
       // Creates Threads and its data and adds it to the arrayList

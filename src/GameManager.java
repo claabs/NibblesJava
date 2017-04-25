@@ -1,15 +1,22 @@
-
 import java.util.ArrayList;
 
-//Controls all the game logic .. most important class in this project.
+/**
+
+   @author Jake Ira
+   @author Charlie Laabs
+   @author Noah Moss
+   @author Nick Sosinski
+   @author Ed VanDerJagt
+ */
 public class GameManager extends Thread
 {
-
-   ArrayList<ArrayList<DataOfSquare>> Squares = new ArrayList<ArrayList<DataOfSquare>>();
+   private static final int FRAMERATE = 60;
+   ArrayList<ArrayList<GameSpace>> Squares = new ArrayList<ArrayList<GameSpace>>();
    Tuple headSnakePos;
    int sizeSnake = 3;
-   long speed = 50;
-   public static int directionSnake;
+   long speed = (1 / FRAMERATE) * 1000; //ms
+   public static int directionSnake1;
+   public static int directionSnake2;
 
    ArrayList<Tuple> positions = new ArrayList<Tuple>();
    Tuple foodPosition;
@@ -18,7 +25,7 @@ public class GameManager extends Thread
    GameManager(Tuple positionDepart)
    {
       //Get all the threads
-      Squares = GameGridFrame.Grid;
+      Squares = GameSpace.Grid;
 
       headSnakePos = new Tuple(positionDepart.x, positionDepart.y);
       directionSnake = 1;

@@ -1,7 +1,14 @@
-
 import java.awt.Color;
 import javax.swing.JPanel;
 
+/**
+
+   @author Jake Ira
+   @author Charlie Laabs
+   @author Noah Moss
+   @author Nick Sosinski
+   @author Ed VanDerJagt
+ */
 public class SquarePanel extends JPanel
 {
 
