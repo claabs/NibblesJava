@@ -1,22 +1,29 @@
+
 import java.util.ArrayList;
 
 /**
 
-   @author Jake Ira
-   @author Charlie Laabs
-   @author Noah Moss
-   @author Nick Sosinski
-   @author Ed VanDerJagt
+ @author Jake Ira
+ @author Charlie Laabs
+ @author Noah Moss
+ @author Nick Sosinski
+ @author Ed VanDerJagt
  */
 public class GameManager extends Thread
 {
+
    private static final int FRAMERATE = 60;
+   private static final int MAX_SNAKE_LENGTH = 1000;
+
+   enum SnakeDirection
+   {
+      RIGHT, UP, LEFT, DOWN;
+   }
    ArrayList<ArrayList<GameSpace>> Squares = new ArrayList<ArrayList<GameSpace>>();
    Tuple headSnakePos;
    int sizeSnake = 3;
    long speed = (1 / FRAMERATE) * 1000; //ms
-   public static int directionSnake1;
-   public static int directionSnake2;
+   public static SnakeDirection[] directionSnake = new SnakeDirection[2];
 
    ArrayList<Tuple> positions = new ArrayList<Tuple>();
    Tuple foodPosition;
@@ -28,8 +35,8 @@ public class GameManager extends Thread
       Squares = GameSpace.Grid;
 
       headSnakePos = new Tuple(positionDepart.x, positionDepart.y);
-      directionSnake = 1;
-
+      directionSnake[0] = SnakeDirection.RIGHT;
+      directionSnake[1] = SnakeDirection.RIGHT;
       //!!! Pointer !!!!
       Tuple headPos = new Tuple(headSnakePos.getX(), headSnakePos.getY());
       positions.add(headPos);

@@ -1,13 +1,14 @@
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 /**
 
-   @author Jake Ira
-   @author Charlie Laabs
-   @author Noah Moss
-   @author Nick Sosinski
-   @author Ed VanDerJagt
+ @author Jake Ira
+ @author Charlie Laabs
+ @author Noah Moss
+ @author Nick Sosinski
+ @author Ed VanDerJagt
  */
 public class KeyboardListener extends KeyAdapter
 {
@@ -17,68 +18,57 @@ public class KeyboardListener extends KeyAdapter
       //PLAYER 1
       switch (e.getKeyCode())
       {
-         case KeyEvent.VK_KP_RIGHT:	// -> Right 
+         case KeyEvent.VK_KP_RIGHT:
             //if it's not the opposite direction
-            if (GameManager.directionSnake1 != 2)
+            if (GameManager.directionSnake[0] != GameManager.SnakeDirection.LEFT)
             {
-               GameManager.directionSnake1 = 1;
+               GameManager.directionSnake[0] = GameManager.SnakeDirection.RIGHT;
             }
             break;
-         case KeyEvent.VK_KP_UP:	// -> Top
-            if (GameManager.directionSnake1 != 4)
+         case KeyEvent.VK_KP_UP:
+            if (GameManager.directionSnake[0] != GameManager.SnakeDirection.DOWN)
             {
-               GameManager.directionSnake1 = 3;
-            }
-            break;
-
-         case KeyEvent.VK_KP_LEFT: 	// -> Left 
-            if (GameManager.directionSnake1 != 1)
-            {
-               GameManager.directionSnake1 = 2;
+               GameManager.directionSnake[0] = GameManager.SnakeDirection.UP;
             }
             break;
 
-         case KeyEvent.VK_KP_DOWN:	// -> Bottom
-            if (GameManager.directionSnake1 != 3)
+         case KeyEvent.VK_KP_LEFT:
+            if (GameManager.directionSnake[0] != GameManager.SnakeDirection.RIGHT)
             {
-               GameManager.directionSnake1 = 4;
+               GameManager.directionSnake[0] = GameManager.SnakeDirection.LEFT;
+            }
+            break;
+         case KeyEvent.VK_KP_DOWN:
+            if (GameManager.directionSnake[0] != GameManager.SnakeDirection.UP)
+            {
+               GameManager.directionSnake[0] = GameManager.SnakeDirection.DOWN;
+            }
+            break;
+         case KeyEvent.VK_D:
+            if (GameManager.directionSnake[1] != GameManager.SnakeDirection.LEFT)
+            {
+               GameManager.directionSnake[1] = GameManager.SnakeDirection.RIGHT;
+            }
+            break;
+         case KeyEvent.VK_W:
+            if (GameManager.directionSnake[1] != GameManager.SnakeDirection.DOWN)
+            {
+               GameManager.directionSnake[1] = GameManager.SnakeDirection.UP;
             }
             break;
 
-         default:
-            break;
-      }
-       //PLAYER 2
-      switch (e.getKeyCode())
-      {
-         case KeyEvent.VK_D:	// -> Right 
-            //if it's not the opposite direction
-            if (GameManager.directionSnake2 != 2)
+         case KeyEvent.VK_A:
+            if (GameManager.directionSnake[1] != GameManager.SnakeDirection.RIGHT)
             {
-               GameManager.directionSnake2 = 1;
+               GameManager.directionSnake[1] = GameManager.SnakeDirection.LEFT;
             }
             break;
-         case KeyEvent.VK_W:	// -> Top
-            if (GameManager.directionSnake2 != 4)
+         case KeyEvent.VK_S:
+            if (GameManager.directionSnake[1] != GameManager.SnakeDirection.UP)
             {
-               GameManager.directionSnake2 = 3;
+               GameManager.directionSnake[1] = GameManager.SnakeDirection.DOWN;
             }
             break;
-
-         case KeyEvent.VK_A: 	// -> Left 
-            if (GameManager.directionSnake2 != 1)
-            {
-               GameManager.directionSnake2 = 2;
-            }
-            break;
-
-         case KeyEvent.VK_S:	// -> Bottom
-            if (GameManager.directionSnake2 != 3)
-            {
-               GameManager.directionSnake2 = 4;
-            }
-            break;
-
          default:
             break;
       }
