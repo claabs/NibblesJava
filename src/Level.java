@@ -13,18 +13,37 @@ public class Level
 {
    // Nick and Noah Area
 
-   public GameSpace.SpaceType levelGrid[][];
-   public SnakeHead.Orientation[] snakeOrientations = new SnakeHead.Orientation[2];
-   public Point2D[] snakeSpawn = new Point2D[2];
+   private GameSpace.SpaceType[][] levelGrid;
+   private SnakeHead.Orientation[] snakeOrientations = new SnakeHead.Orientation[2];
+   private Point2D[] snakeSpawns = new Point2D[2];
 
-   // End Nick and Noah Area
-   //public Tuple snake0 = new Tuple(25,50);
-   //public Tuple snake1 = new Tuple(25,30);
-   //public GameManager.SnakeDirection snake0Dir = GameManager.SnakeDirection.RIGHT;
-   //public GameManager.SnakeDirection snake1Dir = GameManager.SnakeDirection.LEFT;
-   //public GameSpace.SpaceType[][] level1 = {
-   //{
-   //GameSpace.SpaceType.OPEN, GameSpace.SpaceType.OPEN 
-   //}
-   //};
+   public void setLevelGrid( GameSpace.SpaceType[][] levelGrid )
+   {
+      this.levelGrid = levelGrid;
+   }
+   
+   public GameSpace.SpaceType[][] getLevelGrid()
+   {
+      return levelGrid;
+   }
+   
+   public void setSnakeOrientations( SnakeHead.Orientation[] snakeOrientations )
+   {
+      this.snakeOrientations = snakeOrientations;
+   }
+   
+   public SnakeHead.Orientation[] getSnakeOrientations()
+   {
+      return snakeOrientations;
+   }
+   
+   public void setSnakeSpawns( Point2D[] snakeSpawns )
+   {
+      this.snakeSpawns = snakeSpawns;
+   }
+   
+   public Point2D[] getSnakeSpawns()
+   {
+      return snakeSpawns;
+   }
 }

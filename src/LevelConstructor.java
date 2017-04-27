@@ -11,6 +11,9 @@ import java.awt.geom.Point2D;
 public class LevelConstructor 
 {
    private Level[] levelList = new Level[9];
+   private SnakeHead.Orientation[] tempOrientations = new SnakeHead.Orientation[2];
+   private Point2D[] tempSpawns = new Point2D[2];
+   private GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
    
    /**NOTE: On old NIBBLES code:
    1 = UP
@@ -25,17 +28,23 @@ public class LevelConstructor
    LevelConstructor()
    {
    //LEVEL 0
-      levelList[0].snakeOrientations[0] = SnakeHead.Orientation.RIGHT;
-      levelList[0].snakeOrientations[1] = SnakeHead.Orientation.LEFT;
-      //                                              COL ROW
-      levelList[0].snakeSpawn[0] = new Point2D.Double(50, 23);
-      levelList[0].snakeSpawn[1] = new Point2D.Double(30, 23);
+      //SET ORIENTATIONS
+      tempOrientations[0] = SnakeHead.Orientation.RIGHT;
+      tempOrientations[0] = SnakeHead.Orientation.LEFT;
+      levelList[0].setSnakeOrientations( tempOrientations);
+      
+      //SET SPAWNS                       COL ROW
+      tempSpawns[0] = new Point2D.Double(50, 23);
+      tempSpawns[1] = new Point2D.Double(30, 23);
+      levelList[0].setSnakeSpawns(tempSpawns);
       
       createBorderWalls();
       
       for ( int col = 1; col < 79; col++ )
          for ( int row = 1; row < 47; row++ )
-            levelList[0].levelGrid[col][row] = GameSpace.SpaceType.OPEN;
+            tempGrid[col][row] = GameSpace.SpaceType.OPEN;
+      
+      levelList[0].setLevelGrid(tempGrid);
       
    //LEVEL 1
    
@@ -64,12 +73,12 @@ public class LevelConstructor
    private void createBorderWalls()
    {
       for ( int row = 0; row < 48; row++ )
-         levelList[0].levelGrid[0][row] = GameSpace.SpaceType.WALL;
+         tempGrid[0][row] = GameSpace.SpaceType.WALL;
       for ( int row = 0; row < 48; row++ )
-         levelList[0].levelGrid[79][row] = GameSpace.SpaceType.WALL;
+         tempGrid[79][row] = GameSpace.SpaceType.WALL;
       for ( int col = 0; col < 80; col++ )
-         levelList[0].levelGrid[col][0] = GameSpace.SpaceType.WALL;
+         tempGrid[col][0] = GameSpace.SpaceType.WALL;
       for ( int col = 0; col < 80; col++ )
-         levelList[0].levelGrid[col][47] = GameSpace.SpaceType.WALL;
+         tempGrid[col][47] = GameSpace.SpaceType.WALL;
    }
 }
