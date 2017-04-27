@@ -10,12 +10,22 @@ public class GameSpace
 {
    public enum SpaceType
    {
-      WALL, OPEN, SNAKE0, ;
+      WALL, OPEN;
    }
    
    private SpaceType type;
    
    GameSpace(SpaceType type)
+   {
+      this.type = type;
+   }
+   
+   public SpaceType getType()
+   {
+      return type;
+   }
+   
+   public void setType(SpaceType type)
    {
       this.type = type;
    }

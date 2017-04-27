@@ -1,3 +1,6 @@
+
+import java.awt.geom.Point2D;
+
 /**
    NOTE: Food is 2 cells tall, 1 cell wide.
    @author Jake Ira
@@ -9,14 +12,31 @@
 public class Food 
 {
    private int value;
+   private Point2D location; //The point at the top cell of the Food
    
-   Food(int foodValue)
+   Food(int foodValue, Point2D location)
    {
       value = foodValue;
+      this.location = location;
    }
    
    public int getValue()
    {
       return value;
+   }
+   
+   public Point2D getLocation()
+   {
+      return location;
+   }
+   
+   public void setValue(int foodValue)
+   {
+      value = foodValue;
+   }
+   
+   public void setLocation( Point2D location )
+   {
+      this.location = location;
    }
 }
