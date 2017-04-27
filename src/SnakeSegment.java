@@ -18,7 +18,15 @@ public class SnakeSegment
    private SnakeSegment previousSegment;
    private Point2D position;
    
+   SnakeSegment()
+   {
+      
+   }
    
+   public boolean isColliding()
+   {
+      return false;
+   }
    
    // End Nick and Noah Area
 }

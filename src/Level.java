@@ -1,4 +1,6 @@
 
+import java.awt.geom.Point2D;
+
 /**
 
  @author Jake Ira
@@ -11,23 +13,9 @@ public class Level
 {
    // Nick and Noah Area
 
-   private int levelArray[][][];
-   private void createLevel1()
-   {
-      int level1[][] =
-      {
-         {
-            0, 0, 0, 0, 1, 0, 0, 0, 0
-         },
-         {
-            0, 0, 0, 0, 1, 0, 0, 0, 0
-         },
-         {
-            0, 0, 0, 0, 0, 0, 0, 0, 0
-         }
-      };
-
-   }
+   public int levelGrid[][];
+   public SnakeHead.Orientation[] snakeOrientations = new SnakeHead.Orientation[2];
+   public Point2D[] snakeSpawn = new Point2D[2];
 
    // End Nick and Noah Area
    //public Tuple snake0 = new Tuple(25,50);
