@@ -1,3 +1,7 @@
+
+import java.awt.RenderingHints;
+import sun.print.DialogOwner;
+
 /**
 
    @author Jake Ira
@@ -8,5 +12,20 @@
  */
 public class SnakeHead extends SnakeSegment
 {
+   
+   // Nick and Noah Area
+   
+   enum Orientation
+   {
+      UP, DOWN, LEFT, RIGHT
+   };
+   
+   
+   private void move (Orientation direction)
+   {
+      
+   }
+   
+   // End Nick and Noah Area
 
 }

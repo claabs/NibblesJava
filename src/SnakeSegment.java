@@ -1,3 +1,6 @@
+
+import java.awt.geom.Point2D;
+
 /**
 
    @author Jake Ira
@@ -9,4 +12,13 @@
 public class SnakeSegment 
 {
 
+   // Nick and Noah Area
+   
+   private SnakeSegment nextSegment;
+   private SnakeSegment previousSegment;
+   private Point2D position;
+   
+   
+   
+   // End Nick and Noah Area
 }

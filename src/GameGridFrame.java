@@ -13,13 +13,13 @@ import javax.swing.JFrame;
  */
 class GameGridFrame extends JFrame
 {
-   public static ArrayList<ArrayList<GameSpace>> Grid;
+   public static ArrayList<ArrayList<GamePanel>> Grid;
    public static int width = 20;
    public static int height = 20;
 
    public GameGridFrame()
    {
-
+/*
       // Creates the arraylist that'll contain the threads
       Grid = new ArrayList<ArrayList<GameSpace>>();
       ArrayList<DataOfSquare> data;
@@ -62,5 +62,7 @@ class GameGridFrame extends JFrame
       //Tuple position2 = new Tuple(13,13);
       //ControlleurThreads c2 = new ControlleurThreads(position2);
       //c2.start();
+*/
    }
+
 }
