@@ -10,7 +10,7 @@ public class GameSpace
 {
    public enum SpaceType
    {
-      WALL, OPEN, SNAKE;
+      WALL, OPEN, SNAKE0, ;
    }
    
    private SpaceType type;
