@@ -13,7 +13,7 @@ public class Level
 {
    // Nick and Noah Area
 
-   public int levelGrid[][];
+   public GameSpace.SpaceType levelGrid[][];
    public SnakeHead.Orientation[] snakeOrientations = new SnakeHead.Orientation[2];
    public Point2D[] snakeSpawn = new Point2D[2];
 

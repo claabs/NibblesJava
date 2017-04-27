@@ -20,7 +20,7 @@ public class LevelConstructor
    
    Subtract 2 from old NIBBLES row due to scoreboard.
    
-   
+   Board is 80 wide by 48 tall including red border wall
    */
    LevelConstructor()
    {
@@ -30,10 +30,13 @@ public class LevelConstructor
       //                                              COL ROW
       levelList[0].snakeSpawn[0] = new Point2D.Double(50, 23);
       levelList[0].snakeSpawn[1] = new Point2D.Double(30, 23);
-      levelList[0].levelGrid = { 
-      { 0 }
-      };
-   }
+      
+      createBorderWalls();
+      
+      for ( int col = 1; col < 79; col++ )
+         for ( int row = 1; row < 47; row++ )
+            levelList[0].levelGrid[col][row] = GameSpace.SpaceType.OPEN;
+      
    //LEVEL 1
    
    //LEVEL 2
@@ -50,10 +53,23 @@ public class LevelConstructor
    
    //LEVEL 8
    
+
    }
    
    public Level getLevel(int levelIndex)
    {
       return levelList[levelIndex];
+   }
+
+   private void createBorderWalls()
+   {
+      for ( int row = 0; row < 48; row++ )
+         levelList[0].levelGrid[0][row] = GameSpace.SpaceType.WALL;
+      for ( int row = 0; row < 48; row++ )
+         levelList[0].levelGrid[79][row] = GameSpace.SpaceType.WALL;
+      for ( int col = 0; col < 80; col++ )
+         levelList[0].levelGrid[col][0] = GameSpace.SpaceType.WALL;
+      for ( int col = 0; col < 80; col++ )
+         levelList[0].levelGrid[col][47] = GameSpace.SpaceType.WALL;
    }
 }
