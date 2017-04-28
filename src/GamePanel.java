@@ -92,16 +92,16 @@ public class GamePanel extends JComponent
       switch (content)
       {
          case WALL:
-            return Color.black;
-         case FOOD:
-            return Color.green;
-         case SNAKE:
-            return Color.blue;
-         case SNAKEHEAD:
             return Color.red;
+         case FOOD:
+            return Color.white;
+         case SNAKE:
+            return Color.brown;
+         case SNAKEHEAD:
+            return Color.yellow;
          default:
          case EMPTY:
-            return Color.white;
+            return Color.blue;
       }
    }
 
