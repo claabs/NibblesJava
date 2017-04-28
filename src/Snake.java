@@ -21,7 +21,7 @@ public class Snake
    private int lives;
    private int score;
    
-   Snake()
+   public Snake()
    {
       body.add(new SnakeHead());
       body.add(new SnakeSegment());

@@ -12,9 +12,9 @@ import java.awt.geom.Point2D;
 public class Food 
 {
    private int value;
-   private Point2D location; //The point at the top cell of the Food
+   private Point2D.Double location; //The point at the top cell of the Food
    
-   Food(int foodValue, Point2D location)
+   Food(int foodValue, Point2D.Double location)
    {
       value = foodValue;
       this.location = location;
@@ -35,7 +35,7 @@ public class Food
       value = foodValue;
    }
    
-   public void setLocation( Point2D location )
+   public void setLocation( Point2D.Double location )
    {
       this.location = location;
    }

@@ -71,13 +71,18 @@ public class GameManager
    {
       paused = false;
    }
-   
+
    public void run()
    {
       gameBoard.showPause(paused);
       if (!paused)
          updateGame();
       frame.repaint();
+   }
+
+   public static boolean isPaused()
+   {
+      return paused;
    }
 
    //End Nick and Noah Area

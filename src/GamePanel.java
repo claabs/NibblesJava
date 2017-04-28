@@ -17,7 +17,7 @@ public class GamePanel extends JComponent
    private final int sideLength;
    private boolean displayPause = false;
 
-   enum CellContents
+   public enum CellContents
    {
       EMPTY, WALL, FOOD, SNAKE, SNAKEHEAD
    };
@@ -40,7 +40,21 @@ public class GamePanel extends JComponent
       catch (IndexOutOfBoundsException e)
       {
          System.err.println("Out of bounds exception:\n" + e.toString());
+         System.err.println(Integer.toString(column));
+         System.err.println(Integer.toString(row));
          return CellContents.EMPTY;
+      }
+   }
+
+   public void setContents(int column, int row, CellContents contents)
+   {
+      try
+      {
+         gameBoard[column][row] = contents;
+      }
+      catch (IndexOutOfBoundsException e)
+      {
+         System.err.println("Out of bounds exception:\n" + e.toString());
       }
    }
 

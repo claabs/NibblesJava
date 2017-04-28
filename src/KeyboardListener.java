@@ -20,18 +20,22 @@ public class KeyboardListener extends KeyAdapter
       switch (e.getKeyCode())
       {
          case KeyEvent.VK_KP_RIGHT:
+         case KeyEvent.VK_RIGHT:
             if (GameManager.directionSnake[0] != GameManager.SnakeDirection.LEFT)
                GameManager.directionSnake[0] = GameManager.SnakeDirection.RIGHT;
             break;
          case KeyEvent.VK_KP_UP:
+            case KeyEvent.VK_UP:
             if (GameManager.directionSnake[0] != GameManager.SnakeDirection.DOWN)
                GameManager.directionSnake[0] = GameManager.SnakeDirection.UP;
             break;
          case KeyEvent.VK_KP_LEFT:
+            case KeyEvent.VK_LEFT:
             if (GameManager.directionSnake[0] != GameManager.SnakeDirection.RIGHT)
                GameManager.directionSnake[0] = GameManager.SnakeDirection.LEFT;
             break;
          case KeyEvent.VK_KP_DOWN:
+            case KeyEvent.VK_DOWN:
             if (GameManager.directionSnake[0] != GameManager.SnakeDirection.UP)
                GameManager.directionSnake[0] = GameManager.SnakeDirection.DOWN;
             break;

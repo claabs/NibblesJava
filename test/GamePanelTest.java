@@ -4,6 +4,7 @@
  and open the template in the editor.
  */
 
+import java.awt.Graphics;
 import javax.swing.JFrame;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -16,7 +17,7 @@ import static org.junit.Assert.*;
 
  @author Noah Moss
  */
-public class GameManagerTest
+public class GamePanelTest
 {
 
    private static final int CELL_SIZE = 15;
@@ -26,9 +27,8 @@ public class GameManagerTest
    private static final int TITLE_BAR_HEIGHT = 25;
    private JFrame window;
 
-   private GameManager instance;
-   
-   public GameManagerTest()
+   private GamePanel instance;
+   public GamePanelTest()
    {
    }
 
@@ -51,7 +51,8 @@ public class GameManagerTest
       window.setVisible(true);
       window.setSize(CELL_SIZE * WIDTH + MARGIN_SPACING,
             CELL_SIZE * HEIGHT + MARGIN_SPACING + TITLE_BAR_HEIGHT);
-      instance = new GameManager(window, HEIGHT, WIDTH, CELL_SIZE);
+      instance = new GamePanel(WIDTH, HEIGHT, CELL_SIZE);
+      window.add(instance);
    }
 
    @After
@@ -60,37 +61,47 @@ public class GameManagerTest
    }
 
    /**
-    Test of run method, of class GameManager.
+    Test of getContents method, of class GamePanel.
     */
    @Test
-   public void testRun() throws InterruptedException
+   public void testGetContents()
    {
-      System.out.println("run");
-      System.out.println("Verify running.");
-      Thread.sleep(2500);
+      System.out.println("getContents");
+      for (int i = 0; i < GamePanel.CellContents.values().length - 1; i++)
+      {
+         for (int column = 0; column < WIDTH - 1; column++)
+            for (int row = 0; row < HEIGHT - 1; row++)
+               instance.setContents(column, row, GamePanel.CellContents.values()[i]);
+         for (int column = 0; column < WIDTH - 1; column++)
+            for (int row = 0; row < HEIGHT - 1; row++)
+               assertTrue(GamePanel.CellContents.values()[i] == instance.getContents(column, row));
+      }
    }
 
    /**
-    Test of pause method, of class GameManager.
+    Test of showPause method, of class GamePanel.
     */
    @Test
-   public void testPause() throws InterruptedException
+   public void testShowPause() throws InterruptedException
    {
-      System.out.println("pause");
+      System.out.println("showPause");
+      instance.showPause(true);
       System.out.println("Verify \"Pause\" screen is showing.");
-      GameManager.pause();
+      Thread.sleep(2500);
+      instance.showPause(false);
+      System.out.println("Verify \"Pause\" screen is not showing.");
       Thread.sleep(2500);
    }
 
    /**
-    Test of unpause method, of class GameManager.
+    Test of paintComponent method, of class GamePanel.
     */
    @Test
-   public void testUnpause() throws InterruptedException
+   public void testPaintComponent() throws InterruptedException
    {
-      System.out.println("unpause");
-      System.out.println("Verify \"Pause\" screen is no longer showing.");
-      GameManager.unpause();
+      System.out.println("paintComponent");
+      System.out.println("If you can see the \"Pause\" screen, it works...");
+      instance.showPause(true);
       Thread.sleep(2500);
    }
 
