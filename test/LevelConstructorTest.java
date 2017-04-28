@@ -4,6 +4,7 @@
  and open the template in the editor.
  */
 
+import java.awt.geom.Point2D;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,45 +18,66 @@ import static org.junit.Assert.*;
  */
 public class LevelConstructorTest
 {
-   
+
    public LevelConstructorTest()
    {
    }
-   
+
    @BeforeClass
    public static void setUpClass()
    {
    }
-   
+
    @AfterClass
    public static void tearDownClass()
    {
    }
-   
+
    @Before
    public void setUp()
    {
    }
-   
+
    @After
    public void tearDown()
    {
    }
 
    /**
-    * Test of getLevel method, of class LevelConstructor.
+    Test of getLevel method, of class LevelConstructor.
     */
    @Test
    public void testGetLevel()
    {
       System.out.println("getLevel");
-      int levelIndex = 0;
       LevelConstructor instance = new LevelConstructor();
-      Level expResult = null;
-      Level result = instance.getLevel(levelIndex);
-      assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      SnakeHead.Orientation[] tempOrientations = new SnakeHead.Orientation[2];
+      Point2D.Double[] tempSpawns = new Point2D.Double[2];
+      GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
+      tempOrientations[0] = SnakeHead.Orientation.RIGHT;
+      tempOrientations[0] = SnakeHead.Orientation.LEFT;
+      ;
+
+      //SET SPAWNS                       COL ROW
+      tempSpawns[0] = new Point2D.Double(50, 23);
+      tempSpawns[1] = new Point2D.Double(30, 23);
+
+      for (int row = 0; row < 48; row++)
+         tempGrid[0][row] = GameSpace.SpaceType.WALL;
+      for (int row = 0; row < 48; row++)
+         tempGrid[79][row] = GameSpace.SpaceType.WALL;
+      for (int col = 0; col < 80; col++)
+         tempGrid[col][0] = GameSpace.SpaceType.WALL;
+      for (int col = 0; col < 80; col++)
+         tempGrid[col][47] = GameSpace.SpaceType.WALL;
+
+      for (int col = 1; col < 79; col++)
+         for (int row = 1; row < 47; row++)
+            tempGrid[col][row] = GameSpace.SpaceType.OPEN;
+
+      Level level = new Level(tempGrid, tempOrientations, tempSpawns);
+      Level result = instance.getLevel(0);
+      assertTrue(level.equals(result));
    }
-   
+
 }

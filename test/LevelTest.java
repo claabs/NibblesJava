@@ -18,116 +18,271 @@ import static org.junit.Assert.*;
  */
 public class LevelTest
 {
-   
+
    public LevelTest()
    {
    }
-   
+
    @BeforeClass
    public static void setUpClass()
    {
    }
-   
+
    @AfterClass
    public static void tearDownClass()
    {
    }
-   
+
    @Before
    public void setUp()
    {
    }
-   
+
    @After
    public void tearDown()
    {
    }
 
    /**
-    * Test of setLevelGrid method, of class Level.
+    Test of setLevelGrid method, of class Level.
     */
    @Test
    public void testSetLevelGrid()
    {
       System.out.println("setLevelGrid");
-      GameSpace.SpaceType[][] levelGrid = null;
+
+      Point2D[] tempSpawns = new Point2D[2];
+      GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
+      SnakeHead.Orientation[] tempOrientations = new SnakeHead.Orientation[2];
+      tempOrientations[0] = SnakeHead.Orientation.RIGHT;
+      tempOrientations[1] = SnakeHead.Orientation.LEFT;
+      ;
+
+      //SET SPAWNS                       COL ROW
+      tempSpawns[0] = new Point2D.Double(50, 23);
+      tempSpawns[1] = new Point2D.Double(30, 23);
+
+      for (int i = 0; i < tempGrid.length; i++)
+         for (int j = 0; j < tempGrid[i].length; j++)
+            tempGrid[i][j] = GameSpace.SpaceType.OPEN;
+
       Level instance = new Level();
-      instance.setLevelGrid(levelGrid);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      assertTrue(instance.equals(new Level()));
+      instance.setLevelGrid(tempGrid);
+      Level newLevel = new Level(tempGrid, new SnakeHead.Orientation[]
+      {
+         SnakeHead.Orientation.RIGHT, SnakeHead.Orientation.RIGHT
+      }, new Point2D.Double[]
+      {
+         new Point2D.Double(0, 0), new Point2D.Double(0, 0)
+      });
+      assertTrue(newLevel.equals(instance));
    }
 
    /**
-    * Test of getLevelGrid method, of class Level.
+    Test of getLevelGrid method, of class Level.
     */
    @Test
    public void testGetLevelGrid()
    {
       System.out.println("getLevelGrid");
+
+      Point2D[] tempSpawns = new Point2D[2];
+      GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
+      SnakeHead.Orientation[] tempOrientations = new SnakeHead.Orientation[2];
+      tempOrientations[0] = SnakeHead.Orientation.RIGHT;
+      tempOrientations[1] = SnakeHead.Orientation.LEFT;
+      ;
+
+      //SET SPAWNS                       COL ROW
+      tempSpawns[0] = new Point2D.Double(50, 23);
+      tempSpawns[1] = new Point2D.Double(30, 23);
+
+      for (int i = 0; i < tempGrid.length; i++)
+         for (int j = 0; j < tempGrid[i].length; j++)
+            tempGrid[i][j] = GameSpace.SpaceType.OPEN;
+
       Level instance = new Level();
-      GameSpace.SpaceType[][] expResult = null;
-      GameSpace.SpaceType[][] result = instance.getLevelGrid();
-      assertArrayEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      assertTrue(instance.equals(new Level()));
+      instance.setLevelGrid(tempGrid);
+      Level newLevel = new Level(tempGrid, new SnakeHead.Orientation[]
+      {
+         SnakeHead.Orientation.RIGHT, SnakeHead.Orientation.RIGHT
+      }, new Point2D.Double[]
+      {
+         new Point2D.Double(0, 0), new Point2D.Double(0, 0)
+      });
+      assertTrue(newLevel.getLevelGrid().equals(tempGrid));
+
    }
 
    /**
-    * Test of setSnakeOrientations method, of class Level.
+    Test of setSnakeOrientations method, of class Level.
     */
    @Test
    public void testSetSnakeOrientations()
    {
       System.out.println("setSnakeOrientations");
-      SnakeHead.Orientation[] snakeOrientations = null;
+
+      Point2D[] tempSpawns = new Point2D[2];
+      GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
+      SnakeHead.Orientation[] tempOrientations = new SnakeHead.Orientation[2];
+      tempOrientations[0] = SnakeHead.Orientation.RIGHT;
+      tempOrientations[1] = SnakeHead.Orientation.LEFT;
+      ;
+
+      //SET SPAWNS                       COL ROW
+      tempSpawns[0] = new Point2D.Double(50, 23);
+      tempSpawns[1] = new Point2D.Double(30, 23);
+
+      for (int i = 0; i < tempGrid.length; i++)
+         for (int j = 0; j < tempGrid[i].length; j++)
+            tempGrid[i][j] = GameSpace.SpaceType.OPEN;
+
       Level instance = new Level();
-      instance.setSnakeOrientations(snakeOrientations);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      assertTrue(instance.equals(new Level()));
+      instance.setSnakeOrientations(tempOrientations);
+      Level newLevel = new Level(tempGrid, tempOrientations, new Point2D.Double[]
+      {
+         new Point2D.Double(0, 0), new Point2D.Double(0, 0)
+      });
+      assertTrue(newLevel.equals(instance));
    }
 
    /**
-    * Test of getSnakeOrientations method, of class Level.
+    Test of getSnakeOrientations method, of class Level.
     */
    @Test
    public void testGetSnakeOrientations()
    {
       System.out.println("getSnakeOrientations");
+
+      Point2D[] tempSpawns = new Point2D[2];
+      GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
+      SnakeHead.Orientation[] tempOrientations = new SnakeHead.Orientation[2];
+      tempOrientations[0] = SnakeHead.Orientation.RIGHT;
+      tempOrientations[1] = SnakeHead.Orientation.LEFT;
+      ;
+
+      //SET SPAWNS                       COL ROW
+      tempSpawns[0] = new Point2D.Double(50, 23);
+      tempSpawns[1] = new Point2D.Double(30, 23);
+
+      for (int i = 0; i < tempGrid.length; i++)
+         for (int j = 0; j < tempGrid[i].length; j++)
+            tempGrid[i][j] = GameSpace.SpaceType.OPEN;
+
       Level instance = new Level();
-      SnakeHead.Orientation[] expResult = null;
-      SnakeHead.Orientation[] result = instance.getSnakeOrientations();
-      assertArrayEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      assertTrue(instance.equals(new Level()));
+      instance.setSnakeOrientations(tempOrientations);
+
+      assertTrue(instance.getSnakeOrientations().equals(tempOrientations));
    }
 
    /**
-    * Test of setSnakeSpawns method, of class Level.
+    Test of setSnakeSpawns method, of class Level.
     */
    @Test
    public void testSetSnakeSpawns()
    {
       System.out.println("setSnakeSpawns");
-      Point2D[] snakeSpawns = null;
+
+      Point2D.Double[] tempSpawns = new Point2D.Double[2];
+      GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
+      SnakeHead.Orientation[] tempOrientations = new SnakeHead.Orientation[2];
+      tempOrientations[0] = SnakeHead.Orientation.RIGHT;
+      tempOrientations[1] = SnakeHead.Orientation.LEFT;
+      ;
+
+      //SET SPAWNS                       COL ROW
+      tempSpawns[0] = new Point2D.Double(50, 23);
+      tempSpawns[1] = new Point2D.Double(30, 23);
+
+      for (int i = 0; i < tempGrid.length; i++)
+         for (int j = 0; j < tempGrid[i].length; j++)
+            tempGrid[i][j] = GameSpace.SpaceType.OPEN;
+
       Level instance = new Level();
-      instance.setSnakeSpawns(snakeSpawns);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      assertTrue(instance.equals(new Level()));
+      instance.setSnakeSpawns(tempSpawns);
+      Level newLevel = new Level(tempGrid, new SnakeHead.Orientation[]
+      {
+         SnakeHead.Orientation.RIGHT, SnakeHead.Orientation.RIGHT
+      }, tempSpawns);
+      assertTrue(newLevel.equals(instance));
+
    }
 
    /**
-    * Test of getSnakeSpawns method, of class Level.
+    Test of getSnakeSpawns method, of class Level.
     */
    @Test
    public void testGetSnakeSpawns()
    {
       System.out.println("getSnakeSpawns");
+
+      Point2D.Double[] tempSpawns = new Point2D.Double[2];
+      GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
+      SnakeHead.Orientation[] tempOrientations = new SnakeHead.Orientation[2];
+      tempOrientations[0] = SnakeHead.Orientation.RIGHT;
+      tempOrientations[1] = SnakeHead.Orientation.LEFT;
+      ;
+
+      //SET SPAWNS                       COL ROW
+      tempSpawns[0] = new Point2D.Double(50, 23);
+      tempSpawns[1] = new Point2D.Double(30, 23);
+
+      for (int i = 0; i < tempGrid.length; i++)
+         for (int j = 0; j < tempGrid[i].length; j++)
+            tempGrid[i][j] = GameSpace.SpaceType.OPEN;
+
       Level instance = new Level();
-      Point2D[] expResult = null;
-      Point2D[] result = instance.getSnakeSpawns();
-      assertArrayEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      assertTrue(instance.equals(new Level()));
+      instance.setSnakeSpawns(tempSpawns);
+      assertTrue(instance.getSnakeSpawns().equals(tempSpawns));
+      Level newLevel = new Level(tempGrid, new SnakeHead.Orientation[]
+      {
+         SnakeHead.Orientation.RIGHT, SnakeHead.Orientation.RIGHT
+      }, tempSpawns
+      );
+      assertTrue(newLevel.equals(instance));
+
    }
-   
+
+   /**
+    Test of equals method, of class Level.
+    */
+   @Test
+   public void testEquals()
+   {
+      System.out.println("equals");
+      Object o = null;
+
+      Point2D[] tempSpawns = new Point2D[2];
+      GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
+      SnakeHead.Orientation[] tempOrientations = new SnakeHead.Orientation[2];
+      tempOrientations[0] = SnakeHead.Orientation.RIGHT;
+      tempOrientations[1] = SnakeHead.Orientation.LEFT;
+      ;
+
+      //SET SPAWNS                       COL ROW
+      tempSpawns[0] = new Point2D.Double(50, 23);
+      tempSpawns[1] = new Point2D.Double(30, 23);
+
+      for (int i = 0; i < tempGrid.length; i++)
+         for (int j = 0; j < tempGrid[i].length; j++)
+            tempGrid[i][j] = GameSpace.SpaceType.OPEN;
+
+      Level instance = new Level();
+      assertTrue(instance.equals(new Level()));
+      instance.setSnakeOrientations(tempOrientations);
+      Level newLevel = new Level(tempGrid, tempOrientations, new Point2D.Double[]
+      {
+         new Point2D.Double(0, 0), new Point2D.Double(0, 0)
+      });
+      assertFalse(instance.equals(o));
+      assertTrue(newLevel.equals(instance));
+      assertFalse(newLevel.equals(new Level()));
+   }
+
 }

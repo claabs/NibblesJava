@@ -4,7 +4,6 @@
  and open the template in the editor.
  */
 
-import java.awt.Graphics;
 import javax.swing.JFrame;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -103,6 +102,22 @@ public class GamePanelTest
       System.out.println("If you can see the \"Pause\" screen, it works...");
       instance.showPause(true);
       Thread.sleep(2500);
+   }
+
+   /**
+    * Test of setContents method, of class GamePanel.
+    */
+   @Test
+   public void testSetContents()
+   {
+      System.out.println("setContents");
+      int column = 0;
+      int row = 0;
+      GamePanel.CellContents contents = null;
+      GamePanel instance = null;
+      instance.setContents(column, row, contents);
+      // TODO review the generated test code and remove the default call to fail.
+      fail("The test case is a prototype.");
    }
 
 }
