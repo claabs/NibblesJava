@@ -108,16 +108,19 @@ public class GamePanelTest
     * Test of setContents method, of class GamePanel.
     */
    @Test
-   public void testSetContents()
+   public void testSetContents() throws InterruptedException
    {
       System.out.println("setContents");
-      int column = 0;
-      int row = 0;
-      GamePanel.CellContents contents = null;
-      GamePanel instance = null;
-      instance.setContents(column, row, contents);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      for (int i = 0; i < GamePanel.CellContents.values().length - 1; i++)
+      {
+         for (int column = 0; column < WIDTH - 1; column++)
+            for (int row = 0; row < HEIGHT - 1; row++)
+               instance.setContents(column, row, GamePanel.CellContents.values()[i]);
+         window.invalidate();
+         for (int column = 0; column < WIDTH - 1; column++)
+            for (int row = 0; row < HEIGHT - 1; row++)
+               assertTrue(GamePanel.CellContents.values()[i] == instance.getContents(column, row));
+      }
    }
 
 }

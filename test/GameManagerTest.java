@@ -98,14 +98,15 @@ public class GameManagerTest
     * Test of isPaused method, of class GameManager.
     */
    @Test
-   public void testIsPaused()
+   public void testIsPaused() throws InterruptedException
    {
       System.out.println("isPaused");
-      boolean expResult = false;
-      boolean result = GameManager.isPaused();
-      assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      GameManager.pause();
+      Thread.sleep(2500);
+      assertTrue(GameManager.isPaused());
+      GameManager.unpause();
+      Thread.sleep(2500);
+      assertFalse(GameManager.isPaused());
    }
 
 }
