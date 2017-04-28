@@ -55,8 +55,7 @@ public class LevelConstructorTest
       Point2D.Double[] tempSpawns = new Point2D.Double[2];
       GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
       tempOrientations[0] = SnakeHead.Orientation.RIGHT;
-      tempOrientations[0] = SnakeHead.Orientation.LEFT;
-      ;
+      tempOrientations[1] = SnakeHead.Orientation.LEFT;
 
       //SET SPAWNS                       COL ROW
       tempSpawns[0] = new Point2D.Double(50, 23);
@@ -76,8 +75,7 @@ public class LevelConstructorTest
             tempGrid[col][row] = GameSpace.SpaceType.OPEN;
 
       Level level = new Level(tempGrid, tempOrientations, tempSpawns);
-      Level result = instance.getLevel(0);
-      assertTrue(level.equals(result));
+      assertTrue(level.equals(instance.getLevel(0)));
    }
 
 }

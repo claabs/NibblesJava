@@ -96,7 +96,7 @@ public class GamePanel extends JComponent
          case FOOD:
             return Color.white;
          case SNAKE:
-            return Color.brown;
+            return Color.orange;
          case SNAKEHEAD:
             return Color.yellow;
          default:
