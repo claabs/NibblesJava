@@ -93,7 +93,7 @@ public class FoodTest
       System.out.println("setLocation");
       Point2D.Double newLocation = new Point2D.Double(5, 10);
       assertTrue(instance.getLocation().equals(new Point2D.Double(10, 20)));
-      instance.setLocation(newLocation);
+      instance.setPosition(newLocation);
       assertTrue(instance.getLocation().equals(newLocation));
    }
 

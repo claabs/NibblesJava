@@ -14,7 +14,7 @@ public class Level
    // Nick and Noah Area
 
    private GameSpace.SpaceType[][] levelGrid = new GameSpace.SpaceType[80][48];
-   private SnakeHead.Orientation[] snakeOrientations = new SnakeHead.Orientation[2];
+   private Snake.Direction[] snakeDirections = new Snake.Direction[2];
    private Point2D.Double[] snakeSpawns = new Point2D.Double[2];
 
    public Level()
@@ -22,18 +22,18 @@ public class Level
       for (int i = 0; i < levelGrid.length; i++)
          for (int j = 0; j < levelGrid[i].length; j++)
             levelGrid[i][j] = GameSpace.SpaceType.OPEN;
-      for (int i = 0; i < snakeOrientations.length; i++)
-         snakeOrientations[i] = SnakeHead.Orientation.RIGHT;
+      for (int i = 0; i < snakeDirections.length; i++)
+         snakeDirections[i] = Snake.Direction.RIGHT;
       for (int i = 0; i < snakeSpawns.length; i++)
          snakeSpawns[i] = new Point2D.Double(0, 0);
    }
 
    public Level(GameSpace.SpaceType[][] levelGrid,
-         SnakeHead.Orientation[] snakeOrientations,
+         Snake.Direction[] snakeOrientations,
          Point2D.Double[] snakeSpawns)
    {
       this.levelGrid = levelGrid;
-      this.snakeOrientations = snakeOrientations;
+      this.snakeDirections = snakeOrientations;
       this.snakeSpawns = snakeSpawns;
    }
 
@@ -47,14 +47,14 @@ public class Level
       return levelGrid;
    }
 
-   public void setSnakeOrientations(SnakeHead.Orientation[] snakeOrientations)
+   public void setSnakeOrientations(Snake.Direction[] snakeOrientations)
    {
-      this.snakeOrientations = snakeOrientations;
+      this.snakeDirections = snakeOrientations;
    }
 
-   public SnakeHead.Orientation[] getSnakeOrientations()
+   public Snake.Direction[] getSnakeOrientations()
    {
-      return snakeOrientations;
+      return snakeDirections;
    }
 
    public void setSnakeSpawns(Point2D.Double[] snakeSpawns)
@@ -79,8 +79,8 @@ public class Level
          for (int j = 0; j < levelGrid[i].length; j++)
             if (level.levelGrid[i][j] != levelGrid[i][j])
                return false;
-      for (int i = 0; i < snakeOrientations.length; i++)
-         if (level.snakeOrientations[i] != snakeOrientations[i])
+      for (int i = 0; i < snakeDirections.length; i++)
+         if (level.snakeDirections[i] != snakeDirections[i])
             return false;
       for (int i = 0; i < snakeSpawns.length; i++)
          if (!level.snakeSpawns[i].equals(snakeSpawns[i]))

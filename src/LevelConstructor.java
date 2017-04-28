@@ -13,7 +13,7 @@ public class LevelConstructor
 {
 
    private Level[] levelList = new Level[9];
-   private SnakeHead.Orientation[] tempOrientations = new SnakeHead.Orientation[2];
+   private Snake.Direction[] tempOrientations = new Snake.Direction[2];
    private Point2D.Double[] tempSpawns = new Point2D.Double[2];
    private GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
 
@@ -34,8 +34,8 @@ public class LevelConstructor
          levelList[i] = new Level();
       //LEVEL 0
       //SET ORIENTATIONS
-      tempOrientations[0] = SnakeHead.Orientation.RIGHT;
-      tempOrientations[1] = SnakeHead.Orientation.LEFT;
+      tempOrientations[0] = Snake.Direction.RIGHT;
+      tempOrientations[1] = Snake.Direction.LEFT;
       levelList[0].setSnakeOrientations(tempOrientations);
 
       //SET SPAWNS                       COL ROW

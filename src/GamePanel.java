@@ -1,5 +1,6 @@
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import javax.swing.*;
 
 /**
@@ -13,21 +14,25 @@ import javax.swing.*;
 public class GamePanel extends JComponent
 {
 
-   private CellContents gameBoard[][];
+   private final CellContents gameBoard[][];
    private final int sideLength;
    private boolean displayPause = false;
+   private Level level;
+
+   private GameManager manager;
 
    public enum CellContents
    {
       EMPTY, WALL, FOOD, SNAKE, SNAKEHEAD
    };
 
-   public GamePanel(int boardWidth, int boardHeight, int squareLength)
+   public GamePanel(int boardWidth, int boardHeight, int squareLength, GameManager inManager)
    {
+      manager = inManager;
       sideLength = squareLength;
       gameBoard = new CellContents[boardWidth][boardHeight];
-      for (int column = 0; column < gameBoard.length - 1; column++)
-         for (int row = 0; row < gameBoard[column].length - 1; row++)
+      for (int column = 0; column < gameBoard.length; column++)
+         for (int row = 0; row < gameBoard[column].length; row++)
             gameBoard[column][row] = CellContents.EMPTY;
    }
 
@@ -46,15 +51,38 @@ public class GamePanel extends JComponent
       }
    }
 
-   public void setContents(int column, int row, CellContents contents)
+   public void setContents(double column, double row, CellContents contents)
    {
       try
       {
-         gameBoard[column][row] = contents;
+         gameBoard[(int) column][(int) row] = contents;
       }
       catch (IndexOutOfBoundsException e)
       {
          System.err.println("Out of bounds exception:\n" + e.toString());
+      }
+   }
+
+   private void updateFood()
+   {
+      Food food = manager.getFood();
+      Point2D.Double foodPosition = food.getPosition();
+      setContents(foodPosition.x, foodPosition.y, GamePanel.CellContents.FOOD);
+   }
+
+   private void updateSnakes()
+   {
+      Snake[] snakes = manager.getSnakes();
+      for (int i = 0; i < snakes.length; i++)
+      {
+         Point2D.Double headLocation = snakes[i].getHeadLocation();
+         setContents(headLocation.x, headLocation.y, GamePanel.CellContents.SNAKEHEAD);
+         java.util.List<SnakeSegment> segments = snakes[i].getSnakeSegments();
+         for (int j = 0; j < segments.size(); j++)
+         {
+            Point2D.Double segmentPosition = segments.get(j).getPosition();
+            setContents(segmentPosition.x, segmentPosition.y, GamePanel.CellContents.SNAKE);
+         }
       }
    }
 
@@ -69,12 +97,17 @@ public class GamePanel extends JComponent
       Graphics2D g2 = (Graphics2D) g;
       g2.setColor(Color.gray);
       g2.drawRect(0, 0, WIDTH, HEIGHT);
-      for (int column = 0; column < gameBoard.length - 1; column++)
-         for (int row = 0; row < gameBoard[column].length - 1; row++)
+      for (int column = 0; column < gameBoard.length; column++)
+         for (int row = 0; row < gameBoard[column].length; row++)
+            gameBoard[column][row] = CellContents.EMPTY;
+      updateSnakes();
+      updateFood();
+      for (int column = 0; column < gameBoard.length; column++)
+         for (int row = 0; row < gameBoard[column].length; row++)
          {
             g2.setColor(getContentColor(getContents(column, row)));
-            int xPos = 10 + row * sideLength;
-            int yPos = 10 + column * sideLength;
+            int xPos = 10 + column * sideLength;
+            int yPos = 10 + row * sideLength;
             g2.fillRect(xPos, yPos, sideLength, sideLength);
          }
       if (displayPause)

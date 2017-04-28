@@ -13,6 +13,13 @@ import java.awt.event.KeyEvent;
 public class KeyboardListener extends KeyAdapter
 {
 
+   private GameManager manager;
+
+   KeyboardListener(GameManager inManager)
+   {
+      manager = inManager;
+   }
+
    @Override
    public void keyPressed(KeyEvent e)
    {
@@ -20,36 +27,36 @@ public class KeyboardListener extends KeyAdapter
       switch (e.getKeyCode())
       {
          case KeyEvent.VK_RIGHT:
-            if (GameManager.directionSnake[0] != GameManager.SnakeDirection.LEFT)
-               GameManager.directionSnake[0] = GameManager.SnakeDirection.RIGHT;
+            if (manager.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) != Snake.Direction.LEFT)
+               manager.setSnakeDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.RIGHT);
             break;
          case KeyEvent.VK_UP:
-            if (GameManager.directionSnake[0] != GameManager.SnakeDirection.DOWN)
-               GameManager.directionSnake[0] = GameManager.SnakeDirection.UP;
+            if (manager.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) != Snake.Direction.DOWN)
+               manager.setSnakeDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.UP);
             break;
          case KeyEvent.VK_LEFT:
-            if (GameManager.directionSnake[0] != GameManager.SnakeDirection.RIGHT)
-               GameManager.directionSnake[0] = GameManager.SnakeDirection.LEFT;
+            if (manager.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) != Snake.Direction.RIGHT)
+               manager.setSnakeDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.LEFT);
             break;
          case KeyEvent.VK_DOWN:
-            if (GameManager.directionSnake[0] != GameManager.SnakeDirection.UP)
-               GameManager.directionSnake[0] = GameManager.SnakeDirection.DOWN;
+            if (manager.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) != Snake.Direction.UP)
+               manager.setSnakeDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.DOWN);
             break;
          case KeyEvent.VK_D:
-            if (GameManager.directionSnake[1] != GameManager.SnakeDirection.LEFT)
-               GameManager.directionSnake[1] = GameManager.SnakeDirection.RIGHT;
+            if (manager.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) != Snake.Direction.LEFT)
+               manager.setSnakeDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.RIGHT);
             break;
          case KeyEvent.VK_W:
-            if (GameManager.directionSnake[1] != GameManager.SnakeDirection.DOWN)
-               GameManager.directionSnake[1] = GameManager.SnakeDirection.UP;
+            if (manager.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) != Snake.Direction.DOWN)
+               manager.setSnakeDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.UP);
             break;
          case KeyEvent.VK_A:
-            if (GameManager.directionSnake[1] != GameManager.SnakeDirection.RIGHT)
-               GameManager.directionSnake[1] = GameManager.SnakeDirection.LEFT;
+            if (manager.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) != Snake.Direction.RIGHT)
+               manager.setSnakeDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.LEFT);
             break;
          case KeyEvent.VK_S:
-            if (GameManager.directionSnake[1] != GameManager.SnakeDirection.UP)
-               GameManager.directionSnake[1] = GameManager.SnakeDirection.DOWN;
+            if (manager.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) != Snake.Direction.UP)
+               manager.setSnakeDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.DOWN);
             break;
          case KeyEvent.VK_P:
             GameManager.pause();

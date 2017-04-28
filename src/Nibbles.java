@@ -13,7 +13,7 @@ import javax.swing.*;
 public class Nibbles
 {
 
-   private static final int CELL_SIZE = 15;
+   private static final int CELL_SIZE = 10;
    private static final int WIDTH = 80;
    private static final int HEIGHT = 50;
    private static final int MARGIN_SPACING = 20;
@@ -30,9 +30,9 @@ public class Nibbles
       window.setTitle("Nibbles - .min.jHawks V2");
       window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       window.setVisible(true);
-      window.setSize(CELL_SIZE * WIDTH + MARGIN_SPACING,
-            CELL_SIZE * HEIGHT + MARGIN_SPACING + TITLE_BAR_HEIGHT);
-      gameManager = new GameManager(window, HEIGHT, WIDTH, CELL_SIZE);
-      
+      window.setSize(CELL_SIZE * WIDTH + 2 * CELL_SIZE + MARGIN_SPACING,
+            CELL_SIZE * HEIGHT + 2 * CELL_SIZE + MARGIN_SPACING + TITLE_BAR_HEIGHT);
+      gameManager = new GameManager(window, WIDTH, HEIGHT, CELL_SIZE);
+
    }
 };

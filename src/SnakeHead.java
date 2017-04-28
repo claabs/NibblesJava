@@ -1,6 +1,7 @@
 
-import java.awt.RenderingHints;
-import sun.print.DialogOwner;
+import java.awt.geom.Point2D;
+
+
 
 /**
 
@@ -13,18 +14,12 @@ import sun.print.DialogOwner;
 public class SnakeHead extends SnakeSegment
 {
    
-   // Nick and Noah Area
-   
-   enum Orientation
+   SnakeHead(Point2D.Double spawnPoint, Snake.Direction dir)
    {
-      UP, DOWN, LEFT, RIGHT
-   };
-   
-   
-   private void move (Orientation direction)
-   {
-      
+      super(spawnPoint, dir);
    }
+   
+   // Nick and Noah Area
    
    @Override
    public boolean isColliding()

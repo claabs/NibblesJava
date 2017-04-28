@@ -2,41 +2,42 @@
 import java.awt.geom.Point2D;
 
 /**
-   NOTE: Food is 2 cells tall, 1 cell wide.
-   @author Jake Ira
-   @author Charlie Laabs
-   @author Noah Moss
-   @author Nick Sosinski
-   @author Ed VanDerJagt
+ NOTE: Food is 2 cells tall, 1 cell wide.
+
+ @author Jake Ira
+ @author Charlie Laabs
+ @author Noah Moss
+ @author Nick Sosinski
+ @author Ed VanDerJagt
  */
-public class Food 
+public class Food extends Collidable
 {
+
    private int value;
-   private Point2D.Double location; //The point at the top cell of the Food
-   
+
    Food(int foodValue, Point2D.Double location)
    {
       value = foodValue;
-      this.location = location;
+      position = location;
    }
-   
+
    public int getValue()
    {
       return value;
    }
-   
-   public Point2D getLocation()
+
+   public Point2D.Double getPosition()
    {
-      return location;
+      return position;
    }
-   
+
    public void setValue(int foodValue)
    {
       value = foodValue;
    }
-   
-   public void setLocation( Point2D.Double location )
+
+   public void setPosition(Point2D.Double location)
    {
-      this.location = location;
+      position = location;
    }
 }
