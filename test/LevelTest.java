@@ -53,9 +53,9 @@ public class LevelTest
 
       Point2D[] tempSpawns = new Point2D[2];
       GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
-      SnakeHead.Orientation[] tempOrientations = new SnakeHead.Orientation[2];
-      tempOrientations[0] = SnakeHead.Orientation.RIGHT;
-      tempOrientations[1] = SnakeHead.Orientation.LEFT;
+      Snake.Direction[] tempOrientations = new Snake.Direction[2];
+      tempOrientations[0] = Snake.Direction.RIGHT;
+      tempOrientations[1] = Snake.Direction.LEFT;
       ;
 
       //SET SPAWNS                       COL ROW
@@ -69,9 +69,9 @@ public class LevelTest
       Level instance = new Level();
       assertTrue(instance.equals(new Level()));
       instance.setLevelGrid(tempGrid);
-      Level newLevel = new Level(tempGrid, new SnakeHead.Orientation[]
+      Level newLevel = new Level(tempGrid, new Snake.Direction[]
       {
-         SnakeHead.Orientation.RIGHT, SnakeHead.Orientation.RIGHT
+         Snake.Direction.RIGHT, Snake.Direction.RIGHT
       }, new Point2D.Double[]
       {
          new Point2D.Double(0, 0), new Point2D.Double(0, 0)
@@ -89,9 +89,9 @@ public class LevelTest
 
       Point2D[] tempSpawns = new Point2D[2];
       GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
-      SnakeHead.Orientation[] tempOrientations = new SnakeHead.Orientation[2];
-      tempOrientations[0] = SnakeHead.Orientation.RIGHT;
-      tempOrientations[1] = SnakeHead.Orientation.LEFT;
+      Snake.Direction[] tempOrientations = new Snake.Direction[2];
+      tempOrientations[0] = Snake.Direction.RIGHT;
+      tempOrientations[1] = Snake.Direction.LEFT;
       ;
 
       //SET SPAWNS                       COL ROW
@@ -105,9 +105,9 @@ public class LevelTest
       Level instance = new Level();
       assertTrue(instance.equals(new Level()));
       instance.setLevelGrid(tempGrid);
-      Level newLevel = new Level(tempGrid, new SnakeHead.Orientation[]
+      Level newLevel = new Level(tempGrid, new Snake.Direction[]
       {
-         SnakeHead.Orientation.RIGHT, SnakeHead.Orientation.RIGHT
+         Snake.Direction.RIGHT,Snake.Direction.RIGHT
       }, new Point2D.Double[]
       {
          new Point2D.Double(0, 0), new Point2D.Double(0, 0)
@@ -126,9 +126,9 @@ public class LevelTest
 
       Point2D[] tempSpawns = new Point2D[2];
       GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
-      SnakeHead.Orientation[] tempOrientations = new SnakeHead.Orientation[2];
-      tempOrientations[0] = SnakeHead.Orientation.RIGHT;
-      tempOrientations[1] = SnakeHead.Orientation.LEFT;
+      Snake.Direction[] tempOrientations = new Snake.Direction[2];
+      tempOrientations[0] = Snake.Direction.RIGHT;
+      tempOrientations[1] = Snake.Direction.LEFT;
       ;
 
       //SET SPAWNS                       COL ROW
@@ -159,9 +159,9 @@ public class LevelTest
 
       Point2D[] tempSpawns = new Point2D[2];
       GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
-      SnakeHead.Orientation[] tempOrientations = new SnakeHead.Orientation[2];
-      tempOrientations[0] = SnakeHead.Orientation.RIGHT;
-      tempOrientations[1] = SnakeHead.Orientation.LEFT;
+      Snake.Direction[] tempOrientations = new Snake.Direction[2];
+      tempOrientations[0] = Snake.Direction.RIGHT;
+      tempOrientations[1] = Snake.Direction.LEFT;
       ;
 
       //SET SPAWNS                       COL ROW
@@ -189,9 +189,9 @@ public class LevelTest
 
       Point2D.Double[] tempSpawns = new Point2D.Double[2];
       GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
-      SnakeHead.Orientation[] tempOrientations = new SnakeHead.Orientation[2];
-      tempOrientations[0] = SnakeHead.Orientation.RIGHT;
-      tempOrientations[1] = SnakeHead.Orientation.LEFT;
+      Snake.Direction[] tempOrientations = new Snake.Direction[2];
+      tempOrientations[0] = Snake.Direction.RIGHT;
+      tempOrientations[1] = Snake.Direction.LEFT;
       ;
 
       //SET SPAWNS                       COL ROW
@@ -205,9 +205,9 @@ public class LevelTest
       Level instance = new Level();
       assertTrue(instance.equals(new Level()));
       instance.setSnakeSpawns(tempSpawns);
-      Level newLevel = new Level(tempGrid, new SnakeHead.Orientation[]
+      Level newLevel = new Level(tempGrid, new Snake.Direction[]
       {
-         SnakeHead.Orientation.RIGHT, SnakeHead.Orientation.RIGHT
+         Snake.Direction.RIGHT,Snake.Direction.RIGHT
       }, tempSpawns);
       assertTrue(newLevel.equals(instance));
 
@@ -223,9 +223,9 @@ public class LevelTest
 
       Point2D.Double[] tempSpawns = new Point2D.Double[2];
       GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
-      SnakeHead.Orientation[] tempOrientations = new SnakeHead.Orientation[2];
-      tempOrientations[0] = SnakeHead.Orientation.RIGHT;
-      tempOrientations[1] = SnakeHead.Orientation.LEFT;
+      Snake.Direction[] tempOrientations = new Snake.Direction[2];
+      tempOrientations[0] = Snake.Direction.RIGHT;
+      tempOrientations[1] = Snake.Direction.LEFT;
       ;
 
       //SET SPAWNS                       COL ROW
@@ -240,9 +240,9 @@ public class LevelTest
       assertTrue(instance.equals(new Level()));
       instance.setSnakeSpawns(tempSpawns);
       assertTrue(instance.getSnakeSpawns().equals(tempSpawns));
-      Level newLevel = new Level(tempGrid, new SnakeHead.Orientation[]
+      Level newLevel = new Level(tempGrid, new Snake.Direction[]
       {
-         SnakeHead.Orientation.RIGHT, SnakeHead.Orientation.RIGHT
+         Snake.Direction.RIGHT, Snake.Direction.RIGHT
       }, tempSpawns
       );
       assertTrue(newLevel.equals(instance));
@@ -260,9 +260,9 @@ public class LevelTest
 
       Point2D[] tempSpawns = new Point2D[2];
       GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
-      SnakeHead.Orientation[] tempOrientations = new SnakeHead.Orientation[2];
-      tempOrientations[0] = SnakeHead.Orientation.RIGHT;
-      tempOrientations[1] = SnakeHead.Orientation.LEFT;
+      Snake.Direction[] tempOrientations = new Snake.Direction[2];
+      tempOrientations[0] = Snake.Direction.RIGHT;
+      tempOrientations[1] = Snake.Direction.LEFT;
       ;
 
       //SET SPAWNS                       COL ROW

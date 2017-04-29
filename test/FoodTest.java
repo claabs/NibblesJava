@@ -60,14 +60,14 @@ public class FoodTest
    }
 
    /**
-    Test of getLocation method, of class Food.
+    Test of getPosition method, of class Food.
     */
    @Test
-   public void testGetLocation()
+   public void testGetPosition()
    {
-      System.out.println("getLocation");
+      System.out.println("getPosition");
       Point2D expResult = new Point2D.Double(10, 20);
-      Point2D result = instance.getLocation();
+      Point2D result = instance.getPosition();
       assertEquals(expResult, result);
    }
 
@@ -85,16 +85,15 @@ public class FoodTest
    }
 
    /**
-    Test of setLocation method, of class Food.
+    Test of setPosition method, of class Food.
     */
    @Test
-   public void testSetLocation()
+   public void testSetPosition()
    {
-      System.out.println("setLocation");
+      System.out.println("setPosition");
       Point2D.Double newLocation = new Point2D.Double(5, 10);
-      assertTrue(instance.getLocation().equals(new Point2D.Double(10, 20)));
+      assertTrue(instance.getPosition().equals(new Point2D.Double(10, 20)));
       instance.setPosition(newLocation);
-      assertTrue(instance.getLocation().equals(newLocation));
+      assertTrue(instance.getPosition().equals(newLocation));
    }
-
 }

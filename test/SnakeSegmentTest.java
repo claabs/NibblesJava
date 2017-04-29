@@ -4,6 +4,7 @@
  and open the template in the editor.
  */
 
+import java.awt.geom.Point2D;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -43,18 +44,49 @@ public class SnakeSegmentTest
    }
 
    /**
-    * Test of isColliding method, of class SnakeSegment.
+    * Test of moveForward method, of class SnakeSegment.
     */
    @Test
-   public void testIsColliding()
+   public void testMoveForward()
    {
-      System.out.println("isColliding");
-      SnakeSegment instance = new SnakeSegment();
-      boolean expResult = false;
-      boolean result = instance.isColliding();
-      assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      System.out.println("moveForward");
+      SnakeSegment instance = new SnakeSegment(new Point2D.Double(20,20), Snake.Direction.UP);
+      instance.moveForward();
+      assertTrue(instance.getPosition().equals(new Point2D.Double(20,19)));
+   }
+
+   /**
+    * Test of getPosition method, of class SnakeSegment.
+    */
+   @Test
+   public void testGetPosition()
+   {
+      System.out.println("getPosition");
+      SnakeSegment instance = new SnakeSegment(new Point2D.Double(20,20), Snake.Direction.UP);
+      assertTrue(instance.getPosition().equals(new Point2D.Double(20,20)));
+   }
+
+   /**
+    * Test of getDirection method, of class SnakeSegment.
+    */
+   @Test
+   public void testGetDirection()
+   {
+      System.out.println("getDirection");
+      SnakeSegment instance = new SnakeSegment(new Point2D.Double(20,20), Snake.Direction.UP);
+      assertTrue(instance.getDirection().equals(Snake.Direction.UP));
+   }
+
+   /**
+    * Test of setDirection method, of class SnakeSegment.
+    */
+   @Test
+   public void testSetDirection()
+   {
+      System.out.println("setDirection");
+      SnakeSegment instance = new SnakeSegment(new Point2D.Double(20,20), Snake.Direction.UP);
+      instance.setDirection(Snake.Direction.RIGHT);
+      assertTrue(instance.getDirection().equals(Snake.Direction.RIGHT));
    }
    
 }

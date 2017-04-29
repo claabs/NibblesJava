@@ -73,11 +73,6 @@ public class Snake
       return body.subList(1, body.size());
    }
 
-   private boolean snakeCollision()
-   {
-      return body.get(0).isColliding();
-   }
-
    public boolean checkCollison(Collidable c)
    {
       return body.get(0).collided(c);
@@ -91,11 +86,6 @@ public class Snake
    public Direction getDirection()
    {
       return body.get(0).getDirection();
-   }
-
-   private boolean wallCollision()
-   {
-      return false;
    }
 
    public void die()

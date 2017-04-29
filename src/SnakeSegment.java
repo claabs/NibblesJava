@@ -15,7 +15,7 @@ public class SnakeSegment extends Collidable
    private Snake.Direction direction;
    SnakeSegment(Point2D.Double spawnPoint, Snake.Direction inDir)
    {
-      position = spawnPoint;
+      super(spawnPoint);
       direction = inDir;
    }
 
@@ -54,11 +54,4 @@ public class SnakeSegment extends Collidable
    {
       direction = inDir;
    }
-
-   public boolean isColliding()
-   {
-      return false;
-   }
-
-   // End Nick and Noah Area
 }

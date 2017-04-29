@@ -2,6 +2,7 @@
 import java.awt.*;
 import java.awt.geom.Point2D;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 /**
 
@@ -11,13 +12,18 @@ import javax.swing.*;
  @author Nick Sosinski
  @author Ed VanDerJagt
  */
-public class GamePanel extends JComponent
+public class GamePanel extends JPanel
 {
 
    private final CellContents gameBoard[][];
-   private final int sideLength;
+   private final int charWidth;
    private boolean displayPause = false;
    private Level level;
+   private static int MARGIN_SIZE = 10;
+   private static int charHeight;
+
+   private int xOffset;
+   private int yOffset;
 
    private GameManager manager;
 
@@ -26,14 +32,20 @@ public class GamePanel extends JComponent
       EMPTY, WALL, FOOD, SNAKE, SNAKEHEAD
    };
 
-   public GamePanel(int boardWidth, int boardHeight, int squareLength, GameManager inManager)
+   public GamePanel(int boardWidth, int boardHeight, int inCharWidth, GameManager inManager)
    {
       manager = inManager;
-      sideLength = squareLength;
+      charWidth = inCharWidth;
+      charHeight = 2 * charWidth;
       gameBoard = new CellContents[boardWidth][boardHeight];
+      xOffset = MARGIN_SIZE;
+      yOffset = MARGIN_SIZE + charHeight;
       for (int column = 0; column < gameBoard.length; column++)
          for (int row = 0; row < gameBoard[column].length; row++)
             gameBoard[column][row] = CellContents.EMPTY;
+      setPreferredSize(
+            new Dimension(charWidth * boardWidth + 2 * MARGIN_SIZE,
+                  charWidth * boardHeight + 2 * MARGIN_SIZE + charHeight));
    }
 
    public CellContents getContents(int column, int row)
@@ -95,29 +107,52 @@ public class GamePanel extends JComponent
    public void paintComponent(Graphics g)
    {
       Graphics2D g2 = (Graphics2D) g;
-      g2.setColor(Color.gray);
-      g2.drawRect(0, 0, WIDTH, HEIGHT);
-      for (int column = 0; column < gameBoard.length; column++)
-         for (int row = 0; row < gameBoard[column].length; row++)
-            gameBoard[column][row] = CellContents.EMPTY;
+      flushGameBoard();
       updateSnakes();
       updateFood();
+      drawGameBoard(g2);
+      if (displayPause)
+         paintPauseScreen(g2);
+   }
+
+   private void drawGameBoard(Graphics2D g)
+   {
       for (int column = 0; column < gameBoard.length; column++)
          for (int row = 0; row < gameBoard[column].length; row++)
          {
-            g2.setColor(getContentColor(getContents(column, row)));
-            int xPos = 10 + column * sideLength;
-            int yPos = 10 + row * sideLength;
-            g2.fillRect(xPos, yPos, sideLength, sideLength);
+            g.setColor(getContentColor(getContents(column, row)));
+            int xPos = xOffset + column * charWidth;
+            int yPos = yOffset + row * charWidth;
+            g.fillRect(xPos, yPos, charWidth, charWidth);
          }
-      if (displayPause)
-      {
-         g2.setColor(Color.black);
-         g2.setFont(new Font("Courier New", Font.PLAIN, 64));
-         int sWidth = g2.getFontMetrics().stringWidth("Paused");
-         int sHeight = g2.getFontMetrics().getHeight();
-         g2.drawString("Paused", (getWidth() / 2 - sWidth / 2) + 10, (getHeight() / 2 - sHeight / 2) + 10);
-      }
+   }
+
+   private void flushGameBoard()
+   {
+      for (int column = 0; column < gameBoard.length; column++)
+         for (int row = 0; row < gameBoard[column].length; row++)
+            gameBoard[column][row] = CellContents.EMPTY;
+   }
+
+   private void paintPauseScreen(Graphics2D g)
+   {
+      g.setColor(Color.white);
+      int xPos = xOffset + 23 * charWidth;
+      int yPos = yOffset + 9 * charHeight;
+      int width = 33 * charWidth;
+      int height = 3 * charHeight;
+      g.fillRect(xPos, yPos, width, height);
+      g.setColor(Color.red);
+      xPos = xOffset + 24 * charWidth;
+      yPos = yOffset + (int) (9.5 * charHeight);
+      width = 31 * charWidth;
+      height = 2 * charHeight;
+      g.fillRect(xPos, yPos, width, height);
+      g.setColor(Color.white);
+      g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 14));
+      xPos = xOffset + 26 * charWidth;
+      yPos = yOffset + (int) (10.75 * charHeight);
+      g.drawString("Game Paused ... Push Space", xPos, yPos);
    }
 
    private Color getContentColor(CellContents content)

@@ -90,49 +90,49 @@ public class KeyboardListenerTest
       robot.delay(500);
       robot.keyPress(KeyEvent.VK_RIGHT);
       robot.delay(500);
-      assertTrue(GameManager.directionSnake[0] == GameManager.SnakeDirection.RIGHT);
+      assertTrue(manager.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.RIGHT);
       robot.keyRelease(KeyEvent.VK_RIGHT);
 
       robot.delay(500);
       robot.keyPress(KeyEvent.VK_UP);
       robot.delay(500);
-      assertTrue(GameManager.directionSnake[0] == GameManager.SnakeDirection.UP);
+      assertTrue(manager.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.UP);
       robot.keyRelease(KeyEvent.VK_UP);
       
       robot.delay(500);
       robot.keyPress(KeyEvent.VK_LEFT);
       robot.delay(500);
-      assertTrue(GameManager.directionSnake[0] == GameManager.SnakeDirection.LEFT);
+      assertTrue(manager.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.LEFT);
       robot.keyRelease(KeyEvent.VK_LEFT);
 
       robot.delay(500);
       robot.keyPress(KeyEvent.VK_DOWN);
       robot.delay(500);
-      assertTrue(GameManager.directionSnake[0] == GameManager.SnakeDirection.DOWN);
+      assertTrue(manager.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.DOWN);
       robot.keyRelease(KeyEvent.VK_DOWN);
       
       robot.delay(500);
       robot.keyPress(KeyEvent.VK_D);
       robot.delay(500);
-      assertTrue(GameManager.directionSnake[1] == GameManager.SnakeDirection.RIGHT);
+      assertTrue(manager.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.RIGHT);
       robot.keyRelease(KeyEvent.VK_D);
 
       robot.delay(500);
       robot.keyPress(KeyEvent.VK_W);
       robot.delay(500);
-      assertTrue(GameManager.directionSnake[1] == GameManager.SnakeDirection.UP);
+      assertTrue(manager.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.UP);
       robot.keyRelease(KeyEvent.VK_W);
       
       robot.delay(500);
       robot.keyPress(KeyEvent.VK_A);
       robot.delay(500);
-      assertTrue(GameManager.directionSnake[1] == GameManager.SnakeDirection.LEFT);
+      assertTrue(manager.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.LEFT);
       robot.keyRelease(KeyEvent.VK_A);
 
       robot.delay(500);
       robot.keyPress(KeyEvent.VK_S);
       robot.delay(500);
-      assertTrue(GameManager.directionSnake[1] == GameManager.SnakeDirection.DOWN);
+      assertTrue(manager.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.DOWN);
       robot.keyRelease(KeyEvent.VK_S);
       
       

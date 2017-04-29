@@ -19,13 +19,4 @@ public class SnakeHead extends SnakeSegment
       super(spawnPoint, dir);
    }
    
-   // Nick and Noah Area
-   
-   @Override
-   public boolean isColliding()
-   {
-      return false;
-   }
-   // End Nick and Noah Area
-
 }

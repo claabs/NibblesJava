@@ -51,11 +51,11 @@ public class LevelConstructorTest
    {
       System.out.println("getLevel");
       LevelConstructor instance = new LevelConstructor();
-      SnakeHead.Orientation[] tempOrientations = new SnakeHead.Orientation[2];
+      Snake.Direction[] tempOrientations = new Snake.Direction[2];
       Point2D.Double[] tempSpawns = new Point2D.Double[2];
       GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
-      tempOrientations[0] = SnakeHead.Orientation.RIGHT;
-      tempOrientations[1] = SnakeHead.Orientation.LEFT;
+      tempOrientations[0] = Snake.Direction.RIGHT;
+      tempOrientations[1] = Snake.Direction.LEFT;
 
       //SET SPAWNS                       COL ROW
       tempSpawns[0] = new Point2D.Double(50, 23);

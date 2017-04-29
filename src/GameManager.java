@@ -1,10 +1,15 @@
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.geom.Point2D;
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
 
 /**
 
@@ -17,6 +22,8 @@ import javax.swing.Timer;
 public class GameManager
 {
 
+   private static final int MARGIN_SPACING = 20;
+   private static final int TITLE_BAR_HEIGHT = 25;
    //Nick and Noah Area
    private boolean accelerate;
    private int currentLevel;
@@ -27,8 +34,8 @@ public class GameManager
    private int speed;
    private static boolean paused;
    public Timer timer;
-   private int updateInterval = 500;  // ms
-   private JFrame frame;
+   private int updateInterval = 100;  // ms
+   private JFrame window;
    private Food food;
 
    public enum playerEnum
@@ -64,16 +71,14 @@ public class GameManager
       return Snake.Direction.UP;
    }
 
-   public GameManager(JFrame window, int height, int width, int cellSize)
+   public GameManager(JFrame inWindow, int inWidth, int inHeight, int cellSize)
    {
-      players = new Snake[2];//-----------------------------------------------------------USING ONE TO TEST
-      //for (int i = 0; i < players.length; i++)
-         players[0] = new Snake(new Point2D.Double(20,20), Snake.Direction.UP);
-         players[1] = new Snake(new Point2D.Double(40,40), Snake.Direction.UP);
-         
+      window = inWindow;
+      players = new Snake[2];
+      players[0] = new Snake(new Point2D.Double(20, 20), Snake.Direction.UP);
+      players[1] = new Snake(new Point2D.Double(40, 40), Snake.Direction.UP);
       food = new Food(2, new Point2D.Double(30, 30));
-      frame = window;
-      gameBoard = new GamePanel(height, width, cellSize, this);
+      gameBoard = new GamePanel(inWidth, inHeight, cellSize, this);
       ActionListener taskPerformer = (ActionEvent evt)
             -> 
             {
@@ -81,8 +86,13 @@ public class GameManager
       };
       timer = new Timer(updateInterval, taskPerformer);
       timer.start();
-      window.add(gameBoard);
+      
+      window.getContentPane().add(gameBoard);
+      window.pack();
+      //panel.add(gameBoard);
       window.addKeyListener((KeyListener) new KeyboardListener(this));
+      window.setVisible(true);
+
    }
 
    private void loadLevel(int level)
@@ -131,7 +141,9 @@ public class GameManager
       gameBoard.showPause(paused);
       if (!paused)
          updateGame();
-      frame.repaint();
+      //panel.invalidate();
+      window.repaint();
+      //window.repaint();
    }
 
    public Food getFood()

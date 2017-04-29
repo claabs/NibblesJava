@@ -27,6 +27,7 @@ public class GamePanelTest
    private JFrame window;
 
    private GamePanel instance;
+
    public GamePanelTest()
    {
    }
@@ -50,7 +51,9 @@ public class GamePanelTest
       window.setVisible(true);
       window.setSize(CELL_SIZE * WIDTH + MARGIN_SPACING,
             CELL_SIZE * HEIGHT + MARGIN_SPACING + TITLE_BAR_HEIGHT);
-      instance = new GamePanel(WIDTH, HEIGHT, CELL_SIZE);
+
+      instance = new GamePanel(WIDTH, HEIGHT, CELL_SIZE,
+            new GameManager(new JFrame(), HEIGHT, WIDTH, CELL_SIZE));
       window.add(instance);
    }
 
@@ -105,7 +108,7 @@ public class GamePanelTest
    }
 
    /**
-    * Test of setContents method, of class GamePanel.
+    Test of setContents method, of class GamePanel.
     */
    @Test
    public void testSetContents() throws InterruptedException
