@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.geom.Point2D;
+import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
@@ -32,12 +33,13 @@ public class GameManager
    public Timer timer;
    private int updateInterval = 100;  // ms
    private final JFrame window;
-   private final Food food;
+   private Food food;
    private int numberOfPlayers;
    private int skill;
    private boolean increaseSpeed;
    private boolean monochrome;
    private eventEnum currentState;
+   private static Random random = new Random(5);
 
    private static final int CHAR_WIDTH = 8;
    private static final int CHAR_HEIGHT = 2 * CHAR_WIDTH;
@@ -56,6 +58,7 @@ public class GameManager
       skillLevelScreen,
       increaseSpeedScreen,
       monochromeOrColorScreen,
+      startOfLevel,
       gameplayScreen
    }
 
@@ -140,7 +143,11 @@ public class GameManager
             currentState = eventEnum.monochromeOrColorScreen;
             break;
          case monochromeOrColorScreen:
+            currentState = eventEnum.startOfLevel;
+            break;
+         case startOfLevel:
             gameBoard.stopTimer();
+            gameBoard.speedUpTimer();
             currentState = eventEnum.gameplayScreen;
             players = new Snake[numberOfPlayers];
             levelConstructor = new LevelConstructor();
@@ -158,6 +165,7 @@ public class GameManager
    private void startGame()
    {
       timer.start();
+      gameBoard.startTimer();
    }
 
    private void respawn()
@@ -238,9 +246,25 @@ public class GameManager
                   }
             }
             if (players[i].checkCollison(food))
+            {
                players[i].eat(food);
+               food = new Food(food.getValue() + 1, getRandomPosition());
+            }
          }
       }
+   }
+
+   private Point2D.Double getRandomPosition()
+   {
+      Point2D.Double possiblePosition
+            = new Point2D.Double(
+                  (double) (int) (random.nextDouble() * NUM_COLUMNS),
+                  (double) (int) (random.nextDouble() * NUM_ROWS)
+            );
+      if (gameBoard.getContents((int) possiblePosition.x, (int) possiblePosition.y) == GamePanel.CellContents.EMPTY)
+         return possiblePosition;
+      else
+         return getRandomPosition();
    }
 
    private void killPlayer(int playerIndex)
@@ -270,7 +294,7 @@ public class GameManager
    {
       if (!paused)
          updateGame();
-      window.repaint();
+      //window.repaint();
    }
 
    public Food getFood()

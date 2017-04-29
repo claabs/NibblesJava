@@ -66,20 +66,25 @@ public class KeyboardListener extends KeyAdapter
       }
       else if (managerState == GameManager.eventEnum.increaseSpeedScreen)
       {
-         if (Character.toLowerCase(e.getKeyChar()) =='y')
+         if (Character.toLowerCase(e.getKeyChar()) == 'y')
             manager.setIncreaseSpeed(true);
-         else if (Character.toLowerCase(e.getKeyChar())=='n')
+         else if (Character.toLowerCase(e.getKeyChar()) == 'n')
             manager.setIncreaseSpeed(false);
-         else if (e.getKeyCode()==KeyEvent.VK_ENTER)
+         else if (e.getKeyCode() == KeyEvent.VK_ENTER)
             manager.progressState();
       }
       else if (managerState == GameManager.eventEnum.monochromeOrColorScreen)
       {
-         if (Character.toLowerCase(e.getKeyChar()) =='m')
+         if (Character.toLowerCase(e.getKeyChar()) == 'm')
             manager.setMonochrome(true);
-         else if (Character.toLowerCase(e.getKeyChar())=='c')
+         else if (Character.toLowerCase(e.getKeyChar()) == 'c')
             manager.setMonochrome(false);
-         else if (e.getKeyCode()==KeyEvent.VK_ENTER)
+         else if (e.getKeyCode() == KeyEvent.VK_ENTER)
+            manager.progressState();
+      }
+      else if (managerState == GameManager.eventEnum.startOfLevel)
+      {
+         if (e.getKeyCode() == KeyEvent.VK_SPACE)
             manager.progressState();
       }
       else if (managerState == GameManager.eventEnum.gameplayScreen)

@@ -94,18 +94,15 @@ public class GamePanel extends JPanel
       g.setColor(Color.red);
       for (int i = sparkleCycle; i < gameBoard.length; i += 5)
       {
-         g.drawString("*", xOffset+ i * charWidth, MARGIN_SIZE);
+         g.drawString("*", xOffset + i * charWidth, MARGIN_SIZE);
          int yPos = yOffset + (21 * charHeight);
          g.drawString("*", xOffset + (gameBoard.length - i) * charWidth, yPos);
       }
       for (int i = sparkleCycle; i < gameBoard[0].length; i += 5)
       {
-         g.drawString("*", xOffset + (gameBoard.length * charWidth), yOffset + i * charWidth -5*charWidth);
-         g.drawString("*", xOffset, yOffset + ((gameBoard[0].length - i) * charWidth)-5*charWidth);
+         g.drawString("*", xOffset + (gameBoard.length * charWidth), yOffset + i * charWidth - 5 * charWidth);
+         g.drawString("*", xOffset, yOffset + ((gameBoard[0].length - i) * charWidth) - 5 * charWidth);
       }
-
-      /*for (int i = sparkleCycle; i < gameBoard.length; i += 5)
-         g.drawString("*", xOffset + i * charWidth, MARGIN_SIZE);*/
       if (sparkleCycle >= 5)
          sparkleCycle = 0;
       sparkleCycle++;
@@ -115,6 +112,11 @@ public class GamePanel extends JPanel
    public void slowTimerDown()
    {
       timer.setDelay(250);
+   }
+
+   public void speedUpTimer()
+   {
+      timer.setDelay(20);
    }
 
    private void showIntroScreen(Graphics2D g)
@@ -166,24 +168,6 @@ public class GamePanel extends JPanel
       xPos = xOffset + 27 * charWidth;
       g.drawString("Press any key to continue", xPos, yPos);
       drawSparkles(g);
-   }
-
-   private void updateSnakes()
-   {
-      Snake[] snakes = manager.getSnakes();
-      for (int i = 0; i < snakes.length; i++)
-      {
-         Point2D.Double headLocation = snakes[i].getHeadLocation();
-         if (getContents((int) headLocation.x, (int) headLocation.y) != CellContents.WALL)
-            setContents(headLocation.x, headLocation.y, GamePanel.CellContents.SNAKEHEAD);
-         java.util.List<SnakeSegment> segments = snakes[i].getSnakeSegments();
-         for (int j = 0; j < segments.size(); j++)
-         {
-            Point2D.Double segmentPosition = segments.get(j).getPosition();
-            if (getContents((int) segmentPosition.x, (int) segmentPosition.y) != CellContents.WALL)
-               setContents(segmentPosition.x, segmentPosition.y, GamePanel.CellContents.SNAKE);
-         }
-      }
    }
 
    private boolean flashState = false;
@@ -263,9 +247,17 @@ public class GamePanel extends JPanel
       g.drawString(stringToShow, xPos, yPos);
    }
 
+   private void showStartOfLevelScreen(Graphics2D g)
+   {
+      drawGameBoard(g);
+
+   }
+
    @Override
    public void paintComponent(Graphics g)
    {
+      g.setColor(getBackground());
+      g.fillRect(0, 0, getWidth(), getHeight());
       Graphics2D g2 = (Graphics2D) g;
       g2.setFont(DISPLAY_FONT);
       flashState = !flashState;
@@ -286,14 +278,16 @@ public class GamePanel extends JPanel
          case monochromeOrColorScreen:
             showMonochromeOrColorScreen(g2, true);
             break;
+         case startOfLevel:
+            showStartOfLevelScreen(g2);
+            break;
          case gameplayScreen:
-            loadLevel();
-            updateSnakes();
             updateFood();
-            paintInformationLine(g2);
             drawGameBoard(g2);
+            paintInformationLine(g2);
+            drawSnakes(g2);
             if (manager.isPaused())
-               paintPauseScreen(g2);
+               drawPauseScreen(g2);
             break;
       }
    }
@@ -301,6 +295,11 @@ public class GamePanel extends JPanel
    public void stopTimer()
    {
       timer.stop();
+   }
+
+   public void startTimer()
+   {
+      timer.start();
    }
 
    private void loadLevel()
@@ -314,6 +313,7 @@ public class GamePanel extends JPanel
 
    private void drawGameBoard(Graphics2D g)
    {
+      loadLevel();
       for (int column = 0; column < gameBoard.length; column++)
          for (int row = 0; row < gameBoard[column].length; row++)
          {
@@ -324,6 +324,28 @@ public class GamePanel extends JPanel
          }
    }
 
+   private void drawSnakes(Graphics2D g)
+   {
+      Snake[] snakes = manager.getSnakes();
+      for (int i = 0; i < snakes.length; i++)
+      {
+         Point2D.Double headLocation = snakes[i].getHeadLocation();
+         g.setColor(getContentColor(CellContents.SNAKEHEAD));
+         int xPos = xOffset + (int) headLocation.x * charWidth;
+         int yPos = yOffset + (int) headLocation.y * charWidth;
+         g.fillRect(xPos, yPos, charWidth, charWidth);
+         g.setColor(getContentColor(CellContents.SNAKE));
+         java.util.List<SnakeSegment> segments = snakes[i].getSnakeSegments();
+         for (int j = 0; j < segments.size(); j++)
+         {
+            Point2D.Double segmentPosition = segments.get(j).getPosition();
+            xPos = xOffset + (int) segmentPosition.x * charWidth;
+            yPos = yOffset + (int) segmentPosition.y * charWidth;
+            g.fillRect(xPos, yPos, charWidth, charWidth);
+         }
+      }
+   }
+
    private void flushGameBoard()
    {
       for (int column = 0; column < gameBoard.length; column++)
@@ -331,7 +353,7 @@ public class GamePanel extends JPanel
             gameBoard[column][row] = CellContents.EMPTY;
    }
 
-   private void paintPauseScreen(Graphics2D g)
+   private void drawPauseScreen(Graphics2D g)
    {
       g.setColor(Color.white);
       int xPos = xOffset + 23 * charWidth;
