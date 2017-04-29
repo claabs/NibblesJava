@@ -78,33 +78,6 @@ public class GamePanelTest
    }
 
    /**
-    Test of showPause method, of class GamePanel.
-    */
-   @Test
-   public void testShowPause() throws InterruptedException
-   {
-      System.out.println("showPause");
-      instance.showPause(true);
-      System.out.println("Verify \"Pause\" screen is showing.");
-      Thread.sleep(2500);
-      instance.showPause(false);
-      System.out.println("Verify \"Pause\" screen is not showing.");
-      Thread.sleep(2500);
-   }
-
-   /**
-    Test of paintComponent method, of class GamePanel.
-    */
-   @Test
-   public void testPaintComponent() throws InterruptedException
-   {
-      System.out.println("paintComponent");
-      System.out.println("If you can see the \"Pause\" screen, it works...");
-      instance.showPause(true);
-      Thread.sleep(2500);
-   }
-
-   /**
     Test of setContents method, of class GamePanel.
     */
    @Test

@@ -52,7 +52,7 @@ public class LevelTest
       System.out.println("setLevelGrid");
 
       Point2D[] tempSpawns = new Point2D[2];
-      GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
+      GamePanel.CellContents[][] tempGrid = new GamePanel.CellContents[80][48];
       Snake.Direction[] tempOrientations = new Snake.Direction[2];
       tempOrientations[0] = Snake.Direction.RIGHT;
       tempOrientations[1] = Snake.Direction.LEFT;
@@ -64,7 +64,7 @@ public class LevelTest
 
       for (int i = 0; i < tempGrid.length; i++)
          for (int j = 0; j < tempGrid[i].length; j++)
-            tempGrid[i][j] = GameSpace.SpaceType.EMPTY;
+            tempGrid[i][j] = GamePanel.CellContents.EMPTY;
 
       Level instance = new Level();
       assertTrue(instance.equals(new Level()));
