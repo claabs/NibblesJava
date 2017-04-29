@@ -60,6 +60,9 @@ public class LevelConstructor
 
    private Level createLevel0()
    {
+      spawnDirections = new Snake.Direction[2];
+      tempSpawns = new Point2D.Double[2];
+      tempGrid = new GamePanel.CellContents[WIDTH][HEIGHT];
       createBorderWalls(tempGrid);
 
       spawnDirections[0] = Snake.Direction.RIGHT;
@@ -74,7 +77,9 @@ public class LevelConstructor
    
    private Level createLevel1()
    {
-      
+      spawnDirections = new Snake.Direction[2];
+      tempSpawns = new Point2D.Double[2];
+      tempGrid = new GamePanel.CellContents[WIDTH][HEIGHT];
       createBorderWalls(tempGrid);
 
       spawnDirections[0] = Snake.Direction.LEFT;
@@ -91,7 +96,9 @@ public class LevelConstructor
    
    private Level createLevel2()
    {
-      
+      spawnDirections = new Snake.Direction[2];
+      tempSpawns = new Point2D.Double[2];
+      tempGrid = new GamePanel.CellContents[WIDTH][HEIGHT];
       createBorderWalls(tempGrid);
 
       spawnDirections[0] = Snake.Direction.UP;
@@ -111,7 +118,9 @@ public class LevelConstructor
    
    private Level createLevel3()
    {
-      
+      spawnDirections = new Snake.Direction[2];
+      tempSpawns = new Point2D.Double[2];
+      tempGrid = new GamePanel.CellContents[WIDTH][HEIGHT];
       createBorderWalls(tempGrid);
 
       spawnDirections[0] = Snake.Direction.LEFT;
