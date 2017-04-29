@@ -22,10 +22,10 @@ public class GameManager
    private static final int TITLE_BAR_HEIGHT = 25;
    //Nick and Noah Area
    private boolean accelerate;
-   private int currentLevel=0;
+   private int currentLevel = 0;
    private int difficulty;
    private final GamePanel gameBoard;
-   private LevelConstructor levelConstructor;
+   private LevelConstructor levelConstructor = new LevelConstructor();
    private Level level = null;
    private Snake players[];
    private int speed;
@@ -80,9 +80,6 @@ public class GameManager
       window.pack();
       window.addKeyListener((KeyListener) new KeyboardListener(this));
       window.setVisible(true);
-      //gameBoard.requestNumberOfPlayers();
-      //while (gameBoard.waitingForUserInput());
-
    }
 
    public void setNumberOfPlayers(int inNumberOfPlayers)
@@ -125,7 +122,6 @@ public class GameManager
       monochrome = inMonochrome;
    }
 
-   
    public void progressState()
    {
       switch (currentState)
@@ -151,7 +147,6 @@ public class GameManager
             gameBoard.speedUpTimer();
             currentState = eventEnum.gameplayScreen;
             players = new Snake[numberOfPlayers];
-            levelConstructor = new LevelConstructor();
             loadLevel(currentLevel);
             startGame();
          default:
@@ -219,6 +214,11 @@ public class GameManager
       return level;
    }
 
+   public int getLevelNumber()
+   {
+      return currentLevel + 1;
+   }
+
    /**
     This method will be called by the timer only if the game is not paused.
     */
@@ -249,10 +249,19 @@ public class GameManager
             if (players[i].checkCollison(food))
             {
                players[i].eat(food);
+               if (players[i].getNumTimesEaten() == 8)
+                  nextLevel();
                food = new Food(food.getValue() + 1, getRandomPosition());
             }
          }
       }
+   }
+
+   private void nextLevel()
+   {
+      timer.stop();
+      currentState = eventEnum.startOfLevel;
+      currentLevel++;
    }
 
    private Point2D.Double getRandomPosition()

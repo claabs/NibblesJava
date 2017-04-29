@@ -250,7 +250,11 @@ public class GamePanel extends JPanel
    private void showStartOfLevelScreen(Graphics2D g)
    {
       drawGameBoard(g);
-
+      drawWhiteRedBox(g);
+      g.setColor(Color.white);
+      int xPos = xOffset + 30 * charWidth;
+      int yPos = yOffset + (int) (10.75 * charHeight);
+      g.drawString("Level "+ Integer.toString(manager.getLevelNumber())+",  Push Space", xPos, yPos);
    }
 
    @Override
@@ -353,7 +357,7 @@ public class GamePanel extends JPanel
             gameBoard[column][row] = CellContents.EMPTY;
    }
 
-   private void drawPauseScreen(Graphics2D g)
+   private void drawWhiteRedBox(Graphics2D g)
    {
       g.setColor(Color.white);
       int xPos = xOffset + 23 * charWidth;
@@ -367,9 +371,14 @@ public class GamePanel extends JPanel
       gWidth = 31 * charWidth;
       gHeight = 2 * charHeight;
       g.fillRect(xPos, yPos, gWidth, gHeight);
+   }
+   
+   private void drawPauseScreen(Graphics2D g)
+   {
+      drawWhiteRedBox(g);
       g.setColor(Color.white);
-      xPos = xOffset + 26 * charWidth;
-      yPos = yOffset + (int) (10.75 * charHeight);
+      int xPos = xOffset + 26 * charWidth;
+      int yPos = yOffset + (int) (10.75 * charHeight);
       g.drawString("Game Paused ... Push Space", xPos, yPos);
    }
 

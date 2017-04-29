@@ -23,7 +23,6 @@ public class KeyboardListener extends KeyAdapter
    @Override
    public void keyPressed(KeyEvent e)
    {
-
       GameManager.eventEnum managerState = manager.getCurrentState();
       if (managerState == GameManager.eventEnum.introScreen)
          manager.progressState();

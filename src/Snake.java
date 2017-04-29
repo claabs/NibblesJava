@@ -146,6 +146,11 @@ public class Snake
    {
       return lives;
    }
+   
+   public int getNumTimesEaten()
+   {
+      return numTimesEaten;
+   }
 
    @Override
    public boolean equals(Object o)
