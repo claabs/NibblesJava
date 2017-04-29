@@ -20,7 +20,10 @@ public class Snake
    private ArrayList<SnakeSegment> body = new ArrayList();
    private int lives = 5;
    private int score = 0;
-   private int newSegments = 0;
+   private int newSegments;
+
+   private final Point2D.Double initialSpawn;
+   private final Direction initialDirection;
 
    public enum Direction
    {
@@ -29,7 +32,15 @@ public class Snake
 
    public Snake(Point2D.Double spawnPoint, Direction dir)
    {
-      body.add(new SnakeHead(spawnPoint, dir));
+      initialDirection = dir;
+      initialSpawn = spawnPoint;
+      respawn();
+   }
+
+   public void respawn()
+   {
+      newSegments = 0;
+      body.add(new SnakeHead(initialSpawn, initialDirection));
       addSegment();
    }
 
@@ -116,7 +127,7 @@ public class Snake
       Snake snake = (Snake) o;
       if (snake.body.size() != body.size())
          return false;
-      for (int i = 0; i < body.size()-1; i++)
+      for (int i = 0; i < body.size() - 1; i++)
          if (!body.get(i).getPosition().equals(snake.body.get(i).getPosition())
                || body.get(i).getDirection() != snake.body.get(i).getDirection())
             return false;

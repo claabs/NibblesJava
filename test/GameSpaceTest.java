@@ -64,7 +64,7 @@ public class GameSpaceTest
    public void testSetType()
    {
       System.out.println("setType");
-      GameSpace.SpaceType type = GameSpace.SpaceType.OPEN;
+      GameSpace.SpaceType type = GameSpace.SpaceType.EMPTY;
       GameSpace instance = new GameSpace (GameSpace.SpaceType.WALL);
       instance.setType(type);
       assertEquals(instance.getType(), type);

@@ -20,7 +20,7 @@ public class GameSpace
 
    public enum SpaceType
    {
-      WALL, OPEN;
+      EMPTY, WALL
    }
 
    private SpaceType type;

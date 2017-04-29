@@ -1,8 +1,9 @@
 
 import java.awt.*;
-import java.awt.geom.Point2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.geom.*;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 
 /**
 
@@ -15,16 +16,16 @@ import javax.swing.border.EmptyBorder;
 public class GamePanel extends JPanel
 {
 
-   private static final Font displayFont = new Font(Font.MONOSPACED, Font.PLAIN, 14);
+   private static final Font displayFont = new Font(Font.MONOSPACED, Font.BOLD, 14);
    private static final int MARGIN_SIZE = 10;
-   private final CellContents gameBoard[][];
+   private CellContents gameBoard[][];
    private final int charWidth;
    private boolean displayPause = false;
    private Level level;
    private static int charHeight;
    private static int width;
    private static int height;
-
+   private Timer timer;
    private int xOffset;
    private int yOffset;
 
@@ -55,29 +56,12 @@ public class GamePanel extends JPanel
 
    public CellContents getContents(int column, int row)
    {
-      try
-      {
-         return gameBoard[column][row];
-      }
-      catch (IndexOutOfBoundsException e)
-      {
-         System.err.println("Out of bounds exception:\n" + e.toString());
-         System.err.println(Integer.toString(column));
-         System.err.println(Integer.toString(row));
-         return CellContents.EMPTY;
-      }
+      return gameBoard[column][row];
    }
 
    public void setContents(double column, double row, CellContents contents)
    {
-      try
-      {
-         gameBoard[(int) column][(int) row] = contents;
-      }
-      catch (IndexOutOfBoundsException e)
-      {
-         System.err.println("Out of bounds exception:\n" + e.toString());
-      }
+      gameBoard[(int) column][(int) row] = contents;
    }
 
    private void updateFood()
@@ -85,6 +69,18 @@ public class GamePanel extends JPanel
       Food food = manager.getFood();
       Point2D.Double foodPosition = food.getPosition();
       setContents(foodPosition.x, foodPosition.y, GamePanel.CellContents.FOOD);
+   }
+
+   public void requestNumberOfPlayers()
+   {
+      requestNumberOfPlayers = true;
+      ActionListener taskPerformer = (ActionEvent evt)
+            -> 
+            {
+               repaint();
+      };
+      timer = new Timer(250, taskPerformer);
+      timer.start();
    }
 
    private void updateSnakes()
@@ -107,18 +103,59 @@ public class GamePanel extends JPanel
    {
       displayPause = pause;
    }
+   private boolean requestNumberOfPlayers = false;
+
+   public boolean waitingForUserInput()
+   {
+      return requestNumberOfPlayers;
+   }
+   private boolean flashState = false;
 
    @Override
    public void paintComponent(Graphics g)
    {
       Graphics2D g2 = (Graphics2D) g;
-      flushGameBoard();
-      updateSnakes();
-      updateFood();
-      paintInformationLine(g2);
-      drawGameBoard(g2);
-      if (displayPause)
-         paintPauseScreen(g2);
+      if (requestNumberOfPlayers)
+      {
+         g2.setColor(Color.black);
+         g2.fillRect(0, 0, getWidth(), getHeight());
+         g2.setColor(Color.gray);
+         g2.setFont(displayFont);
+         String stringToShow;
+         String string_ = "How many players (1 or 2)? _";
+         String stringSpace = "How many players (1 or 2)? ";
+         String string1 = "How many players (1 or 2)? 1";
+         String string2 = "How many players (1 or 2)? 2";
+
+         if (flashState)
+            stringToShow = string_;
+         else
+            stringToShow = stringSpace;
+         flashState = !flashState;
+         int xPos = xOffset + 19 * charWidth;
+         int yPos = yOffset + 3 * charHeight;
+         g2.drawString(stringToShow, xPos, yPos);
+      }
+      else
+      {
+         drawLevel();
+         updateSnakes();
+         updateFood();
+         paintInformationLine(g2);
+         drawGameBoard(g2);
+         if (manager.isPaused())
+            paintPauseScreen(g2);
+      }
+
+   }
+
+   private void drawLevel()
+   {
+      level = manager.getLevel();
+      CellContents[][] tempGrid = level.getLevelGrid();
+      for (int column = 0; column < gameBoard.length; column++)
+         for (int row = 0; row < gameBoard[column].length; row++)
+            gameBoard[column][row] = tempGrid[column][row];
    }
 
    private void drawGameBoard(Graphics2D g)

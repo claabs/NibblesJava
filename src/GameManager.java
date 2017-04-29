@@ -1,15 +1,10 @@
 
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.geom.Point2D;
-import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.Timer;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.EtchedBorder;
 
 /**
 
@@ -29,19 +24,20 @@ public class GameManager
    private int currentLevel;
    private int difficulty;
    private final GamePanel gameBoard;
+   private LevelConstructor levelConstructor;
    private Level level = null;
-   private final Snake players[];
+   private Snake players[];
    private int speed;
    private boolean paused;
    public Timer timer;
    private int updateInterval = 100;  // ms
    private final JFrame window;
    private final Food food;
-   private final int numberOfPlayers;
-
+   private int numberOfPlayers;
+   
    private static final int CHAR_WIDTH = 8;
    private static final int CHAR_HEIGHT = 2 * CHAR_WIDTH;
-   private static final int NUM_ROWS = 49;
+   private static final int NUM_ROWS = 48;
    private static final int NUM_COLUMNS = 80;
 
    public enum playerEnum
@@ -52,9 +48,7 @@ public class GameManager
    public GameManager(JFrame inWindow)
    {
       window = inWindow;
-      players = new Snake[2];
-      players[0] = new Snake(new Point2D.Double(20, 20), Snake.Direction.UP);
-      players[1] = new Snake(new Point2D.Double(40, 40), Snake.Direction.UP);
+
       food = new Food(1, new Point2D.Double(30, 30));
       gameBoard = new GamePanel(NUM_COLUMNS, NUM_ROWS, CHAR_WIDTH, this);
       ActionListener taskPerformer = (ActionEvent evt)
@@ -67,10 +61,20 @@ public class GameManager
       window.pack();
       window.addKeyListener((KeyListener) new KeyboardListener(this));
       window.setVisible(true);
-      numberOfPlayers = 1;
+      gameBoard.requestNumberOfPlayers();
+      while (gameBoard.waitingForUserInput());
+      players = new Snake[numberOfPlayers];
+      levelConstructor = new LevelConstructor();
+      loadLevel(0);
       startGame();
+
    }
 
+   public void setNumberOfPlayers(int inNumberOfPlayers)
+   {
+      
+   }
+   
    public int getNumberOfPlayers()
    {
       return numberOfPlayers;
@@ -81,6 +85,14 @@ public class GameManager
       timer.start();
    }
 
+   private void respawn()
+   {
+      for (int i = 0; i < players.length; i++)
+         players[i].respawn();
+   }
+
+   
+   
    private int getIntFromPlayerEnum(playerEnum player)
    {
       if (player == playerEnum.PLAYER_ONE)
@@ -111,9 +123,13 @@ public class GameManager
       return players[getIntFromPlayerEnum(player)].getScore();
    }
 
-   private void loadLevel(int level)
+   private void loadLevel(int levelIndex)
    {
-
+      level = levelConstructor.getLevel(levelIndex);
+      Snake.Direction[] startingDirections = level.getStartingDirections();
+      Point2D.Double[] spawnPoints = level.getSpawnPoints();
+      for (int i = 0; i < numberOfPlayers; i++)
+         players[i] = new Snake(spawnPoints[i], startingDirections[i]);
    }
 
    public Level getLevel()
@@ -137,9 +153,18 @@ public class GameManager
                if (players[i].checkCollison((Collidable) segments.get(k)))
                   players[i].die();
          }
+         Point2D.Double headPos = players[i].getHeadLocation();
+         if (gameBoard.getContents((int) headPos.x, (int) headPos.y) == GamePanel.CellContents.WALL)
+            killPlayer(i);
          if (players[i].checkCollison(food))
             players[i].eat(food);
       }
+   }
+
+   private void killPlayer(int playerIndex)
+   {
+
+      respawn();
    }
 
    public Snake[] getSnakes()
@@ -159,7 +184,6 @@ public class GameManager
 
    public void run()
    {
-      gameBoard.showPause(paused);
       if (!paused)
          updateGame();
       //panel.invalidate();

@@ -53,7 +53,7 @@ public class LevelConstructorTest
       LevelConstructor instance = new LevelConstructor();
       Snake.Direction[] tempOrientations = new Snake.Direction[2];
       Point2D.Double[] tempSpawns = new Point2D.Double[2];
-      GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
+      GamePanel.CellContents[][] tempGrid = new GamePanel.CellContents[80][48];
       tempOrientations[0] = Snake.Direction.RIGHT;
       tempOrientations[1] = Snake.Direction.LEFT;
 
@@ -62,17 +62,17 @@ public class LevelConstructorTest
       tempSpawns[1] = new Point2D.Double(30, 23);
 
       for (int row = 0; row < 48; row++)
-         tempGrid[0][row] = GameSpace.SpaceType.WALL;
+         tempGrid[0][row] = GamePanel.CellContents.WALL;
       for (int row = 0; row < 48; row++)
-         tempGrid[79][row] = GameSpace.SpaceType.WALL;
+         tempGrid[79][row] = GamePanel.CellContents.WALL;
       for (int col = 0; col < 80; col++)
-         tempGrid[col][0] = GameSpace.SpaceType.WALL;
+         tempGrid[col][0] = GamePanel.CellContents.WALL;
       for (int col = 0; col < 80; col++)
-         tempGrid[col][47] = GameSpace.SpaceType.WALL;
+         tempGrid[col][47] = GamePanel.CellContents.WALL;
 
       for (int col = 1; col < 79; col++)
          for (int row = 1; row < 47; row++)
-            tempGrid[col][row] = GameSpace.SpaceType.OPEN;
+            tempGrid[col][row] = GamePanel.CellContents.EMPTY;
 
       Level level = new Level(tempGrid, tempOrientations, tempSpawns);
       assertTrue(level.equals(instance.getLevel(0)));

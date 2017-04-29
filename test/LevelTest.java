@@ -64,7 +64,7 @@ public class LevelTest
 
       for (int i = 0; i < tempGrid.length; i++)
          for (int j = 0; j < tempGrid[i].length; j++)
-            tempGrid[i][j] = GameSpace.SpaceType.OPEN;
+            tempGrid[i][j] = GameSpace.SpaceType.EMPTY;
 
       Level instance = new Level();
       assertTrue(instance.equals(new Level()));
@@ -100,7 +100,7 @@ public class LevelTest
 
       for (int i = 0; i < tempGrid.length; i++)
          for (int j = 0; j < tempGrid[i].length; j++)
-            tempGrid[i][j] = GameSpace.SpaceType.OPEN;
+            tempGrid[i][j] = GameSpace.SpaceType.EMPTY;
 
       Level instance = new Level();
       assertTrue(instance.equals(new Level()));
@@ -137,7 +137,7 @@ public class LevelTest
 
       for (int i = 0; i < tempGrid.length; i++)
          for (int j = 0; j < tempGrid[i].length; j++)
-            tempGrid[i][j] = GameSpace.SpaceType.OPEN;
+            tempGrid[i][j] = GameSpace.SpaceType.EMPTY;
 
       Level instance = new Level();
       assertTrue(instance.equals(new Level()));
@@ -170,7 +170,7 @@ public class LevelTest
 
       for (int i = 0; i < tempGrid.length; i++)
          for (int j = 0; j < tempGrid[i].length; j++)
-            tempGrid[i][j] = GameSpace.SpaceType.OPEN;
+            tempGrid[i][j] = GameSpace.SpaceType.EMPTY;
 
       Level instance = new Level();
       assertTrue(instance.equals(new Level()));
@@ -200,7 +200,7 @@ public class LevelTest
 
       for (int i = 0; i < tempGrid.length; i++)
          for (int j = 0; j < tempGrid[i].length; j++)
-            tempGrid[i][j] = GameSpace.SpaceType.OPEN;
+            tempGrid[i][j] = GameSpace.SpaceType.EMPTY;
 
       Level instance = new Level();
       assertTrue(instance.equals(new Level()));
@@ -234,7 +234,7 @@ public class LevelTest
 
       for (int i = 0; i < tempGrid.length; i++)
          for (int j = 0; j < tempGrid[i].length; j++)
-            tempGrid[i][j] = GameSpace.SpaceType.OPEN;
+            tempGrid[i][j] = GameSpace.SpaceType.EMPTY;
 
       Level instance = new Level();
       assertTrue(instance.equals(new Level()));
@@ -271,7 +271,7 @@ public class LevelTest
 
       for (int i = 0; i < tempGrid.length; i++)
          for (int j = 0; j < tempGrid[i].length; j++)
-            tempGrid[i][j] = GameSpace.SpaceType.OPEN;
+            tempGrid[i][j] = GameSpace.SpaceType.EMPTY;
 
       Level instance = new Level();
       assertTrue(instance.equals(new Level()));

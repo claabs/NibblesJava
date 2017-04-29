@@ -61,9 +61,10 @@ public class KeyboardListener extends KeyAdapter
          case KeyEvent.VK_P:
             manager.pause();
             break;
-
          case KeyEvent.VK_SPACE:
             manager.unpause();
+         case KeyEvent.VK_1:
+            
          default:
             break;
       }
