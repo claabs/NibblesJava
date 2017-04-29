@@ -116,7 +116,7 @@ public class Snake
       Snake snake = (Snake) o;
       if (snake.body.size() != body.size())
          return false;
-      for (int i = 0; 0 < body.size()-1; i++)
+      for (int i = 0; i < body.size()-1; i++)
          if (!body.get(i).getPosition().equals(snake.body.get(i).getPosition())
                || body.get(i).getDirection() != snake.body.get(i).getDirection())
             return false;

@@ -38,7 +38,7 @@ public class FoodTest
    @Before
    public void setUp()
    {
-      instance = new Food(20, new Point2D.Double(10, 20));
+      instance = new Food(1, new Point2D.Double(10, 20));
    }
 
    @After
@@ -53,10 +53,7 @@ public class FoodTest
    public void testGetValue()
    {
       System.out.println("getValue");
-      int expResult = 20;
-      int result = instance.getValue();
-      assertEquals(expResult, result);
-
+      assertTrue(instance.getValue() == 1);
    }
 
    /**
@@ -66,9 +63,7 @@ public class FoodTest
    public void testGetPosition()
    {
       System.out.println("getPosition");
-      Point2D expResult = new Point2D.Double(10, 20);
-      Point2D result = instance.getPosition();
-      assertEquals(expResult, result);
+      assertTrue(instance.getPosition() == new Point2D.Double(10, 20));
    }
 
    /**
@@ -78,10 +73,12 @@ public class FoodTest
    public void testSetValue()
    {
       System.out.println("setValue");
-      int newFoodValue = 8;
       assertTrue(instance.getValue() == 20);
-      instance.setValue(newFoodValue);
-      assertTrue(newFoodValue == instance.getValue());
+      for (int i = 0; i < 500; i++)
+      {
+         instance.setValue(i);
+         assertTrue(instance.getValue() == i);
+      }
    }
 
    /**
@@ -91,25 +88,21 @@ public class FoodTest
    public void testSetPosition()
    {
       System.out.println("setPosition");
-      Point2D.Double newLocation = new Point2D.Double(5, 10);
       assertTrue(instance.getPosition().equals(new Point2D.Double(10, 20)));
-      instance.setPosition(newLocation);
-      assertTrue(instance.getPosition().equals(newLocation));
+      instance.setPosition(new Point2D.Double(5, 10));
+      assertTrue(instance.getPosition().equals(new Point2D.Double(5, 10)));
    }
 
    /**
-    * Test of equals method, of class Food.
+    Test of equals method, of class Food.
     */
    @Test
    public void testEquals()
    {
       System.out.println("equals");
-      Object o = null;
-      Food instance = null;
-      boolean expResult = false;
-      boolean result = instance.equals(o);
-      assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      assertTrue(instance.equals(new Food(1, new Point2D.Double(10, 20))));
+      assertFalse(instance.equals(new Food(1, new Point2D.Double(20, 20))));
+      assertFalse(instance.equals(new Food(2, new Point2D.Double(10, 20))));
+      assertFalse(instance.equals(null));
    }
 }
