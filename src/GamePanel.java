@@ -282,6 +282,7 @@ public class GamePanel extends JPanel
             showStartOfLevelScreen(g2);
             break;
          case gameplayScreen:
+                  loadLevel();
             updateFood();
             drawGameBoard(g2);
             paintInformationLine(g2);
@@ -301,7 +302,7 @@ public class GamePanel extends JPanel
    {
       timer.start();
    }
-
+   
    private void loadLevel()
    {
       level = manager.getLevel();
@@ -313,7 +314,6 @@ public class GamePanel extends JPanel
 
    private void drawGameBoard(Graphics2D g)
    {
-      loadLevel();
       for (int column = 0; column < gameBoard.length; column++)
          for (int row = 0; row < gameBoard[column].length; row++)
          {

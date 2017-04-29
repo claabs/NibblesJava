@@ -25,6 +25,7 @@ public class Snake
    private ArrayList<SnakeSegment> body = new ArrayList();
    private int lives = 5;
    private int score = 0;
+   private int numTimesEaten = 0;
    private int newSegments;
 
    private final Point2D.Double initialSpawn;
@@ -133,6 +134,7 @@ public class Snake
          System.err.println("File not found.");
       }
       System.out.println("Player ate");
+      numTimesEaten++;
    }
 
    public int getScore()

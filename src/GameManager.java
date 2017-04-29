@@ -22,7 +22,7 @@ public class GameManager
    private static final int TITLE_BAR_HEIGHT = 25;
    //Nick and Noah Area
    private boolean accelerate;
-   private int currentLevel;
+   private int currentLevel=0;
    private int difficulty;
    private final GamePanel gameBoard;
    private LevelConstructor levelConstructor;
@@ -125,6 +125,7 @@ public class GameManager
       monochrome = inMonochrome;
    }
 
+   
    public void progressState()
    {
       switch (currentState)
@@ -151,7 +152,7 @@ public class GameManager
             currentState = eventEnum.gameplayScreen;
             players = new Snake[numberOfPlayers];
             levelConstructor = new LevelConstructor();
-            loadLevel(0);
+            loadLevel(currentLevel);
             startGame();
          default:
       }
