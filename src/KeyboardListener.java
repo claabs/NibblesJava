@@ -86,6 +86,13 @@ public class KeyboardListener extends KeyAdapter
          if (e.getKeyCode() == KeyEvent.VK_SPACE)
             manager.progressState();
       }
+      else if (managerState==GameManager.eventEnum.gameOver)
+      {
+         if (Character.toLowerCase(e.getKeyChar()) == 'y')
+            manager.restart();
+         else if (Character.toLowerCase(e.getKeyChar()) == 'n')
+            manager.close();
+      }
       else if (managerState == GameManager.eventEnum.gameplayScreen)
          switch (e.getKeyCode())
          {

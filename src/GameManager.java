@@ -31,7 +31,7 @@ public class GameManager
    private int speed;
    private boolean paused;
    public Timer timer;
-   private int updateInterval = 100;  // ms
+   private int updateInterval = 60;  // ms
    private final JFrame window;
    private Food food;
    private int numberOfPlayers;
@@ -59,7 +59,8 @@ public class GameManager
       increaseSpeedScreen,
       monochromeOrColorScreen,
       startOfLevel,
-      gameplayScreen
+      gameplayScreen,
+      gameOver
    }
 
    public GameManager(JFrame inWindow)
@@ -122,6 +123,24 @@ public class GameManager
       monochrome = inMonochrome;
    }
 
+   public void restart()
+   {
+      currentLevel = 0;
+      prepGame();
+   }
+
+   public void close()
+   {
+      window.dispose();
+   }
+
+   private void prepGame()
+   {
+      for (int i = 0; i < numberOfPlayers; i++)
+         players[i] = new Snake(new Point2D.Double(5, 5), Snake.Direction.UP);
+      loadLevel(currentLevel);
+   }
+
    public void progressState()
    {
       switch (currentState)
@@ -132,6 +151,8 @@ public class GameManager
             break;
          case numberOfPlayersScreen:
             currentState = eventEnum.skillLevelScreen;
+            players = new Snake[numberOfPlayers];
+            prepGame();
             break;
          case skillLevelScreen:
             currentState = eventEnum.increaseSpeedScreen;
@@ -143,12 +164,11 @@ public class GameManager
             currentState = eventEnum.startOfLevel;
             break;
          case startOfLevel:
+            currentState = eventEnum.gameplayScreen;
             gameBoard.stopTimer();
             gameBoard.speedUpTimer();
-            currentState = eventEnum.gameplayScreen;
-            players = new Snake[numberOfPlayers];
-            loadLevel(currentLevel);
             startGame();
+            break;
          default:
       }
    }
@@ -206,7 +226,7 @@ public class GameManager
       Snake.Direction[] startingDirections = level.getStartingDirections();
       Point2D.Double[] spawnPoints = level.getSpawnPoints();
       for (int i = 0; i < numberOfPlayers; i++)
-         players[i] = new Snake(spawnPoints[i], startingDirections[i]);
+         players[i].moveSpawn(spawnPoints[i], startingDirections[i]);
    }
 
    public Level getLevel()
@@ -250,7 +270,10 @@ public class GameManager
             {
                players[i].eat(food);
                if (players[i].getNumTimesEaten() == 8)
+               {
                   nextLevel();
+                  return;
+               }
                food = new Food(food.getValue() + 1, getRandomPosition());
             }
          }
@@ -262,6 +285,8 @@ public class GameManager
       timer.stop();
       currentState = eventEnum.startOfLevel;
       currentLevel++;
+      loadLevel(currentLevel);
+      food = new Food(1, getRandomPosition());
    }
 
    private Point2D.Double getRandomPosition()
@@ -281,8 +306,14 @@ public class GameManager
    {
       timer.stop();
       players[playerIndex].die();
-      respawn();
-      timer.start();
+      if (players[playerIndex].gameOver())
+         currentState = eventEnum.gameOver;
+      else
+      {
+         respawn();
+         timer.start();
+      }
+
    }
 
    public Snake[] getSnakes()
@@ -304,7 +335,6 @@ public class GameManager
    {
       if (!paused)
          updateGame();
-      //window.repaint();
    }
 
    public Food getFood()

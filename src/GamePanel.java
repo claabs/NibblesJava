@@ -82,11 +82,20 @@ public class GamePanel extends JPanel
       gameBoard[(int) column][(int) row] = contents;
    }
 
-   private void updateFood()
+   //private void updateFood()
+   //{
+   //Food food = manager.getFood();
+   //Point2D.Double foodPosition = food.getPosition();
+   //setContents(foodPosition.x, foodPosition.y, GamePanel.CellContents.FOOD);
+   //}
+   private void drawFood(Graphics2D g)
    {
       Food food = manager.getFood();
       Point2D.Double foodPosition = food.getPosition();
-      setContents(foodPosition.x, foodPosition.y, GamePanel.CellContents.FOOD);
+      int yPos = yOffset + ((int) foodPosition.y + 1) * charWidth;
+      int xPos = xOffset + (int) foodPosition.x * charWidth;
+      g.setColor(Color.white);
+      g.drawString(Integer.toString(food.getValue()), xPos, yPos);
    }
 
    private void drawSparkles(Graphics2D g)
@@ -254,7 +263,30 @@ public class GamePanel extends JPanel
       g.setColor(Color.white);
       int xPos = xOffset + 30 * charWidth;
       int yPos = yOffset + (int) (10.75 * charHeight);
-      g.drawString("Level "+ Integer.toString(manager.getLevelNumber())+",  Push Space", xPos, yPos);
+      g.drawString("Level " + Integer.toString(manager.getLevelNumber()) + ",  Push Space", xPos, yPos);
+   }
+
+   private void showGameOverScreen(Graphics2D g)
+   {
+      g.setColor(Color.white);
+      int xPos = xOffset + 23 * charWidth;
+      int yPos = yOffset + 8 * charHeight;
+      int gWidth = 33 * charWidth;
+      int gHeight = 5 * charHeight;
+      g.fillRect(xPos, yPos, gWidth, gHeight);
+      g.setColor(Color.red);
+      xPos = xOffset + 24 * charWidth;
+      yPos = yOffset + (int) (8.5 * charHeight);
+      gWidth = 31 * charWidth;
+      gHeight = 4 * charHeight;
+      g.fillRect(xPos, yPos, gWidth, gHeight);
+      xPos = xOffset + 31 * charWidth;
+      yPos = yOffset + 10 * charHeight - charWidth;
+      g.setColor(Color.white);
+      g.drawString("G A M E   O V E R", xPos, yPos);
+      xPos = xOffset + 30 * charWidth;
+      yPos = yOffset + 12 * charHeight - charWidth;
+      g.drawString("Play Again?   (Y/N)", xPos, yPos);
    }
 
    @Override
@@ -283,17 +315,24 @@ public class GamePanel extends JPanel
             showMonochromeOrColorScreen(g2, true);
             break;
          case startOfLevel:
+            drawGameBoard(g2);
             showStartOfLevelScreen(g2);
+            paintInformationLine(g2);
             break;
          case gameplayScreen:
-                  loadLevel();
-            updateFood();
+            loadLevel();
             drawGameBoard(g2);
             paintInformationLine(g2);
             drawSnakes(g2);
+            drawFood(g2);
             if (manager.isPaused())
                drawPauseScreen(g2);
             break;
+         case gameOver:
+            loadLevel();
+            drawGameBoard(g2);
+            paintInformationLine(g2);
+            showGameOverScreen(g2);
       }
    }
 
@@ -306,7 +345,7 @@ public class GamePanel extends JPanel
    {
       timer.start();
    }
-   
+
    private void loadLevel()
    {
       level = manager.getLevel();
@@ -318,6 +357,7 @@ public class GamePanel extends JPanel
 
    private void drawGameBoard(Graphics2D g)
    {
+      loadLevel();
       for (int column = 0; column < gameBoard.length; column++)
          for (int row = 0; row < gameBoard[column].length; row++)
          {
@@ -372,7 +412,7 @@ public class GamePanel extends JPanel
       gHeight = 2 * charHeight;
       g.fillRect(xPos, yPos, gWidth, gHeight);
    }
-   
+
    private void drawPauseScreen(Graphics2D g)
    {
       drawWhiteRedBox(g);

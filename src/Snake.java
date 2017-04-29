@@ -23,13 +23,13 @@ public class Snake
    private static final int GROW_FACTOR = 4;
    private boolean alive;
    private ArrayList<SnakeSegment> body = new ArrayList();
-   private int lives = 5;
+   private int lives = 1;
    private int score = 0;
    private int numTimesEaten = 0;
    private int newSegments;
 
-   private final Point2D.Double initialSpawn;
-   private final Direction initialDirection;
+   private Point2D.Double initialSpawn;
+   private Direction initialDirection;
    private Direction directionLastMoved;
 
    public enum Direction
@@ -41,6 +41,13 @@ public class Snake
    {
       initialDirection = dir;
       initialSpawn = spawnPoint;
+      respawn();
+   }
+
+   public void moveSpawn(Point2D.Double newSpawn, Direction newDir)
+   {
+      initialDirection = newDir;
+      initialSpawn = newSpawn;
       respawn();
    }
 
@@ -90,6 +97,11 @@ public class Snake
    public boolean checkCollison(Collidable c)
    {
       return body.get(0).collided(c);
+   }
+
+   public boolean gameOver()
+   {
+      return lives == 0;
    }
 
    public void setDirection(Direction inDir)
@@ -146,7 +158,7 @@ public class Snake
    {
       return lives;
    }
-   
+
    public int getNumTimesEaten()
    {
       return numTimesEaten;
