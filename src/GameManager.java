@@ -34,7 +34,11 @@ public class GameManager
    private final JFrame window;
    private final Food food;
    private int numberOfPlayers;
-   
+   private int skill;
+   private boolean increaseSpeed;
+   private boolean monochrome;
+   private eventEnum currentState;
+
    private static final int CHAR_WIDTH = 8;
    private static final int CHAR_HEIGHT = 2 * CHAR_WIDTH;
    private static final int NUM_ROWS = 48;
@@ -45,11 +49,23 @@ public class GameManager
       PLAYER_ONE, PLAYER_TWO
    }
 
+   public enum eventEnum
+   {
+      introScreen,
+      numberOfPlayersScreen,
+      skillLevelScreen,
+      increaseSpeedScreen,
+      monochromeOrColorScreen,
+      gameplayScreen
+   }
+
    public GameManager(JFrame inWindow)
    {
       window = inWindow;
-
       food = new Food(1, new Point2D.Double(30, 30));
+      currentState = eventEnum.introScreen;
+      numberOfPlayers = -1;
+      skill = 0;
       gameBoard = new GamePanel(NUM_COLUMNS, NUM_ROWS, CHAR_WIDTH, this);
       ActionListener taskPerformer = (ActionEvent evt)
             -> 
@@ -61,20 +77,78 @@ public class GameManager
       window.pack();
       window.addKeyListener((KeyListener) new KeyboardListener(this));
       window.setVisible(true);
-      gameBoard.requestNumberOfPlayers();
-      while (gameBoard.waitingForUserInput());
-      players = new Snake[numberOfPlayers];
-      levelConstructor = new LevelConstructor();
-      loadLevel(0);
-      startGame();
+      //gameBoard.requestNumberOfPlayers();
+      //while (gameBoard.waitingForUserInput());
 
    }
 
    public void setNumberOfPlayers(int inNumberOfPlayers)
    {
-      
+      numberOfPlayers = inNumberOfPlayers;
    }
-   
+
+   public int getSkill()
+   {
+      return skill;
+   }
+
+   public void setSkill(int inSkill)
+   {
+      skill = inSkill;
+   }
+
+   public eventEnum getCurrentState()
+   {
+      return currentState;
+   }
+
+   public boolean getIncreaseSpeed()
+   {
+      return increaseSpeed;
+   }
+
+   public void setIncreaseSpeed(boolean inIncreaseSpeed)
+   {
+      increaseSpeed = inIncreaseSpeed;
+   }
+
+   public boolean getMonochrome()
+   {
+      return monochrome;
+   }
+
+   public void setMonochrome(boolean inMonochrome)
+   {
+      monochrome = inMonochrome;
+   }
+
+   public void progressState()
+   {
+      switch (currentState)
+      {
+         case introScreen:
+            currentState = eventEnum.numberOfPlayersScreen;
+            break;
+         case numberOfPlayersScreen:
+            currentState = eventEnum.skillLevelScreen;
+            break;
+         case skillLevelScreen:
+            currentState = eventEnum.increaseSpeedScreen;
+            break;
+         case increaseSpeedScreen:
+            currentState = eventEnum.monochromeOrColorScreen;
+            break;
+         case monochromeOrColorScreen:
+            gameBoard.stopTimer();
+            currentState = eventEnum.gameplayScreen;
+            players = new Snake[numberOfPlayers];
+            levelConstructor = new LevelConstructor();
+            loadLevel(0);
+            startGame();
+         default:
+      }
+   }
+
    public int getNumberOfPlayers()
    {
       return numberOfPlayers;
@@ -91,8 +165,6 @@ public class GameManager
          players[i].respawn();
    }
 
-   
-   
    private int getIntFromPlayerEnum(playerEnum player)
    {
       if (player == playerEnum.PLAYER_ONE)
@@ -108,9 +180,9 @@ public class GameManager
       players[getIntFromPlayerEnum(player)].setDirection(direction);
    }
 
-   public Snake.Direction getSnakeDirection(playerEnum player)
+   public Snake.Direction getDirectionLastMoved(playerEnum player)
    {
-      return players[getIntFromPlayerEnum(player)].getDirection();
+      return players[getIntFromPlayerEnum(player)].getDirectionLastMoved();
    }
 
    public int getPlayerLives(playerEnum player)
@@ -144,27 +216,38 @@ public class GameManager
    {
       for (int i = 0; i < players.length; i++)
       {
-         players[i].iterateForward();
-         for (int j = 0; j < players.length; j++)
-         {
-            Snake otherPlayer = players[j];
-            java.util.List segments = otherPlayer.getSnakeSegments();
-            for (int k = 0; k < segments.size(); k++)
-               if (players[i].checkCollison((Collidable) segments.get(k)))
-                  players[i].die();
-         }
          Point2D.Double headPos = players[i].getHeadLocation();
          if (gameBoard.getContents((int) headPos.x, (int) headPos.y) == GamePanel.CellContents.WALL)
+         {
             killPlayer(i);
-         if (players[i].checkCollison(food))
-            players[i].eat(food);
+            return;
+         }
+         else
+         {
+            players[i].iterateForward();
+            for (int j = 0; j < players.length; j++)
+            {
+               Snake otherPlayer = players[j];
+               java.util.List segments = otherPlayer.getSnakeSegments();
+               for (int k = 0; k < segments.size(); k++)
+                  if (players[i].checkCollison((Collidable) segments.get(k)))
+                  {
+                     killPlayer(i);
+                     return;
+                  }
+            }
+            if (players[i].checkCollison(food))
+               players[i].eat(food);
+         }
       }
    }
 
    private void killPlayer(int playerIndex)
    {
-
+      timer.stop();
+      players[playerIndex].die();
       respawn();
+      timer.start();
    }
 
    public Snake[] getSnakes()
@@ -186,9 +269,7 @@ public class GameManager
    {
       if (!paused)
          updateGame();
-      //panel.invalidate();
       window.repaint();
-      //window.repaint();
    }
 
    public Food getFood()

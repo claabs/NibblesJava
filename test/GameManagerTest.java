@@ -110,53 +110,53 @@ public class GameManagerTest
    public void testSetPlayerDirection()
    {
       System.out.println("setSnakeDirection");
-      assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.UP);
+      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.UP);
       instance.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.RIGHT);
-      assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.RIGHT);
+      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.RIGHT);
       instance.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.UP);
-      assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.UP);
+      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.UP);
       instance.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.LEFT);
-      assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.LEFT);
+      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.LEFT);
       instance.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.DOWN);
-      assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.DOWN);
+      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.DOWN);
 
-      assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.UP);
+      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.UP);
       instance.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.RIGHT);
-      assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.RIGHT);
+      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.RIGHT);
       instance.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.UP);
-      assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.UP);
+      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.UP);
       instance.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.LEFT);
-      assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.LEFT);
+      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.LEFT);
       instance.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.DOWN);
-      assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.DOWN);
+      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.DOWN);
    }
 
    /**
-    Test of getSnakeDirection method, of class GameManager.
+    Test of getDirectionLastMoved method, of class GameManager.
     */
    @Test
    public void testGetSnakeDirection()
    {
       System.out.println("getSnakeDirection");
-      assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.UP);
+      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.UP);
       instance.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.RIGHT);
-      assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.RIGHT);
+      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.RIGHT);
       instance.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.UP);
-      assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.UP);
+      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.UP);
       instance.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.LEFT);
-      assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.LEFT);
+      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.LEFT);
       instance.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.DOWN);
-      assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.DOWN);
+      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.DOWN);
 
-      assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.UP);
+      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.UP);
       instance.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.RIGHT);
-      assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.RIGHT);
+      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.RIGHT);
       instance.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.UP);
-      assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.UP);
+      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.UP);
       instance.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.LEFT);
-      assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.LEFT);
+      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.LEFT);
       instance.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.DOWN);
-      assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.DOWN);
+      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.DOWN);
    }
 
    /**

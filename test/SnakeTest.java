@@ -95,29 +95,29 @@ public class SnakeTest
    public void testSetDirection()
    {
       System.out.println("setDirection");
-      assertTrue(instance.getDirection() == Snake.Direction.UP);
+      assertTrue(instance.getDirectionLastMoved() == Snake.Direction.UP);
       instance.setDirection(Snake.Direction.LEFT);
-      assertTrue(instance.getDirection() == Snake.Direction.LEFT);
+      assertTrue(instance.getDirectionLastMoved() == Snake.Direction.LEFT);
       instance.setDirection(Snake.Direction.DOWN);
-      assertTrue(instance.getDirection() == Snake.Direction.DOWN);
+      assertTrue(instance.getDirectionLastMoved() == Snake.Direction.DOWN);
       instance.setDirection(Snake.Direction.RIGHT);
-      assertTrue(instance.getDirection() == Snake.Direction.RIGHT);
+      assertTrue(instance.getDirectionLastMoved() == Snake.Direction.RIGHT);
    }
 
    /**
-    Test of getDirection method, of class Snake.
+    Test of getDirectionLastMoved method, of class Snake.
     */
    @Test
    public void testGetDirection()
    {
       System.out.println("getDirection");
-      assertTrue(instance.getDirection() == Snake.Direction.UP);
+      assertTrue(instance.getDirectionLastMoved() == Snake.Direction.UP);
       instance.setDirection(Snake.Direction.LEFT);
-      assertTrue(instance.getDirection() == Snake.Direction.LEFT);
+      assertTrue(instance.getDirectionLastMoved() == Snake.Direction.LEFT);
       instance.setDirection(Snake.Direction.DOWN);
-      assertTrue(instance.getDirection() == Snake.Direction.DOWN);
+      assertTrue(instance.getDirectionLastMoved() == Snake.Direction.DOWN);
       instance.setDirection(Snake.Direction.RIGHT);
-      assertTrue(instance.getDirection() == Snake.Direction.RIGHT);
+      assertTrue(instance.getDirectionLastMoved() == Snake.Direction.RIGHT);
    }
 
    /**

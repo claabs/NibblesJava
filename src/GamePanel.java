@@ -1,9 +1,13 @@
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.awt.geom.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import javax.swing.*;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 /**
 
@@ -16,20 +20,17 @@ import javax.swing.*;
 public class GamePanel extends JPanel
 {
 
-   private static final Font displayFont = new Font(Font.MONOSPACED, Font.BOLD, 14);
+   private static final Font DISPLAY_FONT = new Font(Font.MONOSPACED, Font.BOLD, 14);
    private static final int MARGIN_SIZE = 10;
    private CellContents gameBoard[][];
    private final int charWidth;
-   private boolean displayPause = false;
    private Level level;
    private static int charHeight;
-   private static int width;
-   private static int height;
    private Timer timer;
-   private int xOffset;
-   private int yOffset;
+   private final int xOffset;
+   private final int yOffset;
 
-   private GameManager manager;
+   private final GameManager manager;
 
    public enum CellContents
    {
@@ -39,8 +40,6 @@ public class GamePanel extends JPanel
    public GamePanel(int boardWidth, int boardHeight, int inCharWidth, GameManager inManager)
    {
       manager = inManager;
-      height = boardHeight;
-      width = boardWidth;
       charWidth = inCharWidth;
       charHeight = 2 * charWidth;
       gameBoard = new CellContents[boardWidth][boardHeight];
@@ -52,6 +51,23 @@ public class GamePanel extends JPanel
       setPreferredSize(
             new Dimension(charWidth * boardWidth + 2 * MARGIN_SIZE,
                   charWidth * boardHeight + 2 * MARGIN_SIZE + charHeight));
+      ActionListener taskPerformer = (ActionEvent evt)
+            -> 
+            {
+               repaint();
+      };
+      timer = new Timer(250, taskPerformer);
+      timer.start();
+      try
+      {
+         InputStream inputStream = new FileInputStream("./resources/theme-slow.wav");
+         AudioStream audioStream = new AudioStream(inputStream);
+         AudioPlayer.player.start(audioStream);
+      }
+      catch (IOException e)
+      {
+         System.err.println("File not found.");
+      }
    }
 
    public CellContents getContents(int column, int row)
@@ -71,16 +87,54 @@ public class GamePanel extends JPanel
       setContents(foodPosition.x, foodPosition.y, GamePanel.CellContents.FOOD);
    }
 
-   public void requestNumberOfPlayers()
+   public void showIntroScreen(Graphics2D g)
    {
-      requestNumberOfPlayers = true;
-      ActionListener taskPerformer = (ActionEvent evt)
-            -> 
-            {
-               repaint();
-      };
-      timer = new Timer(250, taskPerformer);
-      timer.start();
+      g.setFont(DISPLAY_FONT);
+      g.setColor(Color.black);
+      g.fillRect(0, 0, getWidth(), getHeight());
+      g.setColor(Color.white);
+      int yPos = MARGIN_SIZE + 4 * charHeight;
+      int xPos = xOffset + 27 * charWidth;
+      g.drawString("Q B a s i c   N i b b l e s", xPos, yPos);
+      g.setColor(Color.gray);
+      yPos += 2 * charHeight;
+      xPos = xOffset + 20 * charWidth;
+      g.drawString("Copyright (C) Microsoft Corporation 1990", xPos, yPos);
+      yPos += 2 * charHeight;
+      xPos = xOffset + 9 * charWidth;
+      g.drawString("Nibbles is a game for one or two players.  Navigate your snakes", xPos, yPos);
+      yPos += charHeight;
+      g.drawString("around the game board trying to eat up numbers while avoiding", xPos, yPos);
+      yPos += charHeight;
+      xPos = xOffset + 7 * charWidth;
+      g.drawString("running into walls or other snakes.  The more numbers you eat up,", xPos, yPos);
+      yPos += charHeight;
+      xPos = xOffset + 11 * charWidth;
+      g.drawString("the more points you gain and the longer your snake becomes.", xPos, yPos);
+      yPos += 2 * charHeight;
+      xPos = xOffset + 34 * charWidth;
+      g.drawString("Game Controls", xPos, yPos);
+      yPos += 2 * charHeight;
+      xPos = xOffset + 13 * charWidth;
+      g.drawString("General             Player 1               Player 2", xPos, yPos);
+      yPos += charHeight;
+      xPos = xOffset + 35 * charWidth;
+      g.drawString("(Up)                   (Up)", xPos, yPos);
+      yPos += charHeight;
+      xPos = xOffset + 12 * charWidth;
+      g.drawString("P - Pause                " + '\u2191' + "                      W", xPos, yPos);
+      yPos += charHeight;
+      xPos = xOffset + 28 * charWidth - 2;//Different because unicode arrow is not 8px wide
+      g.drawString("(Left) " + '\u2190' + "  " + '\u2192' + " (Right)   (Left) A   D (Right)", xPos, yPos);
+      yPos += charHeight;
+      xPos = xOffset + 37 * charWidth;
+      g.drawString('\u2193' + "                      S", xPos, yPos);
+      yPos += charHeight;
+      xPos = xOffset + 34 * charWidth;
+      g.drawString("(Down)                 (Down)", xPos, yPos);
+      yPos += 4 * charHeight;
+      xPos = xOffset + 27 * charWidth;
+      g.drawString("Press any key to continue", xPos, yPos);
    }
 
    private void updateSnakes()
@@ -89,67 +143,136 @@ public class GamePanel extends JPanel
       for (int i = 0; i < snakes.length; i++)
       {
          Point2D.Double headLocation = snakes[i].getHeadLocation();
-         setContents(headLocation.x, headLocation.y, GamePanel.CellContents.SNAKEHEAD);
+         if (getContents((int) headLocation.x, (int) headLocation.y) != CellContents.WALL)
+            setContents(headLocation.x, headLocation.y, GamePanel.CellContents.SNAKEHEAD);
          java.util.List<SnakeSegment> segments = snakes[i].getSnakeSegments();
          for (int j = 0; j < segments.size(); j++)
          {
             Point2D.Double segmentPosition = segments.get(j).getPosition();
-            setContents(segmentPosition.x, segmentPosition.y, GamePanel.CellContents.SNAKE);
+            if (getContents((int) segmentPosition.x, (int) segmentPosition.y) != CellContents.WALL)
+               setContents(segmentPosition.x, segmentPosition.y, GamePanel.CellContents.SNAKE);
          }
       }
    }
 
-   public void showPause(boolean pause)
-   {
-      displayPause = pause;
-   }
-   private boolean requestNumberOfPlayers = false;
-
-   public boolean waitingForUserInput()
-   {
-      return requestNumberOfPlayers;
-   }
    private boolean flashState = false;
+
+   private void showSkillLevelScreen(Graphics2D g, boolean focused)
+   {
+      showNumberOfPlayersScreen(g, false);
+      String stringToShow = "Skill level (1 to 100)? ";
+      int skill = manager.getSkill();
+      if (skill > 0)
+         stringToShow += Integer.toString(manager.getSkill());
+      if (focused && flashState)
+         stringToShow += "_";
+      int xPos = xOffset + 20 * charWidth;
+      int yPos = yOffset + 5 * charHeight;
+      g.setColor(Color.gray);
+      g.drawString(stringToShow, xPos, yPos);
+      xPos = xOffset + 21 * charWidth;
+      yPos += charHeight;
+      g.drawString("1   = Novice", xPos, yPos);
+      yPos += charHeight;
+      g.drawString("90  = Expert", xPos, yPos);
+      yPos += charHeight;
+      g.drawString("100 = Twiddle Fingers", xPos, yPos);
+      yPos += charHeight;
+      xPos = xOffset + 14 * charWidth;
+      g.drawString("(Computer speed may affect your skill level)", xPos, yPos);
+   }
+
+   private void showNumberOfPlayersScreen(Graphics2D g, boolean focused)
+   {
+      g.setColor(Color.black);
+      g.fillRect(0, 0, getWidth(), getHeight());
+      g.setColor(Color.gray);
+      String stringToShow = "How many players (1 or 2)? ";
+      int numberOfPlayers = manager.getNumberOfPlayers();
+      if (numberOfPlayers == 1)
+         stringToShow += "1";
+      else if (numberOfPlayers == 2)
+         stringToShow += "2";
+      if (focused && flashState)
+         stringToShow += "_";
+      int xPos = xOffset + 19 * charWidth;
+      int yPos = yOffset + 3 * charHeight;
+      g.drawString(stringToShow, xPos, yPos);
+   }
+
+   private void showIncreaseSpeedScreen(Graphics2D g, boolean focused)
+   {
+      showSkillLevelScreen(g, false);
+      String stringToShow = "Increase game speed during play (Y or N)? ";
+      if (manager.getIncreaseSpeed())
+         stringToShow += "Y";
+      else
+         stringToShow += "N";
+      if (focused && flashState)
+         stringToShow += "_";
+      int xPos = xOffset + 14 * charWidth;
+      int yPos = yOffset + 12 * charHeight;
+      g.setColor(Color.gray);
+      g.drawString(stringToShow, xPos, yPos);
+   }
+
+   private void showMonochromeOrColorScreen(Graphics2D g, boolean focused)
+   {
+      showIncreaseSpeedScreen(g, false);
+      String stringToShow = "Monochrome or color monitor (M or C)? ";
+      if (manager.getMonochrome())
+         stringToShow += "M";
+      else
+         stringToShow += "C";
+      if (focused && flashState)
+         stringToShow += "_";
+      int xPos = xOffset + 16 * charWidth;
+      int yPos = yOffset + 14 * charHeight;
+      g.setColor(Color.gray);
+      g.drawString(stringToShow, xPos, yPos);
+   }
 
    @Override
    public void paintComponent(Graphics g)
    {
       Graphics2D g2 = (Graphics2D) g;
-      if (requestNumberOfPlayers)
+      g2.setFont(DISPLAY_FONT);
+      flashState = !flashState;
+      switch (manager.getCurrentState())
       {
-         g2.setColor(Color.black);
-         g2.fillRect(0, 0, getWidth(), getHeight());
-         g2.setColor(Color.gray);
-         g2.setFont(displayFont);
-         String stringToShow;
-         String string_ = "How many players (1 or 2)? _";
-         String stringSpace = "How many players (1 or 2)? ";
-         String string1 = "How many players (1 or 2)? 1";
-         String string2 = "How many players (1 or 2)? 2";
-
-         if (flashState)
-            stringToShow = string_;
-         else
-            stringToShow = stringSpace;
-         flashState = !flashState;
-         int xPos = xOffset + 19 * charWidth;
-         int yPos = yOffset + 3 * charHeight;
-         g2.drawString(stringToShow, xPos, yPos);
+         case introScreen:
+            showIntroScreen(g2);
+            break;
+         case numberOfPlayersScreen:
+            showNumberOfPlayersScreen(g2, true);
+            break;
+         case skillLevelScreen:
+            showSkillLevelScreen(g2, true);
+            break;
+         case increaseSpeedScreen:
+            showIncreaseSpeedScreen(g2, true);
+            break;
+         case monochromeOrColorScreen:
+            showMonochromeOrColorScreen(g2, true);
+            break;
+         case gameplayScreen:
+            loadLevel();
+            updateSnakes();
+            updateFood();
+            paintInformationLine(g2);
+            drawGameBoard(g2);
+            if (manager.isPaused())
+               paintPauseScreen(g2);
+            break;
       }
-      else
-      {
-         drawLevel();
-         updateSnakes();
-         updateFood();
-         paintInformationLine(g2);
-         drawGameBoard(g2);
-         if (manager.isPaused())
-            paintPauseScreen(g2);
-      }
-
    }
 
-   private void drawLevel()
+   public void stopTimer()
+   {
+      timer.stop();
+   }
+
+   private void loadLevel()
    {
       level = manager.getLevel();
       CellContents[][] tempGrid = level.getLevelGrid();
@@ -192,7 +315,6 @@ public class GamePanel extends JPanel
       gHeight = 2 * charHeight;
       g.fillRect(xPos, yPos, gWidth, gHeight);
       g.setColor(Color.white);
-      g.setFont(displayFont);
       xPos = xOffset + 26 * charWidth;
       yPos = yOffset + (int) (10.75 * charHeight);
       g.drawString("Game Paused ... Push Space", xPos, yPos);
@@ -201,15 +323,15 @@ public class GamePanel extends JPanel
    private void paintInformationLine(Graphics2D g)
    {
       g.setColor(Color.blue);
-      g.fillRect(MARGIN_SIZE, MARGIN_SIZE, charWidth * width, charHeight);
+      //getWidth() was previously width, which is previously being initalized to boardWidth in the constructor.
+      g.fillRect(MARGIN_SIZE, MARGIN_SIZE, charWidth * gameBoard.length, charHeight);
       g.setColor(Color.white);
-      int yPos = yOffset;
+      int yPos = yOffset-2;
       String sammyString = "SAMMY-->  Lives: "
             + Integer.toString(manager.getPlayerLives(GameManager.playerEnum.PLAYER_ONE))
             + "     "
             + Integer.toString(manager.getPlayerScore(GameManager.playerEnum.PLAYER_ONE));
       int xPos = xOffset + 48 * charWidth;
-      g.setFont(displayFont);
       g.drawString(sammyString, xPos, yPos);
       if (manager.getNumberOfPlayers() == 2)
       {
@@ -218,7 +340,6 @@ public class GamePanel extends JPanel
                + Integer.toString(manager.getPlayerLives(GameManager.playerEnum.PLAYER_TWO))
                + "  <--JAKE";
          xPos = xOffset + charWidth;
-         g.setFont(displayFont);
          g.drawString(jakeString, xPos, yPos);
       }
    }

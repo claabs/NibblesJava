@@ -1,6 +1,11 @@
 
 import java.awt.geom.Point2D;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 /**
 
@@ -24,6 +29,7 @@ public class Snake
 
    private final Point2D.Double initialSpawn;
    private final Direction initialDirection;
+   private Direction directionLastMoved;
 
    public enum Direction
    {
@@ -40,6 +46,7 @@ public class Snake
    public void respawn()
    {
       newSegments = 0;
+      body.clear();
       body.add(new SnakeHead(initialSpawn, initialDirection));
       addSegment();
    }
@@ -59,6 +66,7 @@ public class Snake
 
    public void iterateForward()
    {
+      directionLastMoved = body.get(0).getDirection();
       for (int i = 0; i < body.size() - newSegments; i++)
          body.get(i).moveForward();
       for (int i = body.size() - newSegments - 1; i > 1; i--)
@@ -88,14 +96,24 @@ public class Snake
       body.get(0).setDirection(inDir);
    }
 
-   public Direction getDirection()
+   public Direction getDirectionLastMoved()
    {
-      return body.get(0).getDirection();
+      return directionLastMoved;
    }
 
    public void die()
    {
       lives--;
+      try
+      {
+         InputStream inputStream = new FileInputStream("./resources/crash.wav");
+         AudioStream audioStream = new AudioStream(inputStream);
+         AudioPlayer.player.start(audioStream);
+      }
+      catch (IOException e)
+      {
+         System.err.println("File not found.");
+      }
       System.out.println("Player died");
    }
 
@@ -104,6 +122,16 @@ public class Snake
       int foodValue = food.getValue();
       growSnake(foodValue);
       score += 100 * foodValue;
+      try
+      {
+         InputStream inputStream = new FileInputStream("./resources/get-food-2.wav");
+         AudioStream audioStream = new AudioStream(inputStream);
+         AudioPlayer.player.start(audioStream);
+      }
+      catch (IOException e)
+      {
+         System.err.println("File not found.");
+      }
       System.out.println("Player ate");
    }
 
