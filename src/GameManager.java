@@ -127,6 +127,7 @@ public class GameManager
       switch (currentState)
       {
          case introScreen:
+            gameBoard.slowTimerDown();
             currentState = eventEnum.numberOfPlayersScreen;
             break;
          case numberOfPlayersScreen:

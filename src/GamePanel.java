@@ -27,6 +27,7 @@ public class GamePanel extends JPanel
    private Level level;
    private static int charHeight;
    private Timer timer;
+   private int sparkleCycle;
    private final int xOffset;
    private final int yOffset;
 
@@ -39,6 +40,7 @@ public class GamePanel extends JPanel
 
    public GamePanel(int boardWidth, int boardHeight, int inCharWidth, GameManager inManager)
    {
+      sparkleCycle = 0;
       manager = inManager;
       charWidth = inCharWidth;
       charHeight = 2 * charWidth;
@@ -56,7 +58,7 @@ public class GamePanel extends JPanel
             {
                repaint();
       };
-      timer = new Timer(250, taskPerformer);
+      timer = new Timer(15, taskPerformer);
       timer.start();
       try
       {
@@ -87,7 +89,35 @@ public class GamePanel extends JPanel
       setContents(foodPosition.x, foodPosition.y, GamePanel.CellContents.FOOD);
    }
 
-   public void showIntroScreen(Graphics2D g)
+   private void drawSparkles(Graphics2D g)
+   {
+      g.setColor(Color.red);
+      for (int i = sparkleCycle; i < gameBoard.length; i += 5)
+      {
+         g.drawString("*", xOffset+ i * charWidth, MARGIN_SIZE);
+         int yPos = yOffset + (21 * charHeight);
+         g.drawString("*", xOffset + (gameBoard.length - i) * charWidth, yPos);
+      }
+      for (int i = sparkleCycle; i < gameBoard[0].length; i += 5)
+      {
+         g.drawString("*", xOffset + (gameBoard.length * charWidth), yOffset + i * charWidth -5*charWidth);
+         g.drawString("*", xOffset, yOffset + ((gameBoard[0].length - i) * charWidth)-5*charWidth);
+      }
+
+      /*for (int i = sparkleCycle; i < gameBoard.length; i += 5)
+         g.drawString("*", xOffset + i * charWidth, MARGIN_SIZE);*/
+      if (sparkleCycle >= 5)
+         sparkleCycle = 0;
+      sparkleCycle++;
+
+   }
+
+   public void slowTimerDown()
+   {
+      timer.setDelay(250);
+   }
+
+   private void showIntroScreen(Graphics2D g)
    {
       g.setFont(DISPLAY_FONT);
       g.setColor(Color.black);
@@ -135,6 +165,7 @@ public class GamePanel extends JPanel
       yPos += 4 * charHeight;
       xPos = xOffset + 27 * charWidth;
       g.drawString("Press any key to continue", xPos, yPos);
+      drawSparkles(g);
    }
 
    private void updateSnakes()
@@ -326,7 +357,7 @@ public class GamePanel extends JPanel
       //getWidth() was previously width, which is previously being initalized to boardWidth in the constructor.
       g.fillRect(MARGIN_SIZE, MARGIN_SIZE, charWidth * gameBoard.length, charHeight);
       g.setColor(Color.white);
-      int yPos = yOffset-2;
+      int yPos = yOffset - 2;
       String sammyString = "SAMMY-->  Lives: "
             + Integer.toString(manager.getPlayerLives(GameManager.playerEnum.PLAYER_ONE))
             + "     "
