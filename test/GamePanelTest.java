@@ -19,9 +19,9 @@ import static org.junit.Assert.*;
 public class GamePanelTest
 {
 
-   private static final int CELL_SIZE = 15;
+   private static final int CELL_SIZE = 8;
    private static final int WIDTH = 80;
-   private static final int HEIGHT = 50;
+   private static final int HEIGHT = 49;
    private static final int MARGIN_SPACING = 20;
    private static final int TITLE_BAR_HEIGHT = 25;
    private JFrame window;
@@ -49,11 +49,8 @@ public class GamePanelTest
       window.setTitle("Nibbles - .min.jHawks V2");
       window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       window.setVisible(true);
-      window.setSize(CELL_SIZE * WIDTH + MARGIN_SPACING,
-            CELL_SIZE * HEIGHT + MARGIN_SPACING + TITLE_BAR_HEIGHT);
-
       instance = new GamePanel(WIDTH, HEIGHT, CELL_SIZE,
-            new GameManager(new JFrame(), HEIGHT, WIDTH, CELL_SIZE));
+            new GameManager(new JFrame()));
       window.add(instance);
    }
 

@@ -15,12 +15,15 @@ import javax.swing.border.EmptyBorder;
 public class GamePanel extends JPanel
 {
 
+   private static final Font displayFont = new Font(Font.MONOSPACED, Font.PLAIN, 14);
+   private static final int MARGIN_SIZE = 10;
    private final CellContents gameBoard[][];
    private final int charWidth;
    private boolean displayPause = false;
    private Level level;
-   private static int MARGIN_SIZE = 10;
    private static int charHeight;
+   private static int width;
+   private static int height;
 
    private int xOffset;
    private int yOffset;
@@ -35,6 +38,8 @@ public class GamePanel extends JPanel
    public GamePanel(int boardWidth, int boardHeight, int inCharWidth, GameManager inManager)
    {
       manager = inManager;
+      height = boardHeight;
+      width = boardWidth;
       charWidth = inCharWidth;
       charHeight = 2 * charWidth;
       gameBoard = new CellContents[boardWidth][boardHeight];
@@ -110,6 +115,7 @@ public class GamePanel extends JPanel
       flushGameBoard();
       updateSnakes();
       updateFood();
+      paintInformationLine(g2);
       drawGameBoard(g2);
       if (displayPause)
          paintPauseScreen(g2);
@@ -139,20 +145,45 @@ public class GamePanel extends JPanel
       g.setColor(Color.white);
       int xPos = xOffset + 23 * charWidth;
       int yPos = yOffset + 9 * charHeight;
-      int width = 33 * charWidth;
-      int height = 3 * charHeight;
-      g.fillRect(xPos, yPos, width, height);
+      int gWidth = 33 * charWidth;
+      int gHeight = 3 * charHeight;
+      g.fillRect(xPos, yPos, gWidth, gHeight);
       g.setColor(Color.red);
       xPos = xOffset + 24 * charWidth;
       yPos = yOffset + (int) (9.5 * charHeight);
-      width = 31 * charWidth;
-      height = 2 * charHeight;
-      g.fillRect(xPos, yPos, width, height);
+      gWidth = 31 * charWidth;
+      gHeight = 2 * charHeight;
+      g.fillRect(xPos, yPos, gWidth, gHeight);
       g.setColor(Color.white);
-      g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 14));
+      g.setFont(displayFont);
       xPos = xOffset + 26 * charWidth;
       yPos = yOffset + (int) (10.75 * charHeight);
       g.drawString("Game Paused ... Push Space", xPos, yPos);
+   }
+
+   private void paintInformationLine(Graphics2D g)
+   {
+      g.setColor(Color.blue);
+      g.fillRect(MARGIN_SIZE, MARGIN_SIZE, charWidth * width, charHeight);
+      g.setColor(Color.white);
+      int yPos = yOffset;
+      String sammyString = "SAMMY-->  Lives: "
+            + Integer.toString(manager.getPlayerLives(GameManager.playerEnum.PLAYER_ONE))
+            + "     "
+            + Integer.toString(manager.getPlayerScore(GameManager.playerEnum.PLAYER_ONE));
+      int xPos = xOffset + 48 * charWidth;
+      g.setFont(displayFont);
+      g.drawString(sammyString, xPos, yPos);
+      if (manager.getNumberOfPlayers() == 2)
+      {
+         String jakeString = Integer.toString(manager.getPlayerScore(GameManager.playerEnum.PLAYER_TWO))
+               + "  Lives: "
+               + Integer.toString(manager.getPlayerLives(GameManager.playerEnum.PLAYER_TWO))
+               + "  <--JAKE";
+         xPos = xOffset + charWidth;
+         g.setFont(displayFont);
+         g.drawString(jakeString, xPos, yPos);
+      }
    }
 
    private Color getContentColor(CellContents content)

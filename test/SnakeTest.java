@@ -19,151 +19,181 @@ import static org.junit.Assert.*;
  */
 public class SnakeTest
 {
-   
+
+   private Snake instance;
+
    public SnakeTest()
    {
    }
-   
+
    @BeforeClass
    public static void setUpClass()
    {
    }
-   
+
    @AfterClass
    public static void tearDownClass()
    {
    }
-   
+
    @Before
    public void setUp()
    {
+      instance = new Snake(new Point2D.Double(20, 20), Snake.Direction.UP);
    }
-   
+
    @After
    public void tearDown()
    {
    }
 
-   @Test
-   public void testSomeMethod()
-   {
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
-   }
-
    /**
-    * Test of iterateForward method, of class Snake.
+    Test of iterateForward method, of class Snake.
     */
    @Test
    public void testIterateForward()
    {
       System.out.println("iterateForward");
-      Snake instance = new Snake();
       instance.iterateForward();
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      assertTrue(instance.getHeadLocation().equals(new Point2D.Double(20, 19)));
    }
 
    /**
-    * Test of getHeadLocation method, of class Snake.
+    Test of getHeadLocation method, of class Snake.
     */
    @Test
    public void testGetHeadLocation()
    {
       System.out.println("getHeadLocation");
-      Snake instance = new Snake();
-      Point2D.Double expResult = null;
-      Point2D.Double result = instance.getHeadLocation();
-      assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      assertTrue(instance.getHeadLocation().equals(new Point2D.Double(20, 20)));
    }
 
    /**
-    * Test of getSnakeSegments method, of class Snake.
+    Test of getSnakeSegments method, of class Snake.
     */
    @Test
    public void testGetSnakeSegments()
    {
       System.out.println("getSnakeSegments");
-      Snake instance = new Snake();
-      List<SnakeSegment> expResult = null;
-      List<SnakeSegment> result = instance.getSnakeSegments();
-      assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      assertTrue(instance.getSnakeSegments().size() == 1);
    }
 
    /**
-    * Test of checkCollison method, of class Snake.
+    Test of checkCollison method, of class Snake.
     */
    @Test
    public void testCheckCollison()
    {
       System.out.println("checkCollison");
-      Collidable c = null;
-      Snake instance = new Snake();
-      boolean expResult = false;
-      boolean result = instance.checkCollison(c);
-      assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      assertTrue(instance.checkCollison(new SnakeHead(new Point2D.Double(20, 20), Snake.Direction.UP)));
    }
 
    /**
-    * Test of setDirection method, of class Snake.
+    Test of setDirection method, of class Snake.
     */
    @Test
    public void testSetDirection()
    {
       System.out.println("setDirection");
-      Snake.Direction inDir = null;
-      Snake instance = new Snake();
-      instance.setDirection(inDir);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      assertTrue(instance.getDirection() == Snake.Direction.UP);
+      instance.setDirection(Snake.Direction.LEFT);
+      assertTrue(instance.getDirection() == Snake.Direction.LEFT);
+      instance.setDirection(Snake.Direction.DOWN);
+      assertTrue(instance.getDirection() == Snake.Direction.DOWN);
+      instance.setDirection(Snake.Direction.RIGHT);
+      assertTrue(instance.getDirection() == Snake.Direction.RIGHT);
    }
 
    /**
-    * Test of getDirection method, of class Snake.
+    Test of getDirection method, of class Snake.
     */
    @Test
    public void testGetDirection()
    {
       System.out.println("getDirection");
-      Snake instance = new Snake();
-      Snake.Direction expResult = null;
-      Snake.Direction result = instance.getDirection();
-      assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      assertTrue(instance.getDirection() == Snake.Direction.UP);
+      instance.setDirection(Snake.Direction.LEFT);
+      assertTrue(instance.getDirection() == Snake.Direction.LEFT);
+      instance.setDirection(Snake.Direction.DOWN);
+      assertTrue(instance.getDirection() == Snake.Direction.DOWN);
+      instance.setDirection(Snake.Direction.RIGHT);
+      assertTrue(instance.getDirection() == Snake.Direction.RIGHT);
    }
 
    /**
-    * Test of die method, of class Snake.
+    Test of die method, of class Snake.
     */
    @Test
    public void testDie()
    {
       System.out.println("die");
-      Snake instance = new Snake();
+      assertTrue(instance.getLives() == 5);
       instance.die();
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      assertTrue(instance.getLives() == 4);
+      instance.die();
+      assertTrue(instance.getLives() == 3);
    }
 
    /**
-    * Test of eat method, of class Snake.
+    Test of eat method, of class Snake.
     */
    @Test
    public void testEat()
    {
       System.out.println("eat");
-      Food food = null;
-      Snake instance = new Snake();
-      instance.eat(food);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      assertTrue(instance.getScore() == 0);
+      instance.eat(new Food(1, new Point2D.Double(20, 20)));
+      assertTrue(instance.getScore()== 100);
+      instance.eat(new Food(2, new Point2D.Double(20, 20)));
+      assertTrue(instance.getScore()== 300);
+      instance.eat(new Food(3, new Point2D.Double(20, 20)));
+      assertTrue(instance.getScore()== 600);
+      instance.eat(new Food(4, new Point2D.Double(20, 20)));
+      assertTrue(instance.getScore()== 1000);
    }
-   
+
+   /**
+    Test of getScore method, of class Snake.
+    */
+   @Test
+   public void testGetScore()
+   {
+      System.out.println("getScore");
+      assertTrue(instance.getScore() == 0);
+      instance.eat(new Food(1, new Point2D.Double(20, 20)));
+      assertTrue(instance.getScore()== 100);
+      instance.eat(new Food(2, new Point2D.Double(20, 20)));
+      assertTrue(instance.getScore()== 300);
+      instance.eat(new Food(3, new Point2D.Double(20, 20)));
+      assertTrue(instance.getScore()== 600);
+      instance.eat(new Food(4, new Point2D.Double(20, 20)));
+      assertTrue(instance.getScore()== 1000);
+   }
+
+   /**
+    Test of getLives method, of class Snake.
+    */
+   @Test
+   public void testGetLives()
+   {
+      System.out.println("getLives");
+      assertTrue(instance.getLives() == 5);
+      instance.die();
+      assertTrue(instance.getLives() == 4);
+      instance.die();
+      assertTrue(instance.getLives() == 3);
+   }
+
+   /**
+    * Test of equals method, of class Snake.
+    */
+   @Test
+   public void testEquals()
+   {
+      System.out.println("equals");
+      assertTrue(instance.equals(new Snake(new Point2D.Double(20, 20), Snake.Direction.UP)));
+      assertFalse(instance.equals(new Snake(new Point2D.Double(20, 40), Snake.Direction.UP)));
+      assertFalse(instance.equals(null));
+   }
+
 }

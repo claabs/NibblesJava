@@ -4,18 +4,10 @@
  and open the template in the editor.
  */
 
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import org.junit.*;
 import static org.junit.Assert.*;
 
 /**
@@ -25,11 +17,6 @@ import static org.junit.Assert.*;
 public class KeyboardListenerTest
 {
 
-   private static final int CELL_SIZE = 15;
-   private static final int WIDTH = 80;
-   private static final int HEIGHT = 50;
-   private static final int MARGIN_SPACING = 20;
-   private static final int TITLE_BAR_HEIGHT = 25;
    private JFrame window;
 
    private GameManager manager;
@@ -56,10 +43,7 @@ public class KeyboardListenerTest
       window = new JFrame();
       window.setTitle("Nibbles - .min.jHawks V2");
       window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      window.setVisible(true);
-      window.setSize(CELL_SIZE * WIDTH + MARGIN_SPACING,
-            CELL_SIZE * HEIGHT + MARGIN_SPACING + TITLE_BAR_HEIGHT);
-      manager = new GameManager(window, HEIGHT, WIDTH, CELL_SIZE);
+      manager = new GameManager(window);
       robot = new Robot();
    }
 
@@ -134,9 +118,6 @@ public class KeyboardListenerTest
       robot.delay(500);
       assertTrue(manager.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.DOWN);
       robot.keyRelease(KeyEvent.VK_S);
-      
-      
-      
    }
 
 }

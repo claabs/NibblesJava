@@ -28,42 +28,42 @@ public class KeyboardListener extends KeyAdapter
       {
          case KeyEvent.VK_RIGHT:
             if (manager.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) != Snake.Direction.LEFT)
-               manager.setSnakeDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.RIGHT);
+               manager.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.RIGHT);
             break;
          case KeyEvent.VK_UP:
             if (manager.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) != Snake.Direction.DOWN)
-               manager.setSnakeDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.UP);
+               manager.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.UP);
             break;
          case KeyEvent.VK_LEFT:
             if (manager.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) != Snake.Direction.RIGHT)
-               manager.setSnakeDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.LEFT);
+               manager.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.LEFT);
             break;
          case KeyEvent.VK_DOWN:
             if (manager.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) != Snake.Direction.UP)
-               manager.setSnakeDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.DOWN);
+               manager.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.DOWN);
             break;
          case KeyEvent.VK_D:
             if (manager.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) != Snake.Direction.LEFT)
-               manager.setSnakeDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.RIGHT);
+               manager.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.RIGHT);
             break;
          case KeyEvent.VK_W:
             if (manager.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) != Snake.Direction.DOWN)
-               manager.setSnakeDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.UP);
+               manager.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.UP);
             break;
          case KeyEvent.VK_A:
             if (manager.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) != Snake.Direction.RIGHT)
-               manager.setSnakeDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.LEFT);
+               manager.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.LEFT);
             break;
          case KeyEvent.VK_S:
             if (manager.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) != Snake.Direction.UP)
-               manager.setSnakeDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.DOWN);
+               manager.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.DOWN);
             break;
          case KeyEvent.VK_P:
-            GameManager.pause();
+            manager.pause();
             break;
 
          case KeyEvent.VK_SPACE:
-            GameManager.unpause();
+            manager.unpause();
          default:
             break;
       }

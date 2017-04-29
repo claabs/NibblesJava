@@ -17,9 +17,9 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses(
-{
-   NibblesTest.class, GameManagerTest.class, FoodTest.class, SnakeTest.class, SnakeSegmentTest.class, SnakeBodyTest.class, GameSpaceTest.class, KeyboardListenerTest.class, CollidableTest.class, SnakeHeadTest.class, LevelConstructorTest.class, LevelTest.class, GamePanelTest.class
-})
+      {
+         NibblesTest.class, GameManagerTest.class, FoodTest.class, SnakeTest.class, SnakeSegmentTest.class, SnakeBodyTest.class, GameSpaceTest.class, KeyboardListenerTest.class, CollidableTest.class, SnakeHeadTest.class, LevelConstructorTest.class, WallTest.class, LevelTest.class, GamePanelTest.class
+      })
 public class RootSuite
 {
 
@@ -42,5 +42,5 @@ public class RootSuite
    public void tearDown() throws Exception
    {
    }
-   
+
 }

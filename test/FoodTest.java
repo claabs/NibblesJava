@@ -96,4 +96,20 @@ public class FoodTest
       instance.setPosition(newLocation);
       assertTrue(instance.getPosition().equals(newLocation));
    }
+
+   /**
+    * Test of equals method, of class Food.
+    */
+   @Test
+   public void testEquals()
+   {
+      System.out.println("equals");
+      Object o = null;
+      Food instance = null;
+      boolean expResult = false;
+      boolean result = instance.equals(o);
+      assertEquals(expResult, result);
+      // TODO review the generated test code and remove the default call to fail.
+      fail("The test case is a prototype.");
+   }
 }

@@ -20,9 +20,6 @@ import static org.junit.Assert.*;
 public class GameManagerTest
 {
 
-   private static final int CELL_SIZE = 15;
-   private static final int WIDTH = 80;
-   private static final int HEIGHT = 50;
    private JFrame window;
 
    private GameManager instance;
@@ -48,7 +45,7 @@ public class GameManagerTest
       window.setTitle("Nibbles - .min.jHawks V2");
       window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       window.setVisible(true);
-      instance = new GameManager(window, WIDTH, HEIGHT, CELL_SIZE);
+      instance = new GameManager(window);
    }
 
    @After
@@ -75,7 +72,7 @@ public class GameManagerTest
    {
       System.out.println("pause");
       System.out.println("Verify \"Pause\" screen is showing.");
-      GameManager.pause();
+      instance.pause();
       Thread.sleep(2500);
    }
 
@@ -87,7 +84,7 @@ public class GameManagerTest
    {
       System.out.println("unpause");
       System.out.println("Verify \"Pause\" screen is no longer showing.");
-      GameManager.unpause();
+      instance.unpause();
       Thread.sleep(2500);
    }
 
@@ -98,39 +95,39 @@ public class GameManagerTest
    public void testIsPaused() throws InterruptedException
    {
       System.out.println("isPaused");
-      GameManager.pause();
+      instance.pause();
       Thread.sleep(2500);
-      assertTrue(GameManager.isPaused());
-      GameManager.unpause();
+      assertTrue(instance.isPaused());
+      instance.unpause();
       Thread.sleep(2500);
-      assertFalse(GameManager.isPaused());
+      assertFalse(instance.isPaused());
    }
 
    /**
-    Test of setSnakeDirection method, of class GameManager.
+    Test of setPlayerDirection method, of class GameManager.
     */
    @Test
-   public void testSetSnakeDirection()
+   public void testSetPlayerDirection()
    {
       System.out.println("setSnakeDirection");
       assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.UP);
-      instance.setSnakeDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.RIGHT);
+      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.RIGHT);
       assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.RIGHT);
-      instance.setSnakeDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.UP);
+      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.UP);
       assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.UP);
-      instance.setSnakeDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.LEFT);
+      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.LEFT);
       assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.LEFT);
-      instance.setSnakeDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.DOWN);
+      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.DOWN);
       assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.DOWN);
 
       assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.UP);
-      instance.setSnakeDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.RIGHT);
+      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.RIGHT);
       assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.RIGHT);
-      instance.setSnakeDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.UP);
+      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.UP);
       assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.UP);
-      instance.setSnakeDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.LEFT);
+      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.LEFT);
       assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.LEFT);
-      instance.setSnakeDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.DOWN);
+      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.DOWN);
       assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.DOWN);
    }
 
@@ -142,23 +139,23 @@ public class GameManagerTest
    {
       System.out.println("getSnakeDirection");
       assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.UP);
-      instance.setSnakeDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.RIGHT);
+      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.RIGHT);
       assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.RIGHT);
-      instance.setSnakeDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.UP);
+      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.UP);
       assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.UP);
-      instance.setSnakeDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.LEFT);
+      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.LEFT);
       assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.LEFT);
-      instance.setSnakeDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.DOWN);
+      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.DOWN);
       assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.DOWN);
 
       assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.UP);
-      instance.setSnakeDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.RIGHT);
+      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.RIGHT);
       assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.RIGHT);
-      instance.setSnakeDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.UP);
+      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.UP);
       assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.UP);
-      instance.setSnakeDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.LEFT);
+      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.LEFT);
       assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.LEFT);
-      instance.setSnakeDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.DOWN);
+      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.DOWN);
       assertTrue(instance.getSnakeDirection(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.DOWN);
    }
 
@@ -169,6 +166,7 @@ public class GameManagerTest
    public void testGetSnakes()
    {
       System.out.println("getSnakes");
+      /*
       Snake[] expectedSnakes = new Snake[]
       {
          new Snake(new Point2D.Double(20, 20), Snake.Direction.UP),
@@ -178,6 +176,9 @@ public class GameManagerTest
       assertTrue(expectedSnakes.length == result.length);
       for (int i = 0; i < expectedSnakes.length; i++)
          assertTrue(expectedSnakes[i].equals(result[i]));
+       */
+      Snake[] result = instance.getSnakes();
+      assertTrue(new Snake(new Point2D.Double(20, 20), Snake.Direction.UP).equals(result[0]));
    }
 
    /**
@@ -188,6 +189,46 @@ public class GameManagerTest
    {
       System.out.println("getFood");
       assertTrue(instance.getFood().equals(new Food(2, new Point2D.Double(30, 30))));
+   }
+
+   /**
+    Test of getNumberOfPlayers method, of class GameManager.
+    */
+   @Test
+   public void testGetNumberOfPlayers()
+   {
+      System.out.println("getNumberOfPlayers");
+      assertTrue(instance.getNumberOfPlayers() == 1);
+   }
+
+   /**
+    Test of getPlayerLives method, of class GameManager.
+    */
+   @Test
+   public void testGetPlayerLives()
+   {
+      System.out.println("getPlayerLives");
+      assertTrue(instance.getPlayerLives(GameManager.playerEnum.PLAYER_ONE) == 5);
+   }
+
+   /**
+    Test of getPlayerScore method, of class GameManager.
+    */
+   @Test
+   public void testGetPlayerScore()
+   {
+      System.out.println("getPlayerScore");
+      assertTrue(instance.getPlayerScore(GameManager.playerEnum.PLAYER_ONE) == 0);
+   }
+
+   /**
+    Test of getLevel method, of class GameManager.
+    */
+   @Test
+   public void testGetLevel()
+   {
+      System.out.println("getLevel");
+      assertTrue(instance.getLevel() == null);
    }
 
 }

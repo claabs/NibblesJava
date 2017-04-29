@@ -4,7 +4,6 @@
  and open the template in the editor.
  */
 
-import javax.swing.JFrame;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -69,6 +68,5 @@ public class GameSpaceTest
       GameSpace instance = new GameSpace (GameSpace.SpaceType.WALL);
       instance.setType(type);
       assertEquals(instance.getType(), type);
-   }
-   
+   }   
 }

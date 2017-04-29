@@ -28,4 +28,15 @@ public class Collidable
          return false;
       return position.equals(c.position);
    }
+
+   @Override
+   public boolean equals(Object o)
+   {
+      if (o == null)
+         return false;
+      if (o.getClass() != Collidable.class)
+         return false;
+      Collidable collidable = (Collidable) o;
+      return position.equals(collidable.position);
+   }
 }

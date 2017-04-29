@@ -9,7 +9,6 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
 
@@ -49,10 +48,8 @@ public class NibblesTest
    public void testMain()
    {
       System.out.println("main");
-      String[] args = null;
-      Nibbles.main(args);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      System.out.println("Verify the game started");
+      Nibbles.main(null);
    }
    
 }

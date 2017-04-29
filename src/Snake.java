@@ -18,8 +18,8 @@ public class Snake
    private static final int GROW_FACTOR = 4;
    private boolean alive;
    private ArrayList<SnakeSegment> body = new ArrayList();
-   private int lives;
-   private int score;
+   private int lives = 5;
+   private int score = 0;
    private int newSegments = 0;
 
    public enum Direction
@@ -30,12 +30,6 @@ public class Snake
    public Snake(Point2D.Double spawnPoint, Direction dir)
    {
       body.add(new SnakeHead(spawnPoint, dir));
-      addSegment();
-   }
-
-   public Snake()
-   {
-      body.add(new SnakeHead(new Point2D.Double(20, 20), Direction.UP));
       addSegment();
    }
 
@@ -96,8 +90,39 @@ public class Snake
 
    public void eat(Food food)
    {
-      growSnake(food.getValue());
+      int foodValue = food.getValue();
+      growSnake(foodValue);
+      score += 100 * foodValue;
       System.out.println("Player ate");
+   }
+
+   public int getScore()
+   {
+      return score;
+   }
+
+   public int getLives()
+   {
+      return lives;
+   }
+
+   @Override
+   public boolean equals(Object o)
+   {
+      if (o == null)
+         return false;
+      if (o.getClass() != Snake.class)
+         return false;
+      Snake snake = (Snake) o;
+      if (snake.body.size() != body.size())
+         return false;
+      for (int i = 0; 0 < body.size()-1; i++)
+         if (!body.get(i).getPosition().equals(snake.body.get(i).getPosition())
+               || body.get(i).getDirection() != snake.body.get(i).getDirection())
+            return false;
+      return newSegments == snake.newSegments
+            && score == snake.score
+            && lives == snake.lives;
    }
 
    // End Nick and Noah Area

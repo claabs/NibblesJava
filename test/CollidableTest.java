@@ -57,4 +57,20 @@ public class CollidableTest
 
    }
 
+   /**
+    * Test of equals method, of class Collidable.
+    */
+   @Test
+   public void testEquals()
+   {
+      System.out.println("equals");
+      Object o = null;
+      Collidable instance = null;
+      boolean expResult = false;
+      boolean result = instance.equals(o);
+      assertEquals(expResult, result);
+      // TODO review the generated test code and remove the default call to fail.
+      fail("The test case is a prototype.");
+   }
+
 }

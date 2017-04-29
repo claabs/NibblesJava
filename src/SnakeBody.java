@@ -21,11 +21,4 @@ public class SnakeBody extends SnakeSegment
       headwardSegment = oldEndOfSnake;
    }
 
-   /*@Override
-   public void moveForward()
-   {
-      super.moveForward();
-      setDirection(headwardSegment.getDirection());
-   }*/
-
 }

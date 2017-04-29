@@ -19,4 +19,16 @@ public class SnakeHead extends SnakeSegment
       super(spawnPoint, dir);
    }
    
+   @Override
+   public boolean equals(Object o)
+   {
+      if (o == null)
+         return false;
+      if (o.getClass() != SnakeHead.class)
+         return false;
+      SnakeHead head = (SnakeHead) o;
+      return position.equals(head.position)
+            && getDirection()==head.getDirection();
+   }
+   
 }
