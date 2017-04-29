@@ -32,6 +32,8 @@ public class LevelConstructor
    {
       levelList[0] = createLevel0();
       levelList[1] = createLevel1();
+      levelList[2] = createLevel2();
+      levelList[3] = createLevel3();
    }
 
    public Level getLevel(int levelIndex)
@@ -86,4 +88,50 @@ public class LevelConstructor
          tempGrid[col][23] = GamePanel.CellContents.WALL;
       return new Level(tempGrid, spawnDirections, tempSpawns);
    }
+   
+   private Level createLevel2()
+   {
+      
+      createBorderWalls(tempGrid);
+
+      spawnDirections[0] = Snake.Direction.UP;
+      spawnDirections[1] = Snake.Direction.DOWN;
+
+      //SET SPAWNS                       COL ROW
+      tempSpawns[0] = new Point2D.Double(50, 23);
+      tempSpawns[1] = new Point2D.Double(30, 23);
+
+      for (int row = 8; row <= 38; row++)
+      {
+         tempGrid[20][row] = GamePanel.CellContents.WALL;
+         tempGrid[60][row] = GamePanel.CellContents.WALL;
+      }
+      return new Level(tempGrid, spawnDirections, tempSpawns);
+   }
+   
+   private Level createLevel3()
+   {
+      
+      createBorderWalls(tempGrid);
+
+      spawnDirections[0] = Snake.Direction.LEFT;
+      spawnDirections[1] = Snake.Direction.RIGHT;
+
+      //SET SPAWNS                       COL ROW
+      tempSpawns[0] = new Point2D.Double(60, 5);
+      tempSpawns[1] = new Point2D.Double(20, 41);
+
+      for (int row = 1; row <= 28; row++)
+      {
+         tempGrid[20][row] = GamePanel.CellContents.WALL;
+         tempGrid[60][48-row] = GamePanel.CellContents.WALL;
+      }
+      for (int col = 1; col <= 40; col++)
+      {
+         tempGrid[col][36] = GamePanel.CellContents.WALL;
+         tempGrid[80-col][13] = GamePanel.CellContents.WALL;
+      }
+      return new Level(tempGrid, spawnDirections, tempSpawns);
+   }
 }
+
