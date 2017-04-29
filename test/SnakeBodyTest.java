@@ -41,5 +41,10 @@ public class SnakeBodyTest
    public void tearDown()
    {
    }
+   @Test
+   public void someTestMethod()
+   {
+      
+   }
 
 }

@@ -188,7 +188,7 @@ public class GameManagerTest
    public void testGetFood()
    {
       System.out.println("getFood");
-      assertTrue(instance.getFood().equals(new Food(2, new Point2D.Double(30, 30))));
+      assertTrue(instance.getFood().equals(new Food(1, new Point2D.Double(30, 30))));
    }
 
    /**

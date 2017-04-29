@@ -63,7 +63,7 @@ public class FoodTest
    public void testGetPosition()
    {
       System.out.println("getPosition");
-      assertTrue(instance.getPosition() == new Point2D.Double(10, 20));
+      assertTrue(instance.getPosition().equals(new Point2D.Double(10, 20)));
    }
 
    /**
@@ -73,7 +73,7 @@ public class FoodTest
    public void testSetValue()
    {
       System.out.println("setValue");
-      assertTrue(instance.getValue() == 20);
+      assertTrue(instance.getValue() == 1);
       for (int i = 0; i < 500; i++)
       {
          instance.setValue(i);

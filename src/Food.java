@@ -49,6 +49,7 @@ public class Food extends Collidable
       if (o.getClass() != Food.class)
          return false;
       Food food = (Food) o;
-      return position.equals(food.position);
+      return position.equals(food.position)
+            && value == food.value;
    }
 }

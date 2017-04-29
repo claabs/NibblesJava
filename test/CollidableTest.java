@@ -19,6 +19,8 @@ import static org.junit.Assert.*;
 public class CollidableTest
 {
 
+   private Collidable instance;
+
    public CollidableTest()
    {
    }
@@ -36,6 +38,7 @@ public class CollidableTest
    @Before
    public void setUp()
    {
+      instance = new Collidable(new Point2D.Double(20, 20));
    }
 
    @After
@@ -50,7 +53,6 @@ public class CollidableTest
    public void testCollided()
    {
       System.out.println("collided");
-      Collidable instance = new Collidable(new Point2D.Double(20, 20));
       assertFalse(instance.collided(instance));
       assertTrue(instance.collided(new Collidable(new Point2D.Double(20, 20))));
       assertFalse(instance.collided(null));
@@ -58,19 +60,15 @@ public class CollidableTest
    }
 
    /**
-    * Test of equals method, of class Collidable.
+    Test of equals method, of class Collidable.
     */
    @Test
    public void testEquals()
    {
       System.out.println("equals");
-      Object o = null;
-      Collidable instance = null;
-      boolean expResult = false;
-      boolean result = instance.equals(o);
-      assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      assertTrue(instance.equals(new Collidable(new Point2D.Double(20, 20))));
+      assertFalse(instance.equals(new Collidable(new Point2D.Double(10, 20))));
+      assertFalse(instance.equals(null));
    }
 
 }
