@@ -1,4 +1,6 @@
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.Objects;
 
@@ -17,7 +19,7 @@ public class SnakeSegment extends Collidable
 
    SnakeSegment(Point2D.Double spawnPoint, Snake.Direction inDir)
    {
-      super(spawnPoint);
+      super(spawnPoint, GameManager.CHAR_WIDTH, GameManager.CHAR_WIDTH, Color.yellow, Color.white);
       direction = inDir;
    }
 
@@ -67,5 +69,17 @@ public class SnakeSegment extends Collidable
       SnakeSegment segment = (SnakeSegment) o;
       return direction == segment.direction
             && position.equals(segment.position);
+   }
+
+   @Override
+   public void draw(Graphics2D g, int xPos, int yPos)
+   {
+      if (GameManager.monochrome)
+         g.setColor(monoColor);
+      else
+         g.setColor(color);
+      int xPos2 = xPos + (int) position.x * GameManager.CHAR_WIDTH;
+      int yPos2 = yPos + (int) position.y * GameManager.CHAR_WIDTH;
+      g.fillRect(xPos2, yPos2, GameManager.CHAR_WIDTH, GameManager.CHAR_WIDTH);
    }
 }

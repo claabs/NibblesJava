@@ -1,4 +1,6 @@
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 /**
@@ -10,13 +12,14 @@ import java.awt.geom.Point2D;
 
  @author Nick
  */
-public class Collidable
+public abstract class Collidable extends Drawable
 {
 
    protected Point2D.Double position;
 
-   public Collidable(Point2D.Double inPos)
+   public Collidable(Point2D.Double inPos, int inWidth, int inHeight, Color inColor, Color inMonoColor)
    {
+      super(inWidth, inHeight, inColor, inMonoColor);
       position = inPos;
    }
 

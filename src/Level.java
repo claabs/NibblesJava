@@ -13,11 +13,11 @@ public class Level
 {
    // Nick and Noah Area
 
-   private final GamePanel.CellContents[][] levelGrid;
+   private final Collidable[][] levelGrid;
    private final Snake.Direction[] snakeDirections;
    private final Point2D.Double[] snakeSpawns;
 
-   public Level(GamePanel.CellContents[][] levelGrid,
+   public Level(Collidable[][] levelGrid,
          Snake.Direction[] snakeOrientations,
          Point2D.Double[] snakeSpawns)
    {
@@ -26,7 +26,7 @@ public class Level
       this.snakeSpawns = snakeSpawns;
    }
 
-   public GamePanel.CellContents[][] getLevelGrid()
+   public Collidable[][] getLevelGrid()
    {
       return levelGrid;
    }

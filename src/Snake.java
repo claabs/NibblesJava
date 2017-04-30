@@ -1,4 +1,6 @@
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -56,13 +58,38 @@ public class Snake
       newSegments = 0;
       body.clear();
       body.add(new SnakeHead(initialSpawn, initialDirection));
-      addSegment();
+      Point2D.Double firstSegmentSpawnPoint = body.get(0).getPosition();
+      Direction firstSegmentDirection = initialDirection;
+      switch (initialDirection)
+      {
+         case UP:
+            firstSegmentSpawnPoint = new Point2D.Double(firstSegmentSpawnPoint.x, firstSegmentSpawnPoint.y + 1);
+            break;
+         case DOWN:
+            firstSegmentSpawnPoint = new Point2D.Double(firstSegmentSpawnPoint.x, firstSegmentSpawnPoint.y - 1);
+            break;
+         case LEFT:
+            firstSegmentSpawnPoint = new Point2D.Double(firstSegmentSpawnPoint.x + 1, firstSegmentSpawnPoint.y);
+            break;
+         case RIGHT:
+            firstSegmentSpawnPoint = new Point2D.Double(firstSegmentSpawnPoint.x - 1, firstSegmentSpawnPoint.y);
+            break;
+      }
+
+      body.add(new SnakeBody(firstSegmentSpawnPoint, firstSegmentDirection));
    }
 
    private void addSegment()
    {
       body.add(new SnakeBody(body.get(body.size() - 1)));
       newSegments++;
+   }
+
+   public void draw(Graphics2D g, int xOffset, int yOffset)
+   {
+      for (int i = 0; i < body.size(); i++)
+         body.get(i).draw(g, xOffset, yOffset);
+      
    }
 
    private void growSnake(int growValue)
@@ -96,7 +123,7 @@ public class Snake
 
    public boolean checkCollison(Collidable c)
    {
-      return body.get(0).collided(c);
+      return c.collided(body.get(0));
    }
 
    public boolean gameOver()
@@ -117,6 +144,8 @@ public class Snake
    public void die()
    {
       lives--;
+      numTimesEaten = 0;
+      score -= 1000;
       try
       {
          InputStream inputStream = new FileInputStream("./resources/crash.wav");

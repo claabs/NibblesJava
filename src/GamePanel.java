@@ -21,8 +21,8 @@ public class GamePanel extends JPanel
 {
 
    private static final Font DISPLAY_FONT = new Font(Font.MONOSPACED, Font.BOLD, 14);
-   private static final int MARGIN_SIZE = 10;
-   private CellContents gameBoard[][];
+   private static final int MARGIN_SIZE = 0;
+   private Collidable gameBoard[][];
    private Level level;
    private Timer timer;
    private int sparkleCycle;
@@ -40,12 +40,12 @@ public class GamePanel extends JPanel
    {
       sparkleCycle = 0;
       manager = inManager;
-      gameBoard = new CellContents[boardWidth][boardHeight];
+      gameBoard = new Collidable[boardWidth][boardHeight];
       xOffset = MARGIN_SIZE;
       yOffset = MARGIN_SIZE + GameManager.CHAR_HEIGHT;
-      for (int column = 0; column < gameBoard.length; column++)
+      /*for (int column = 0; column < gameBoard.length; column++)
          for (int row = 0; row < gameBoard[column].length; row++)
-            gameBoard[column][row] = CellContents.EMPTY;
+            gameBoard[column][row] = CellContents.EMPTY;*/
       setPreferredSize(
             new Dimension(GameManager.CHAR_WIDTH * boardWidth + 2 * MARGIN_SIZE,
                   GameManager.CHAR_WIDTH * boardHeight + 2 * MARGIN_SIZE + GameManager.CHAR_HEIGHT));
@@ -68,12 +68,12 @@ public class GamePanel extends JPanel
       }
    }
 
-   public CellContents getContents(int column, int row)
+   public Collidable getContents(int column, int row)
    {
       return gameBoard[column][row];
    }
 
-   public void setContents(double column, double row, CellContents contents)
+   public void setContents(double column, double row, Collidable contents)
    {
       gameBoard[(int) column][(int) row] = contents;
    }
@@ -84,28 +84,27 @@ public class GamePanel extends JPanel
    //Point2D.Double foodPosition = food.getPosition();
    //setContents(foodPosition.x, foodPosition.y, GamePanel.CellContents.FOOD);
    //}
-   private void drawFood(Graphics2D g)
+/*   private void drawFood(Graphics2D g)
    {
-      Food food = manager.getFood();
+      Food[] food = manager.getFood();
       Point2D.Double foodPosition = food.getPosition();
       int yPos = yOffset + ((int) foodPosition.y + 1) * GameManager.CHAR_WIDTH;
       int xPos = xOffset + (int) foodPosition.x * GameManager.CHAR_WIDTH;
-      g.setColor(Color.white);
+      g.setColor(monochrome.white);
       g.drawString(Integer.toString(food.getValue()), xPos, yPos);
-   }
-
+   }*/
    private void drawSparkles(Graphics2D g)
    {
       g.setColor(Color.red);
       for (int i = sparkleCycle; i < gameBoard.length; i += 5)
       {
-         g.drawString("*", xOffset + i * GameManager.CHAR_WIDTH, MARGIN_SIZE);
+         g.drawString("*", MARGIN_SIZE + i * GameManager.CHAR_WIDTH, MARGIN_SIZE + GameManager.CHAR_HEIGHT);
          int yPos = yOffset + (21 * GameManager.CHAR_HEIGHT);
          g.drawString("*", xOffset + (gameBoard.length - i) * GameManager.CHAR_WIDTH, yPos);
       }
-      for (int i = sparkleCycle; i < gameBoard[0].length; i += 5)
+      for (int i = sparkleCycle; i < gameBoard[0].length - 4; i += 5)
       {
-         g.drawString("*", xOffset + (gameBoard.length * GameManager.CHAR_WIDTH), yOffset + i * GameManager.CHAR_WIDTH - 5 * GameManager.CHAR_WIDTH);
+         g.drawString("*", MARGIN_SIZE + ((gameBoard.length - 1) * GameManager.CHAR_WIDTH), yOffset + i * GameManager.CHAR_WIDTH - 2 * GameManager.CHAR_WIDTH);
          g.drawString("*", xOffset, yOffset + ((gameBoard[0].length - i) * GameManager.CHAR_WIDTH) - 5 * GameManager.CHAR_WIDTH);
       }
       if (sparkleCycle >= 5)
@@ -285,6 +284,19 @@ public class GamePanel extends JPanel
       g.drawString("Play Again?   (Y/N)", xPos, yPos);
    }
 
+   private void showPlayerDiedScreen(Graphics2D g)
+   {
+      drawGameBoard(g);
+      drawWhiteRedBox(g);
+      g.setColor(Color.white);
+      int xPos = xOffset + 26 * GameManager.CHAR_WIDTH;
+      int yPos = yOffset + (int) (11 * GameManager.CHAR_HEIGHT);
+      if (manager.getLastDeath() == 0)
+         g.drawString("Sammy Dies! Push Space! --->", xPos, yPos);
+      else
+         g.drawString("<---- Jake Dies! Push Space", xPos, yPos);
+   }
+
    @Override
    public void paintComponent(Graphics g)
    {
@@ -313,21 +325,22 @@ public class GamePanel extends JPanel
          case startOfLevel:
             drawGameBoard(g2);
             showStartOfLevelScreen(g2);
-            paintInformationLine(g2);
             break;
          case gameplayScreen:
             loadLevel();
-            drawGameBoard(g2);
-            paintInformationLine(g2);
+            drawGameBoardWithFood(g2);
             drawSnakes(g2);
-            drawFood(g2);
+            drawSnakes2(g2);
             if (manager.isPaused())
                drawPauseScreen(g2);
+            break;
+         case playerDied:
+            loadLevel();
+            showPlayerDiedScreen(g2);
             break;
          case gameOver:
             loadLevel();
             drawGameBoard(g2);
-            paintInformationLine(g2);
             showGameOverScreen(g2);
       }
    }
@@ -345,7 +358,7 @@ public class GamePanel extends JPanel
    private void loadLevel()
    {
       level = manager.getLevel();
-      CellContents[][] tempGrid = level.getLevelGrid();
+      Collidable[][] tempGrid = level.getLevelGrid();
       for (int column = 0; column < gameBoard.length; column++)
          for (int row = 0; row < gameBoard[column].length; row++)
             gameBoard[column][row] = tempGrid[column][row];
@@ -357,14 +370,32 @@ public class GamePanel extends JPanel
       for (int column = 0; column < gameBoard.length; column++)
          for (int row = 0; row < gameBoard[column].length; row++)
          {
-            g.setColor(getContentColor(getContents(column, row)));
             int xPos = xOffset + column * GameManager.CHAR_WIDTH;
             int yPos = yOffset + row * GameManager.CHAR_WIDTH;
-            g.fillRect(xPos, yPos, GameManager.CHAR_WIDTH, GameManager.CHAR_WIDTH);
+            gameBoard[column][row].draw(g, xPos, yPos);
          }
+      paintInformationLine(g);
+
    }
 
-   private void drawSnakes(Graphics2D g)
+   private void drawGameBoardWithFood(Graphics2D g)
+   {
+      loadLevel();
+      Food[] food = manager.getFood();
+      for (int i = 0; i < food.length; i++)
+         setContents(food[i].position.x, food[i].position.y, food[i]);
+      for (int column = 0; column < gameBoard.length; column++)
+         for (int row = 0; row < gameBoard[column].length; row++)
+         {
+            int xPos = xOffset + column * GameManager.CHAR_WIDTH;
+            int yPos = yOffset + row * GameManager.CHAR_WIDTH;
+            gameBoard[column][row].draw(g, xPos, yPos);
+         }
+      paintInformationLine(g);
+
+   }
+
+   private void drawSnakes2(Graphics2D g)
    {
       Snake[] snakes = manager.getSnakes();
       for (int i = 0; i < snakes.length; i++)
@@ -372,6 +403,7 @@ public class GamePanel extends JPanel
          Point2D.Double headLocation = snakes[i].getHeadLocation();
          g.setColor(Color.yellow);
          int xPos = xOffset + (int) headLocation.x * GameManager.CHAR_WIDTH;
+         int xPos2 = xOffset + (int) headLocation.x * GameManager.CHAR_WIDTH;
          int yPos = yOffset + (int) headLocation.y * GameManager.CHAR_WIDTH;
          g.fillRect(xPos, yPos, GameManager.CHAR_WIDTH, GameManager.CHAR_WIDTH);
          g.setColor(Color.orange);
@@ -386,13 +418,19 @@ public class GamePanel extends JPanel
       }
    }
 
-   private void flushGameBoard()
+   private void drawSnakes(Graphics2D g)
+   {
+      Snake[] snakes = manager.getSnakes();
+      for (int i = 0; i < snakes.length; i++)
+         snakes[i].draw(g, xOffset, yOffset);
+   }
+
+   /*private void flushGameBoard()
    {
       for (int column = 0; column < gameBoard.length; column++)
          for (int row = 0; row < gameBoard[column].length; row++)
             gameBoard[column][row] = CellContents.EMPTY;
-   }
-
+   }*/
    private void drawWhiteRedBox(Graphics2D g)
    {
       g.setColor(Color.white);
@@ -421,7 +459,6 @@ public class GamePanel extends JPanel
    private void paintInformationLine(Graphics2D g)
    {
       g.setColor(Color.blue);
-      //getWidth() was previously width, which is previously being initalized to boardWidth in the constructor.
       g.fillRect(MARGIN_SIZE, MARGIN_SIZE, GameManager.CHAR_WIDTH * gameBoard.length, GameManager.CHAR_HEIGHT);
       g.setColor(Color.white);
       int yPos = yOffset - 2;
@@ -441,23 +478,4 @@ public class GamePanel extends JPanel
          g.drawString(jakeString, xPos, yPos);
       }
    }
-
-   private Color getContentColor(CellContents content)
-   {
-      switch (content)
-      {
-         case WALL:
-            return Color.red;
-         case FOOD:
-            return Color.white;
-         case SNAKE:
-            return Color.orange;
-         case SNAKEHEAD:
-            return Color.yellow;
-         default:
-         case EMPTY:
-            return Color.blue;
-      }
-   }
-
 }

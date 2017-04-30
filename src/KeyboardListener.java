@@ -81,7 +81,8 @@ public class KeyboardListener extends KeyAdapter
          else if (e.getKeyCode() == KeyEvent.VK_ENTER)
             manager.progressState();
       }
-      else if (managerState == GameManager.eventEnum.startOfLevel)
+      else if (managerState == GameManager.eventEnum.startOfLevel
+            || managerState == GameManager.eventEnum.playerDied)
       {
          if (e.getKeyCode() == KeyEvent.VK_SPACE)
             manager.progressState();

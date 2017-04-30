@@ -3,9 +3,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.geom.Point2D;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.Timer;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 /**
 
@@ -33,13 +38,16 @@ public class GameManager
    public Timer timer;
    private int updateInterval = 60;  // ms
    private final JFrame window;
-   private Food food;
+   private Food[] food = new Food[2];
    private int numberOfPlayers;
    private int skill;
    private boolean increaseSpeed;
-   private boolean monochrome;
    private eventEnum currentState;
-   private static Random random = new Random(5);
+   private static Random random = new Random();
+
+   public static boolean monochrome;
+
+   private int lastDeath;
 
    public static final int CHAR_WIDTH = 8;
    public static final int CHAR_HEIGHT = 2 * CHAR_WIDTH;
@@ -60,13 +68,13 @@ public class GameManager
       monochromeOrColorScreen,
       startOfLevel,
       gameplayScreen,
-      gameOver
+      gameOver,
+      playerDied
    }
 
    public GameManager(JFrame inWindow)
    {
       window = inWindow;
-      food = new Food(1, new Point2D.Double(30, 30));
       currentState = eventEnum.introScreen;
       numberOfPlayers = -1;
       skill = 0;
@@ -135,6 +143,20 @@ public class GameManager
       for (int i = 0; i < numberOfPlayers; i++)
          players[i] = new Snake(new Point2D.Double(5, 5), Snake.Direction.UP);
       loadLevel(currentLevel);
+      food = spawnFood(1);
+   }
+
+   private Food[] spawnFood(int foodValue)
+   {
+      Food food1 = new Food(foodValue, getRandomPosition(), 0);
+      Food food2 = new Food(foodValue, new Point2D.Double(food1.position.x, food1.position.y - 1), 1);
+      if (level.getLevelGrid()[(int) food2.position.x][(int) food2.position.y].getClass() == EmptyCell.class)
+         return new Food[]
+         {
+            food1, food2
+         };
+      else
+         return spawnFood(foodValue);
    }
 
    public void progressState()
@@ -163,6 +185,21 @@ public class GameManager
             currentState = eventEnum.gameplayScreen;
             gameBoard.stopTimer();
             gameBoard.speedUpTimer();
+            try
+            {
+               InputStream inputStream = new FileInputStream("./resources/theme-fast.wav");
+               AudioStream audioStream = new AudioStream(inputStream);
+               AudioPlayer.player.start(audioStream);
+            }
+            catch (IOException e)
+            {
+               System.err.println("File not found.");
+            }
+            startGame();
+            break;
+         case playerDied:
+            currentState = eventEnum.gameplayScreen;
+            food = spawnFood(1);
             startGame();
             break;
          default:
@@ -243,35 +280,34 @@ public class GameManager
       for (int i = 0; i < players.length; i++)
       {
          Point2D.Double headPos = players[i].getHeadLocation();
-         if (gameBoard.getContents((int) headPos.x, (int) headPos.y) == GamePanel.CellContents.WALL)
-         {
-            killPlayer(i);
-            return;
-         }
-         else
-         {
-            players[i].iterateForward();
-            for (int j = 0; j < players.length; j++)
+         Collidable contents = gameBoard.getContents((int) headPos.x, (int) headPos.y);
+         if (players[i].checkCollison(contents))
+            if (contents.getClass() == Food.class)
             {
-               Snake otherPlayer = players[j];
-               java.util.List segments = otherPlayer.getSnakeSegments();
-               for (int k = 0; k < segments.size(); k++)
-                  if (players[i].checkCollison((Collidable) segments.get(k)))
-                  {
-                     killPlayer(i);
-                     return;
-                  }
-            }
-            if (players[i].checkCollison(food))
-            {
-               players[i].eat(food);
+               players[i].eat(food[0]);
                if (players[i].getNumTimesEaten() == 8)
                {
                   nextLevel();
                   return;
                }
-               food = new Food(food.getValue() + 1, getRandomPosition());
+               food = spawnFood(food[i].getValue() + 1);
             }
+            else if (contents.getClass() == Wall.class)
+            {
+               killPlayer(i);
+               return;
+            }
+         players[i].iterateForward();
+         for (int j = 0; j < players.length; j++)
+         {
+            Snake otherPlayer = players[j];
+            java.util.List segments = otherPlayer.getSnakeSegments();
+            for (int k = 0; k < segments.size(); k++)
+               if (players[i].checkCollison((Collidable) segments.get(k)))
+               {
+                  killPlayer(i);
+                  return;
+               }
          }
       }
    }
@@ -282,7 +318,7 @@ public class GameManager
       currentState = eventEnum.startOfLevel;
       currentLevel++;
       loadLevel(currentLevel);
-      food = new Food(1, getRandomPosition());
+      food = spawnFood(1);
    }
 
    private Point2D.Double getRandomPosition()
@@ -292,7 +328,7 @@ public class GameManager
                   (double) (int) (random.nextDouble() * NUM_COLUMNS),
                   (double) (int) (random.nextDouble() * NUM_ROWS)
             );
-      if (gameBoard.getContents((int) possiblePosition.x, (int) possiblePosition.y) == GamePanel.CellContents.EMPTY)
+      if (level.getLevelGrid()[(int) possiblePosition.x][(int) possiblePosition.y].getClass() == EmptyCell.class)
          return possiblePosition;
       else
          return getRandomPosition();
@@ -302,14 +338,19 @@ public class GameManager
    {
       timer.stop();
       players[playerIndex].die();
+      lastDeath = playerIndex;
       if (players[playerIndex].gameOver())
          currentState = eventEnum.gameOver;
       else
       {
          respawn();
-         timer.start();
+         currentState = eventEnum.playerDied;
       }
+   }
 
+   public int getLastDeath()
+   {
+      return lastDeath;
    }
 
    public Snake[] getSnakes()
@@ -333,7 +374,7 @@ public class GameManager
          updateGame();
    }
 
-   public Food getFood()
+   public Food[] getFood()
    {
       return food;
    }

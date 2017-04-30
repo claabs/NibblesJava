@@ -1,4 +1,5 @@
 
+import java.awt.Color;
 import java.awt.geom.Point2D;
 
 /**
@@ -13,12 +14,15 @@ import java.awt.geom.Point2D;
 public class SnakeBody extends SnakeSegment
 {
 
-   private SnakeSegment headwardSegment = null;
-
    public SnakeBody(SnakeSegment oldEndOfSnake)
    {
       super(oldEndOfSnake.getPosition(), oldEndOfSnake.getDirection());
-      headwardSegment = oldEndOfSnake;
+
+   }
+
+   public SnakeBody(Point2D.Double spawnLocation, Snake.Direction spawnDirection)
+   {
+      super(spawnLocation, spawnDirection);
    }
 
 }
