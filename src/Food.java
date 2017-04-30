@@ -14,10 +14,12 @@ public class Food extends Collidable
 {
 
    private int value;
+   private final Point2D.Double otherPosition;
 
    Food(int foodValue, Point2D.Double location)
    {
       super(location);
+      otherPosition = new Point2D.Double(location.x, location.y + 1);
       value = foodValue;
    }
 
@@ -39,6 +41,18 @@ public class Food extends Collidable
    public void setPosition(Point2D.Double location)
    {
       position = location;
+   }
+
+   @Override
+   public boolean collided(Collidable c)
+   {
+      if (super.collided(c))
+         return true;
+      else
+      {
+         Food food = (Food) c;
+         return food.otherPosition.equals(otherPosition);
+      }
    }
 
    @Override

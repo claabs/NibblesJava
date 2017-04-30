@@ -23,7 +23,7 @@ public class Snake
    private static final int GROW_FACTOR = 4;
    private boolean alive;
    private ArrayList<SnakeSegment> body = new ArrayList();
-   private int lives = 1;
+   private int lives = 5;
    private int score = 0;
    private int numTimesEaten = 0;
    private int newSegments;

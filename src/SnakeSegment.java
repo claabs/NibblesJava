@@ -12,15 +12,15 @@ import java.util.Objects;
  */
 public class SnakeSegment extends Collidable
 {
-   
+
    private Snake.Direction direction;
-   
+
    SnakeSegment(Point2D.Double spawnPoint, Snake.Direction inDir)
    {
       super(spawnPoint);
       direction = inDir;
    }
-   
+
    public void moveForward()
    {
       //Left/Right math is reversed when dealing with drawing graphics
@@ -41,22 +41,22 @@ public class SnakeSegment extends Collidable
          default:
       }
    }
-   
+
    public Point2D.Double getPosition()
    {
       return position;
    }
-   
+
    public Snake.Direction getDirection()
    {
       return direction;
    }
-   
+
    public void setDirection(Snake.Direction inDir)
    {
       direction = inDir;
    }
-   
+
    @Override
    public boolean equals(Object o)
    {

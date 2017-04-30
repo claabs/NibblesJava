@@ -41,8 +41,8 @@ public class GameManager
    private eventEnum currentState;
    private static Random random = new Random(5);
 
-   private static final int CHAR_WIDTH = 8;
-   private static final int CHAR_HEIGHT = 2 * CHAR_WIDTH;
+   public static final int CHAR_WIDTH = 8;
+   public static final int CHAR_HEIGHT = 2 * CHAR_WIDTH;
    private static final int NUM_ROWS = 48;
    private static final int NUM_COLUMNS = 80;
 
@@ -70,7 +70,7 @@ public class GameManager
       currentState = eventEnum.introScreen;
       numberOfPlayers = -1;
       skill = 0;
-      gameBoard = new GamePanel(NUM_COLUMNS, NUM_ROWS, CHAR_WIDTH, this);
+      gameBoard = new GamePanel(NUM_COLUMNS, NUM_ROWS, this);
       ActionListener taskPerformer = (ActionEvent evt)
             -> 
             {
@@ -127,11 +127,7 @@ public class GameManager
    {
       currentLevel = 0;
       prepGame();
-   }
-
-   public void close()
-   {
-      window.dispose();
+      currentState = eventEnum.startOfLevel;
    }
 
    private void prepGame()
