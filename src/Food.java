@@ -63,7 +63,7 @@ public class Food extends Collidable
    {
       g.setColor(EmptyCell.getDrawColor());
       g.fillRect(xPos, yPos, width, height);
-      if (GameManager.monochrome())
+      if (GameManager.monochrome)
          g.setColor(monoColor);
       else
          g.setColor(color);
