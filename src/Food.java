@@ -4,7 +4,6 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 /**
- NOTE: Food is 2 cells tall, 1 cell wide.
 
  @author Jake Ira
  @author Charlie Laabs
