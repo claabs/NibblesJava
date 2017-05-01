@@ -1,5 +1,4 @@
 
-import java.awt.Color;
 import java.awt.geom.Point2D;
 
 /**
@@ -16,7 +15,7 @@ public class LevelConstructor
    public static final int HEIGHT = 48;
    public static final int WIDTH = 80;
    private static final int NUM_LEVELS = 10;
-   private Level[] levelList = new Level[NUM_LEVELS];
+   private final Level[] levelList = new Level[NUM_LEVELS];
 
    Snake.Direction[] spawnDirections = new Snake.Direction[2];
    Point2D.Double[] tempSpawns = new Point2D.Double[2];

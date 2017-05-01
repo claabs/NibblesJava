@@ -6,8 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.swing.*;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
+import sun.audio.*;
 
 /**
 
@@ -365,9 +364,9 @@ public class GamePanel extends JPanel
    private void drawGameBoardWithFood(Graphics2D g)
    {
       loadLevel();
-      Food[] food = manager.getFood();
-      for (int i = 0; i < food.length; i++)
-         setContents(food[i].position.x, food[i].position.y, food[i]);
+      Food[] foods = manager.getFood();
+      for (Food food : foods)
+         setContents(food.position.x, food.position.y, food);
       for (int column = 0; column < gameBoard.length; column++)
          for (int row = 0; row < gameBoard[column].length; row++)
          {
@@ -381,16 +380,15 @@ public class GamePanel extends JPanel
 
    private void drawSnakes2(Graphics2D g)
    {
-      Snake[] snakes = manager.getSnakes();
-      for (int i = 0; i < snakes.length; i++)
+      for (Snake snake : manager.getSnakes())
       {
-         Point2D.Double headLocation = snakes[i].getHeadLocation();
+         Point2D.Double headLocation = snake.getHeadLocation();
          g.setColor(Color.yellow);
          int xPos = xOffset + (int) headLocation.x * GameManager.CHAR_WIDTH;
          int yPos = yOffset + (int) headLocation.y * GameManager.CHAR_WIDTH;
          g.fillRect(xPos, yPos, GameManager.CHAR_WIDTH, GameManager.CHAR_WIDTH);
          g.setColor(Color.orange);
-         java.util.List<SnakeSegment> segments = snakes[i].getSnakeSegments();
+         java.util.List<SnakeSegment> segments = snake.getSnakeSegments();
          for (int j = 0; j < segments.size(); j++)
          {
             Point2D.Double segmentPosition = segments.get(j).getPosition();
@@ -403,9 +401,8 @@ public class GamePanel extends JPanel
 
    private void drawSnakes(Graphics2D g)
    {
-      Snake[] snakes = manager.getSnakes();
-      for (int i = 0; i < snakes.length; i++)
-         snakes[i].draw(g, xOffset, yOffset);
+      for (Snake snake : manager.getSnakes())
+         snake.draw(g, xOffset, yOffset);
    }
 
    /*private void flushGameBoard()

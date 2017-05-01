@@ -1,6 +1,7 @@
 
 import java.awt.*;
 import java.awt.geom.*;
+import java.util.Objects;
 
 /**
 
@@ -63,5 +64,13 @@ public abstract class Collidable extends Drawable
          return false;
       Collidable collidable = (Collidable) o;
       return position.equals(collidable.position);
+   }
+
+   @Override
+   public int hashCode()
+   {
+      int hash = 7;
+      hash = 83 * hash + Objects.hashCode(this.position);
+      return hash;
    }
 }

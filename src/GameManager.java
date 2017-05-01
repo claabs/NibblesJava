@@ -1,14 +1,9 @@
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyListener;
-import java.awt.geom.Point2D;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Random;
-import javax.swing.JFrame;
-import javax.swing.Timer;
+import java.awt.event.*;
+import java.awt.geom.*;
+import java.io.*;
+import javax.swing.*;
 import sun.audio.*;
 
 /**

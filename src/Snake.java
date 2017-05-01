@@ -1,5 +1,4 @@
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.io.FileInputStream;
@@ -20,11 +19,9 @@ import sun.audio.AudioStream;
 public class Snake
 {
 
-   // Nick and Noah Area
    private static final int MAX_SNAKE_LENGTH = 1000;
    private static final int GROW_FACTOR = 4;
-   private boolean alive;
-   private ArrayList<SnakeSegment> body = new ArrayList();
+   private final ArrayList<SnakeSegment> body = new ArrayList();
    private int lives = 5;
    private int score = 0;
    private int numTimesEaten = 0;
@@ -75,7 +72,6 @@ public class Snake
             firstSegmentSpawnPoint = new Point2D.Double(firstSegmentSpawnPoint.x - 1, firstSegmentSpawnPoint.y);
             break;
       }
-
       body.add(new SnakeBody(firstSegmentSpawnPoint, firstSegmentDirection));
    }
 
@@ -165,7 +161,6 @@ public class Snake
       {
          System.err.println("File not found.");
       }
-      System.out.println("Player died");
    }
 
    public void eat(Food food)
@@ -183,7 +178,6 @@ public class Snake
       {
          System.err.println("File not found.");
       }
-      System.out.println("Player ate");
       numTimesEaten++;
    }
 
@@ -228,5 +222,18 @@ public class Snake
             && lives == snake.lives;
    }
 
-   // End Nick and Noah Area
+   @Override
+   public int hashCode()
+   {
+      int hash = 3;
+      hash = 53 * hash + Objects.hashCode(this.body);
+      hash = 53 * hash + this.lives;
+      hash = 53 * hash + this.score;
+      hash = 53 * hash + this.numTimesEaten;
+      hash = 53 * hash + this.newSegments;
+      hash = 53 * hash + Objects.hashCode(this.initialSpawn);
+      hash = 53 * hash + Objects.hashCode(this.initialDirection);
+      hash = 53 * hash + Objects.hashCode(this.directionLastMoved);
+      return hash;
+   }
 }

@@ -1,5 +1,6 @@
 
 import java.awt.geom.Point2D;
+import java.util.Arrays;
 
 /**
 
@@ -75,6 +76,17 @@ public class Level
          if (!level.snakeSpawns[i].equals(snakeSpawns[i]))
             return false;
       return true;
+   }
+
+   @Override
+   public int hashCode()
+   {
+      int hash = 7;
+      hash = 67 * hash + Arrays.deepHashCode(this.levelGrid);
+      hash = 67 * hash + Arrays.deepHashCode(this.snakeDirections);
+      hash = 67 * hash + Arrays.deepHashCode(this.snakeSpawns);
+      hash = 67 * hash + this.levelNumber;
+      return hash;
    }
 
 }

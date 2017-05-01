@@ -2,6 +2,7 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
+import java.util.Objects;
 
 /**
 
@@ -11,7 +12,7 @@ import java.awt.geom.Point2D;
  @author Nick Sosinski
  @author Ed VanDerJagt
  */
-public class SnakeSegment extends Collidable
+public abstract class SnakeSegment extends Collidable
 {
 
    private Snake.Direction direction;
@@ -75,6 +76,14 @@ public class SnakeSegment extends Collidable
       SnakeSegment segment = (SnakeSegment) o;
       return direction == segment.direction
             && position.equals(segment.position);
+   }
+
+   @Override
+   public int hashCode()
+   {
+      int hash = 7;
+      hash = 13 * hash + Objects.hashCode(this.direction);
+      return hash;
    }
 
    /**

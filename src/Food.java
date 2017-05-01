@@ -14,8 +14,8 @@ import java.awt.geom.Point2D;
 public class Food extends Collidable
 {
 
-   private int value;
-   int foodID;
+   private final int value;
+   private final int foodID;
 
    /**
     This is the constructor for a Food.
@@ -68,6 +68,15 @@ public class Food extends Collidable
       Food food = (Food) o;
       return position.equals(food.position)
             && value == food.value;
+   }
+
+   @Override
+   public int hashCode()
+   {
+      int hash = 7;
+      hash = 43 * hash + this.value;
+      hash = 43 * hash + this.foodID;
+      return hash;
    }
  /**
     This method will draw the Food on the Graphics2D provided at the

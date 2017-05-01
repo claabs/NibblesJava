@@ -1,24 +1,22 @@
 
-import java.awt.Color;
 import java.awt.geom.Point2D;
-
-
 
 /**
 
-   @author Jake Ira
-   @author Charlie Laabs
-   @author Noah Moss
-   @author Nick Sosinski
-   @author Ed VanDerJagt
+ @author Jake Ira
+ @author Charlie Laabs
+ @author Noah Moss
+ @author Nick Sosinski
+ @author Ed VanDerJagt
  */
 public class SnakeHead extends SnakeSegment
 {
-   
+
    SnakeHead(Point2D.Double spawnPoint, Snake.Direction dir)
    {
       super(spawnPoint, dir);
    }
+
    /**
     This method returns true if two objects are the same data-wise.
 
@@ -35,7 +33,14 @@ public class SnakeHead extends SnakeSegment
          return false;
       SnakeHead head = (SnakeHead) o;
       return position.equals(head.position)
-            && getDirection()==head.getDirection();
+            && getDirection() == head.getDirection();
    }
-   
+
+   @Override
+   public int hashCode()
+   {
+      int hash = 5;
+      return hash;
+   }
+
 }
