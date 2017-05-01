@@ -77,7 +77,7 @@ public class LevelConstructor
 
       //SET SPAWNS                       COL ROW
       tempSpawns[0] = new Point2D.Double(49, 22);
-      tempSpawns[1] = new Point2D.Double(49, 22);
+      tempSpawns[1] = new Point2D.Double(29, 22);
 
       return new Level(tempGrid, spawnDirections, tempSpawns, 1);
    }
