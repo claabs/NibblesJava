@@ -20,7 +20,7 @@ public class SnakeHead extends SnakeSegment
       super(spawnPoint, dir);
    }
    
-   @Override
+   //@Override
    public boolean equals(Object o)
    {
       if (o == null)

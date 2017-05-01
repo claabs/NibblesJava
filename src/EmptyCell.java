@@ -28,7 +28,7 @@ public class EmptyCell extends Collidable
 
    public static Color getDrawColor()
    {
-      if (GameManager.monochrome)
+      if (GameManager.monochrome())
          return Color.black;
       else
          return Color.blue;

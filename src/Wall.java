@@ -23,7 +23,7 @@ public class Wall extends Collidable
    @Override
    public void draw(Graphics2D g, int xPos, int yPos)
    {
-      if (GameManager.monochrome)
+      if (GameManager.monochrome())
          g.setColor(monoColor);
       else
          g.setColor(color);

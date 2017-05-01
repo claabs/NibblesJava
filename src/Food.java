@@ -46,7 +46,7 @@ public class Food extends Collidable
       position = location;
    }
    
-   @Override
+   //@Override
    public boolean equals(Object o)
    {
       if (o == null)
@@ -58,12 +58,12 @@ public class Food extends Collidable
             && value == food.value;
    }
    
-   @Override
+   //@Override
    public void draw(Graphics2D g, int xPos, int yPos)
    {
       g.setColor(EmptyCell.getDrawColor());
       g.fillRect(xPos, yPos, width, height);
-      if (GameManager.monochrome)
+      if (GameManager.monochrome())
          g.setColor(monoColor);
       else
          g.setColor(color);
