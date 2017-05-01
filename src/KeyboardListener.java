@@ -1,6 +1,5 @@
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 
 /**
 
@@ -13,7 +12,7 @@ import java.awt.event.KeyEvent;
 public class KeyboardListener extends KeyAdapter
 {
 
-   private GameManager manager;
+   private final GameManager manager;
 
    KeyboardListener(GameManager inManager)
    {
@@ -24,120 +23,123 @@ public class KeyboardListener extends KeyAdapter
    public void keyPressed(KeyEvent e)
    {
       GameManager.eventEnum managerState = manager.getCurrentState();
-      if (managerState == GameManager.eventEnum.introScreen)
-         manager.progressState();
-      else if (managerState == GameManager.eventEnum.numberOfPlayersScreen)
+      switch (managerState)
       {
-         if (manager.getNumberOfPlayers() != -1 && e.getKeyCode() == KeyEvent.VK_ENTER)
+         case introScreen:
             manager.progressState();
-         else if (e.getKeyChar() == '1')
-            manager.setNumberOfPlayers(1);
-         else if (e.getKeyChar() == '2')
-            manager.setNumberOfPlayers(2);
-      }
-      else if (managerState == GameManager.eventEnum.skillLevelScreen)
-      {
-         char keyChar = e.getKeyChar();
-         if (keyChar <= '9' && keyChar >= '0')
-         {
-            if (manager.getSkill() < 100)
-            {
-               int possibleSkill = Integer.parseInt(Integer.toString(manager.getSkill()) + keyChar);
-               if (possibleSkill <= 100)
-                  manager.setSkill(possibleSkill);
-            }
-         }
-         else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
-         {
-            String skillString = Integer.toString(manager.getSkill());
-            if (skillString.length() > 0)
-            {
-               skillString = skillString.substring(0, skillString.length() - 1);
-               if (skillString.equals(""))
-                  manager.setSkill(0);
-               else
-                  manager.setSkill(Integer.parseInt(skillString));
-            }
-         }
-         else if (e.getKeyCode() == KeyEvent.VK_ENTER)
-            if (manager.getSkill() != 0)
+            break;
+         case numberOfPlayersScreen:
+            if (manager.getNumberOfPlayers() != -1 && e.getKeyCode() == KeyEvent.VK_ENTER)
                manager.progressState();
-      }
-      else if (managerState == GameManager.eventEnum.increaseSpeedScreen)
-      {
-         if (Character.toLowerCase(e.getKeyChar()) == 'y')
-            manager.setIncreaseSpeed(true);
-         else if (Character.toLowerCase(e.getKeyChar()) == 'n')
-            manager.setIncreaseSpeed(false);
-         else if (e.getKeyCode() == KeyEvent.VK_ENTER)
-            manager.progressState();
-      }
-      else if (managerState == GameManager.eventEnum.monochromeOrColorScreen)
-      {
-         if (Character.toLowerCase(e.getKeyChar()) == 'm')
-            manager.setMonochrome(true);
-         else if (Character.toLowerCase(e.getKeyChar()) == 'c')
-            manager.setMonochrome(false);
-         else if (e.getKeyCode() == KeyEvent.VK_ENTER)
-            manager.progressState();
-      }
-      else if (managerState == GameManager.eventEnum.startOfLevel
-            || managerState == GameManager.eventEnum.playerDied)
-      {
-         if (e.getKeyCode() == KeyEvent.VK_SPACE)
-            manager.progressState();
-      }
-      else if (managerState == GameManager.eventEnum.gameOver)
-      {
-         if (Character.toLowerCase(e.getKeyChar()) == 'y')
-            manager.restart();
-         else if (Character.toLowerCase(e.getKeyChar()) == 'n')
-            System.exit(0);
-      }
-      else if (managerState == GameManager.eventEnum.gameplayScreen)
-         switch (e.getKeyCode())
-         {
-            //PLAYER 1
-            case KeyEvent.VK_RIGHT:
-               if (manager.getDirectionLastMoved(GameManager.playerEnum.PLAYER_ONE) != Snake.Direction.LEFT)
-                  manager.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.RIGHT);
-               break;
-            case KeyEvent.VK_UP:
-               if (manager.getDirectionLastMoved(GameManager.playerEnum.PLAYER_ONE) != Snake.Direction.DOWN)
-                  manager.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.UP);
-               break;
-            case KeyEvent.VK_LEFT:
-               if (manager.getDirectionLastMoved(GameManager.playerEnum.PLAYER_ONE) != Snake.Direction.RIGHT)
-                  manager.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.LEFT);
-               break;
-            case KeyEvent.VK_DOWN:
-               if (manager.getDirectionLastMoved(GameManager.playerEnum.PLAYER_ONE) != Snake.Direction.UP)
-                  manager.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.DOWN);
-               break;
-            //Player 2
-            case KeyEvent.VK_D:
-               if (manager.getDirectionLastMoved(GameManager.playerEnum.PLAYER_TWO) != Snake.Direction.LEFT)
-                  manager.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.RIGHT);
-               break;
-            case KeyEvent.VK_W:
-               if (manager.getDirectionLastMoved(GameManager.playerEnum.PLAYER_TWO) != Snake.Direction.DOWN)
-                  manager.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.UP);
-               break;
-            case KeyEvent.VK_A:
-               if (manager.getDirectionLastMoved(GameManager.playerEnum.PLAYER_TWO) != Snake.Direction.RIGHT)
-                  manager.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.LEFT);
-               break;
-            case KeyEvent.VK_S:
-               if (manager.getDirectionLastMoved(GameManager.playerEnum.PLAYER_TWO) != Snake.Direction.UP)
-                  manager.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.DOWN);
-               break;
-            case KeyEvent.VK_P:
-               manager.pause();
-               break;
-            case KeyEvent.VK_SPACE:
+            else if (e.getKeyChar() == '1')
+               manager.setNumberOfPlayers(1);
+            else if (e.getKeyChar() == '2')
+               manager.setNumberOfPlayers(2);
+            break;
+         case skillLevelScreen:
+            char keyChar = e.getKeyChar();
+            if (keyChar <= '9' && keyChar >= '0')
+            {
+               if (manager.getSkill() < 100)
+               {
+                  int possibleSkill = Integer.parseInt(Integer.toString(manager.getSkill()) + keyChar);
+                  if (possibleSkill <= 100)
+                     manager.setSkill(possibleSkill);
+               }
+            }
+            else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+            {
+               String skillString = Integer.toString(manager.getSkill());
+               if (skillString.length() > 0)
+               {
+                  skillString = skillString.substring(0, skillString.length() - 1);
+                  if (skillString.equals(""))
+                     manager.setSkill(0);
+                  else
+                     manager.setSkill(Integer.parseInt(skillString));
+               }
+            }
+            else if (e.getKeyCode() == KeyEvent.VK_ENTER)
+               if (manager.getSkill() != 0)
+                  manager.progressState();
+            break;
+         case increaseSpeedScreen:
+            if (Character.toLowerCase(e.getKeyChar()) == 'y')
+               manager.setIncreaseSpeed(true);
+            else if (Character.toLowerCase(e.getKeyChar()) == 'n')
+               manager.setIncreaseSpeed(false);
+            else if (e.getKeyCode() == KeyEvent.VK_ENTER)
+               manager.progressState();
+            break;
+         case monochromeOrColorScreen:
+            if (Character.toLowerCase(e.getKeyChar()) == 'm')
+               manager.setMonochrome(true);
+            else if (Character.toLowerCase(e.getKeyChar()) == 'c')
+               manager.setMonochrome(false);
+            else if (e.getKeyCode() == KeyEvent.VK_ENTER)
+               manager.progressState();
+            break;
+         case startOfLevel:
+         case playerDied:
+            if (e.getKeyCode() == KeyEvent.VK_SPACE)
+               manager.progressState();
+            break;
+         case gameOver:
+            if (Character.toLowerCase(e.getKeyChar()) == 'y')
+               manager.restart();
+            else if (Character.toLowerCase(e.getKeyChar()) == 'n')
+               System.exit(0);
+            break;
+         case paused:
+            if (e.getKeyCode() == KeyEvent.VK_SPACE)
                manager.unpause();
-            default:
-               break;
-         }
+            break;
+         case gameplayScreen:
+            Snake[] snakes = manager.getSnakes();
+            Snake.Direction directionLastMoved = snakes[0].getDirectionLastMoved();
+            switch (e.getKeyCode())
+            {
+               case KeyEvent.VK_RIGHT:
+                  if (directionLastMoved != Snake.Direction.LEFT)
+                     snakes[0].setDirection(Snake.Direction.RIGHT);
+                  break;
+               case KeyEvent.VK_UP:
+                  if (directionLastMoved != Snake.Direction.DOWN)
+                     snakes[0].setDirection(Snake.Direction.UP);
+                  break;
+               case KeyEvent.VK_LEFT:
+                  if (directionLastMoved != Snake.Direction.RIGHT)
+                     snakes[0].setDirection(Snake.Direction.LEFT);
+                  break;
+               case KeyEvent.VK_DOWN:
+                  if (directionLastMoved != Snake.Direction.UP)
+                     snakes[0].setDirection(Snake.Direction.DOWN);
+                  break;
+               case KeyEvent.VK_P:
+                  manager.pause();
+            }
+            if (manager.getNumberOfPlayers() == 2)
+            {
+               directionLastMoved = snakes[1].getDirectionLastMoved();
+               switch (e.getKeyCode())
+               {
+                  case KeyEvent.VK_D:
+                     if (directionLastMoved != Snake.Direction.LEFT)
+                        snakes[1].setDirection(Snake.Direction.RIGHT);
+                     break;
+                  case KeyEvent.VK_W:
+                     if (directionLastMoved != Snake.Direction.DOWN)
+                        snakes[1].setDirection(Snake.Direction.UP);
+                     break;
+                  case KeyEvent.VK_A:
+                     if (directionLastMoved != Snake.Direction.RIGHT)
+                        snakes[1].setDirection(Snake.Direction.LEFT);
+                     break;
+                  case KeyEvent.VK_S:
+                     if (directionLastMoved != Snake.Direction.UP)
+                        snakes[1].setDirection(Snake.Direction.DOWN);
+               }
+            }
+      }
    }
 }

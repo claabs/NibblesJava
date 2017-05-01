@@ -9,8 +9,7 @@ import java.io.InputStream;
 import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.Timer;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
+import sun.audio.*;
 
 /**
 
@@ -23,36 +22,34 @@ import sun.audio.AudioStream;
 public class GameManager
 {
 
-   private static final int MARGIN_SPACING = 20;
-   private static final int TITLE_BAR_HEIGHT = 25;
-   //Nick and Noah Area
-   private boolean accelerate;
+   public static final int CHAR_WIDTH = 8;
+   public static final int CHAR_HEIGHT = 2 * CHAR_WIDTH;
+
+   private static final Random random = new Random();
    private int currentLevel = 0;
-   private int difficulty;
    private final GamePanel gameBoard;
-   private LevelConstructor levelConstructor = new LevelConstructor();
+   private final LevelConstructor levelConstructor = new LevelConstructor();
    private Level level = null;
    private Snake players[];
-   private int speed;
-   private boolean paused;
-   public Timer timer;
+   private final Timer timer;
    private int updateInterval = 60;  // ms
    private final JFrame window;
    private Food[] food = new Food[2];
-   private int numberOfPlayers;
-   private int skill;
+   private int numberOfPlayers = -1;
+   private int skill = 0;
    private boolean increaseSpeed;
-   private eventEnum currentState;
-   private static Random random = new Random();
-
+   private eventEnum currentState = eventEnum.introScreen;
    public static boolean monochrome;
-
    private int lastDeath;
 
-   public static final int CHAR_WIDTH = 8;
-   public static final int CHAR_HEIGHT = 2 * CHAR_WIDTH;
    private static final int NUM_ROWS = 48;
    private static final int NUM_COLUMNS = 80;
+
+   private final ActionListener taskPerformer = (ActionEvent)
+         -> 
+         {
+            updateGame();
+   };
 
    public enum playerEnum
    {
@@ -69,21 +66,19 @@ public class GameManager
       startOfLevel,
       gameplayScreen,
       gameOver,
-      playerDied
+      playerDied,
+      paused
    }
 
+   /**
+    This is the constructor that will create, display, and start the game.
+
+    @param inWindow The window that the game will start, run, and display on.
+    */
    public GameManager(JFrame inWindow)
    {
       window = inWindow;
-      currentState = eventEnum.introScreen;
-      numberOfPlayers = -1;
-      skill = 0;
       gameBoard = new GamePanel(NUM_COLUMNS, NUM_ROWS, this);
-      ActionListener taskPerformer = (ActionEvent evt)
-            -> 
-            {
-               run();
-      };
       timer = new Timer(updateInterval, taskPerformer);
       window.getContentPane().add(gameBoard);
       window.pack();
@@ -91,46 +86,87 @@ public class GameManager
       window.setVisible(true);
    }
 
+   /**
+    This method will set the number of players.
+
+    @param inNumberOfPlayers The number of players.
+    */
    public void setNumberOfPlayers(int inNumberOfPlayers)
    {
       numberOfPlayers = inNumberOfPlayers;
    }
 
+   /**
+    This method will return the skill level.
+
+    @return The skill level.
+    */
    public int getSkill()
    {
       return skill;
    }
 
+   /**
+    This method will set the skill level.
+
+    @param inSkill The skill level.
+    */
    public void setSkill(int inSkill)
    {
       skill = inSkill;
    }
 
+   /**
+    This method will return the games current state.
+
+    @return The current state of the game.
+    */
    public eventEnum getCurrentState()
    {
       return currentState;
    }
 
+   /**
+    **************************************************************
+
+    @return
+    */
    public boolean getIncreaseSpeed()
    {
       return increaseSpeed;
    }
 
+   /**
+    **************************************************************
+
+    @param inIncreaseSpeed
+    */
    public void setIncreaseSpeed(boolean inIncreaseSpeed)
    {
       increaseSpeed = inIncreaseSpeed;
    }
 
+   /**
+    **************************************************************
+    @return
+    */
    public boolean getMonochrome()
    {
       return monochrome;
    }
 
+   /**
+    **************************************************************
+    @param inMonochrome
+    */
    public void setMonochrome(boolean inMonochrome)
    {
       monochrome = inMonochrome;
    }
 
+   /**
+    This method will restart the game using the initial settings.
+    */
    public void restart()
    {
       currentLevel = 0;
@@ -138,6 +174,9 @@ public class GameManager
       currentState = eventEnum.startOfLevel;
    }
 
+   /**
+    This method will get the game ready to play the current level.
+    */
    private void prepGame()
    {
       for (int i = 0; i < numberOfPlayers; i++)
@@ -146,6 +185,14 @@ public class GameManager
       food = spawnFood(1);
    }
 
+   /**
+    This method will spawn the food randomly. DOES NOT CHECK FOR SNAKE!
+
+    @param foodValue The value of the food.
+
+    @return One food instance composed of two food objects, one on top of the
+            other.
+    */
    private Food[] spawnFood(int foodValue)
    {
       Food food1 = new Food(foodValue, getRandomPosition(), 0);
@@ -159,6 +206,10 @@ public class GameManager
          return spawnFood(foodValue);
    }
 
+   /**
+    This method will progress the games state to the next from its current
+    state.
+    */
    public void progressState()
    {
       switch (currentState)
@@ -198,61 +249,53 @@ public class GameManager
             startGame();
             break;
          case playerDied:
-            currentState = eventEnum.gameplayScreen;
-            food = spawnFood(1);
-            startGame();
-            break;
-         default:
+            for (int i = 0; i < numberOfPlayers; i++)
+               if (players[i].getLives() == 0)
+                  currentState = eventEnum.gameOver;
+            if (currentState == eventEnum.playerDied)
+            {
+               currentState = eventEnum.gameplayScreen;
+               respawn();
+               food = spawnFood(1);
+               startGame();
+            }
       }
    }
 
+   /**
+    This method will return the number of players.
+
+    @return The number of players.
+    */
    public int getNumberOfPlayers()
    {
       return numberOfPlayers;
    }
 
+   /**
+    This method will start both the game engine timer and the game display
+    timer.
+    */
    private void startGame()
    {
       timer.start();
       gameBoard.startTimer();
    }
 
+   /**
+    This method will re-spawn both players without penalizing them.
+    */
    private void respawn()
    {
-      for (int i = 0; i < players.length; i++)
-         players[i].respawn();
+      for (Snake player : players)
+         player.respawn();
    }
 
-   private int getIntFromPlayerEnum(playerEnum player)
-   {
-      if (player == playerEnum.PLAYER_ONE)
-         return 0;
-      else if (player == playerEnum.PLAYER_TWO)
-         return 1;
-      return -1;
-   }
+   /**
+    This method will load the level using the level index.
 
-   //public static SnakeDirection[] directionSnake = new SnakeDirection[2];
-   public void setPlayerDirection(playerEnum player, Snake.Direction direction)
-   {
-      players[getIntFromPlayerEnum(player)].setDirection(direction);
-   }
-
-   public Snake.Direction getDirectionLastMoved(playerEnum player)
-   {
-      return players[getIntFromPlayerEnum(player)].getDirectionLastMoved();
-   }
-
-   public int getPlayerLives(playerEnum player)
-   {
-      return players[getIntFromPlayerEnum(player)].getLives();
-   }
-
-   public int getPlayerScore(playerEnum player)
-   {
-      return players[getIntFromPlayerEnum(player)].getScore();
-   }
-
+    @param levelIndex The level index.
+    */
    private void loadLevel(int levelIndex)
    {
       level = levelConstructor.getLevel(levelIndex);
@@ -262,14 +305,14 @@ public class GameManager
          players[i].moveSpawn(spawnPoints[i], startingDirections[i]);
    }
 
+   /**
+    This method will return the current level that is being played.
+
+    @return The current level that is being played.
+    */
    public Level getLevel()
    {
       return level;
-   }
-
-   public int getLevelNumber()
-   {
-      return currentLevel + 1;
    }
 
    /**
@@ -298,20 +341,19 @@ public class GameManager
                return;
             }
          players[i].iterateForward();
-         for (int j = 0; j < players.length; j++)
-         {
-            Snake otherPlayer = players[j];
-            java.util.List segments = otherPlayer.getSnakeSegments();
-            for (int k = 0; k < segments.size(); k++)
-               if (players[i].checkCollison((Collidable) segments.get(k)))
-               {
-                  killPlayer(i);
-                  return;
-               }
-         }
+         for (Snake otherPlayer : players)
+            if (players[i].collidedWithOtherSnake(otherPlayer))
+            {
+               killPlayer(i);
+               return;
+            }
       }
    }
 
+   /**
+    This method will put the game into the start of level state and load the
+    next level.
+    */
    private void nextLevel()
    {
       timer.stop();
@@ -321,6 +363,12 @@ public class GameManager
       food = spawnFood(1);
    }
 
+   /**
+    This method will return a random position on the level that is an
+    EmptyCell. DOES NOT CHECK FOR SNAKE!!!
+
+    @return
+    */
    private Point2D.Double getRandomPosition()
    {
       Point2D.Double possiblePosition
@@ -334,53 +382,65 @@ public class GameManager
          return getRandomPosition();
    }
 
+   /**
+    This method will stop the game, kill the player, and set the game into the
+    player died state.
+
+    @param playerIndex The index of the player to kill.
+    */
    private void killPlayer(int playerIndex)
    {
       timer.stop();
       players[playerIndex].die();
       lastDeath = playerIndex;
-      if (players[playerIndex].gameOver())
-         currentState = eventEnum.gameOver;
-      else
-      {
-         respawn();
-         currentState = eventEnum.playerDied;
-      }
+      currentState = eventEnum.playerDied;
    }
 
+   /**
+    This method will return the index of the player who last died.
+
+    @return The index of the player who last died.
+    */
    public int getLastDeath()
    {
       return lastDeath;
    }
 
+   /**
+    This method will return the snakes of the game.
+
+    @return The snakes of the game.
+    */
    public Snake[] getSnakes()
    {
       return players;
    }
 
+   /**
+    This method will pause the game engine.
+    */
    public void pause()
    {
-      paused = true;
+      currentState = eventEnum.paused;
+      timer.stop();
    }
 
+   /**
+    This method will unpause the game.
+    */
    public void unpause()
    {
-      paused = false;
+      currentState = eventEnum.gameplayScreen;
+      timer.start();
    }
 
-   public void run()
-   {
-      if (!paused)
-         updateGame();
-   }
+   /**
+    This method will return the food.
 
+    @return The food.
+    */
    public Food[] getFood()
    {
       return food;
-   }
-
-   public boolean isPaused()
-   {
-      return paused;
    }
 }

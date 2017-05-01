@@ -19,8 +19,14 @@ public class SnakeHead extends SnakeSegment
    {
       super(spawnPoint, dir);
    }
-   
-   //@Override
+   /**
+    This method returns true if two objects are the same data-wise.
+
+    @param o The other object.
+
+    @return True if the two objects are the same data-wise.
+    */
+   @Override
    public boolean equals(Object o)
    {
       if (o == null)

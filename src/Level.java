@@ -16,14 +16,17 @@ public class Level
    private final Collidable[][] levelGrid;
    private final Snake.Direction[] snakeDirections;
    private final Point2D.Double[] snakeSpawns;
+   private final int levelNumber;
 
    public Level(Collidable[][] levelGrid,
          Snake.Direction[] snakeOrientations,
-         Point2D.Double[] snakeSpawns)
+         Point2D.Double[] snakeSpawns,
+         int levelNumber)
    {
       this.levelGrid = levelGrid;
       this.snakeDirections = snakeOrientations;
       this.snakeSpawns = snakeSpawns;
+      this.levelNumber = levelNumber;
    }
 
    public Collidable[][] getLevelGrid()
@@ -40,7 +43,19 @@ public class Level
    {
       return snakeSpawns;
    }
+   
+   public int getLevelNumber()
+   {
+      return levelNumber;
+   }
 
+   /**
+    This method returns true if two objects are the same data-wise.
+
+    @param o The other object.
+
+    @return True if the two objects are the same data-wise.
+    */
    @Override
    public boolean equals(Object o)
    {

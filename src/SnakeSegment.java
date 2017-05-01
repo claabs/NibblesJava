@@ -43,21 +43,28 @@ public class SnakeSegment extends Collidable
       }
    }
 
-   public Point2D.Double getPosition()
+   protected Point2D.Double getPosition()
    {
       return position;
    }
 
-   public Snake.Direction getDirection()
+   protected Snake.Direction getDirection()
    {
       return direction;
    }
 
-   public void setDirection(Snake.Direction inDir)
+   protected void setDirection(Snake.Direction inDir)
    {
       direction = inDir;
    }
 
+   /**
+    This method returns true if two objects are the same data-wise.
+
+    @param o The other object.
+
+    @return True if the two objects are the same data-wise.
+    */
    @Override
    public boolean equals(Object o)
    {
@@ -70,6 +77,14 @@ public class SnakeSegment extends Collidable
             && position.equals(segment.position);
    }
 
+   /**
+    This method will draw the SnakeSegment on the Graphics2D provided at the
+    location provided.
+
+    @param g    The graphics on which to draw.
+    @param xPos The x-coordinate at which to draw the object.
+    @param yPos The y-coordinate at which to draw the object.
+    */
    @Override
    public void draw(Graphics2D g, int xPos, int yPos)
    {

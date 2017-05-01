@@ -32,16 +32,16 @@ public class LevelConstructor
     */
    LevelConstructor()
    {
-      levelList[0] = createLevel0();
-      levelList[1] = createLevel1();
-      levelList[2] = createLevel2();
-      levelList[3] = createLevel3();
-      levelList[4] = createLevel4();
-      levelList[5] = createLevel5();
-      levelList[6] = createLevel6();
-      levelList[7] = createLevel7();
-      levelList[8] = createLevel8();
-      levelList[9] = createLevel9();
+      levelList[0] = createLevel1();
+      levelList[1] = createLevel2();
+      levelList[2] = createLevel3();
+      levelList[3] = createLevel4();
+      levelList[4] = createLevel5();
+      levelList[5] = createLevel6();
+      levelList[6] = createLevel7();
+      levelList[7] = createLevel8();
+      levelList[8] = createLevel9();
+      levelList[9] = createLevel10();
    }
 
    public Level getLevel(int levelIndex)
@@ -66,7 +66,7 @@ public class LevelConstructor
             tempGrid[col][row] = new EmptyCell(new Point2D.Double(col, row));
    }
 
-   private Level createLevel0()
+   private Level createLevel1()
    {
       spawnDirections = new Snake.Direction[2];
       tempSpawns = new Point2D.Double[2];
@@ -80,10 +80,10 @@ public class LevelConstructor
       tempSpawns[0] = new Point2D.Double(49, 22);
       tempSpawns[1] = new Point2D.Double(49, 22);
 
-      return new Level(tempGrid, spawnDirections, tempSpawns);
+      return new Level(tempGrid, spawnDirections, tempSpawns, 1);
    }
 
-   private Level createLevel1()
+   private Level createLevel2()
    {
       spawnDirections = new Snake.Direction[2];
       tempSpawns = new Point2D.Double[2];
@@ -99,10 +99,10 @@ public class LevelConstructor
 
       for (int col = 19; col <= 59; col++)
          tempGrid[col][22] = new Wall(new Point2D.Double(col, 22));
-      return new Level(tempGrid, spawnDirections, tempSpawns);
+      return new Level(tempGrid, spawnDirections, tempSpawns, 2);
    }
 
-   private Level createLevel2()
+   private Level createLevel3()
    {
       spawnDirections = new Snake.Direction[2];
       tempSpawns = new Point2D.Double[2];
@@ -121,10 +121,10 @@ public class LevelConstructor
          tempGrid[19][row] = new Wall(new Point2D.Double(19, row));
          tempGrid[59][row] = new Wall(new Point2D.Double(59, row));
       }
-      return new Level(tempGrid, spawnDirections, tempSpawns);
+      return new Level(tempGrid, spawnDirections, tempSpawns,3);
    }
 
-   private Level createLevel3()
+   private Level createLevel4()
    {
       spawnDirections = new Snake.Direction[2];
       tempSpawns = new Point2D.Double[2];
@@ -148,10 +148,10 @@ public class LevelConstructor
          tempGrid[col][35] = new Wall(new Point2D.Double(col, 35));
          tempGrid[80 - col][12] = new Wall(new Point2D.Double(80 - col, 12));
       }
-      return new Level(tempGrid, spawnDirections, tempSpawns);
+      return new Level(tempGrid, spawnDirections, tempSpawns,4);
    }
 
-   private Level createLevel4()
+   private Level createLevel5()
    {
       spawnDirections = new Snake.Direction[2];
       tempSpawns = new Point2D.Double[2];
@@ -175,10 +175,10 @@ public class LevelConstructor
          tempGrid[col][8] = new Wall(new Point2D.Double(col, 8));
          tempGrid[col][38] = new Wall(new Point2D.Double(col, 38));
       }
-      return new Level(tempGrid, spawnDirections, tempSpawns);
+      return new Level(tempGrid, spawnDirections, tempSpawns,5);
    }
 
-   private Level createLevel5()
+   private Level createLevel6()
    {
       spawnDirections = new Snake.Direction[2];
       tempSpawns = new Point2D.Double[2];
@@ -203,10 +203,10 @@ public class LevelConstructor
             tempGrid[59][row] = new Wall(new Point2D.Double(59, row));
             tempGrid[69][row] = new Wall(new Point2D.Double(69, row));
          }
-      return new Level(tempGrid, spawnDirections, tempSpawns);
+      return new Level(tempGrid, spawnDirections, tempSpawns,6);
    }
 
-   private Level createLevel6()
+   private Level createLevel7()
    {
       spawnDirections = new Snake.Direction[2];
       tempSpawns = new Point2D.Double[2];
@@ -222,10 +222,10 @@ public class LevelConstructor
 
       for (int row = 1; row <= 46; row += 2)
          tempGrid[39][row] = new Wall(new Point2D.Double(39, row));
-      return new Level(tempGrid, spawnDirections, tempSpawns);
+      return new Level(tempGrid, spawnDirections, tempSpawns,7);
    }
 
-   private Level createLevel7()
+   private Level createLevel8()
    {
       spawnDirections = new Snake.Direction[2];
       tempSpawns = new Point2D.Double[2];
@@ -249,10 +249,10 @@ public class LevelConstructor
          tempGrid[59][47 - row] = new Wall(new Point2D.Double(59, 47 - row));
          tempGrid[69][row] = new Wall(new Point2D.Double(69, 22));
       }
-      return new Level(tempGrid, spawnDirections, tempSpawns);
+      return new Level(tempGrid, spawnDirections, tempSpawns,8);
    }
 
-   private Level createLevel8()
+   private Level createLevel9()
    {
       spawnDirections = new Snake.Direction[2];
       tempSpawns = new Point2D.Double[2];
@@ -271,10 +271,10 @@ public class LevelConstructor
          tempGrid[row + 2][row] = new Wall(new Point2D.Double(row + 2, row));
          tempGrid[row + 29][row] = new Wall(new Point2D.Double(row + 29, row));
       }
-      return new Level(tempGrid, spawnDirections, tempSpawns);
+      return new Level(tempGrid, spawnDirections, tempSpawns,9);
    }
 
-   private Level createLevel9()
+   private Level createLevel10()
    {
       spawnDirections = new Snake.Direction[2];
       tempSpawns = new Point2D.Double[2];
@@ -298,6 +298,6 @@ public class LevelConstructor
          tempGrid[59][row + 1] = new Wall(new Point2D.Double(59, row + 1));
          tempGrid[69][row] = new Wall(new Point2D.Double(69, row));
       }
-      return new Level(tempGrid, spawnDirections, tempSpawns);
+      return new Level(tempGrid, spawnDirections, tempSpawns,10);
    }
 }

@@ -89,7 +89,16 @@ public class Snake
    {
       for (int i = 0; i < body.size(); i++)
          body.get(i).draw(g, xOffset, yOffset);
-      
+
+   }
+
+   public boolean collidedWithOtherSnake(Snake snake)
+   {
+      java.util.List segments = snake.getSnakeSegments();
+      for (int k = 0; k < segments.size(); k++)
+         if (checkCollison((Collidable) segments.get(k)))
+            return true;
+      return false;
    }
 
    private void growSnake(int growValue)
@@ -193,6 +202,13 @@ public class Snake
       return numTimesEaten;
    }
 
+   /**
+    This method returns true if two objects are the same data-wise.
+
+    @param o The other object.
+
+    @return True if the two objects are the same data-wise.
+    */
    @Override
    public boolean equals(Object o)
    {

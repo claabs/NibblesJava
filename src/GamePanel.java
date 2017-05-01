@@ -28,8 +28,13 @@ public class GamePanel extends JPanel
    private int sparkleCycle;
    private final int xOffset;
    private final int yOffset;
-
+   private boolean flashState;
    private final GameManager manager;
+   private ActionListener taskPerformer = (ActionEvent)
+         -> 
+         {
+            repaint();
+   };
 
    public enum CellContents
    {
@@ -49,11 +54,7 @@ public class GamePanel extends JPanel
       setPreferredSize(
             new Dimension(GameManager.CHAR_WIDTH * boardWidth + 2 * MARGIN_SIZE,
                   GameManager.CHAR_WIDTH * boardHeight + 2 * MARGIN_SIZE + GameManager.CHAR_HEIGHT));
-      ActionListener taskPerformer = (ActionEvent evt)
-            -> 
-            {
-               repaint();
-      };
+
       timer = new Timer(15, taskPerformer);
       timer.start();
       try
@@ -73,26 +74,11 @@ public class GamePanel extends JPanel
       return gameBoard[column][row];
    }
 
-   public void setContents(double column, double row, Collidable contents)
+   private void setContents(double column, double row, Collidable contents)
    {
       gameBoard[(int) column][(int) row] = contents;
    }
 
-   //private void updateFood()
-   //{
-   //Food food = manager.getFood();
-   //Point2D.Double foodPosition = food.getPosition();
-   //setContents(foodPosition.x, foodPosition.y, GamePanel.CellContents.FOOD);
-   //}
-/*   private void drawFood(Graphics2D g)
-   {
-      Food[] food = manager.getFood();
-      Point2D.Double foodPosition = food.getPosition();
-      int yPos = yOffset + ((int) foodPosition.y + 1) * GameManager.CHAR_WIDTH;
-      int xPos = xOffset + (int) foodPosition.x * GameManager.CHAR_WIDTH;
-      g.setColor(monochrome.white);
-      g.drawString(Integer.toString(food.getValue()), xPos, yPos);
-   }*/
    private void drawSparkles(Graphics2D g)
    {
       g.setColor(Color.red);
@@ -173,8 +159,6 @@ public class GamePanel extends JPanel
       g.drawString("Press any key to continue", xPos, yPos);
       drawSparkles(g);
    }
-
-   private boolean flashState = false;
 
    private void showSkillLevelScreen(Graphics2D g, boolean focused)
    {
@@ -258,11 +242,12 @@ public class GamePanel extends JPanel
       g.setColor(Color.white);
       int xPos = xOffset + 30 * GameManager.CHAR_WIDTH;
       int yPos = yOffset + (int) (10.75 * GameManager.CHAR_HEIGHT);
-      g.drawString("Level " + Integer.toString(manager.getLevelNumber()) + ",  Push Space", xPos, yPos);
+      g.drawString("Level " + Integer.toString(manager.getLevel().getLevelNumber()) + ",  Push Space", xPos, yPos);
    }
 
    private void showGameOverScreen(Graphics2D g)
    {
+      drawGameBoard(g);
       g.setColor(Color.white);
       int xPos = xOffset + 23 * GameManager.CHAR_WIDTH;
       int yPos = yOffset + 8 * GameManager.CHAR_HEIGHT;
@@ -323,26 +308,26 @@ public class GamePanel extends JPanel
             showMonochromeOrColorScreen(g2, true);
             break;
          case startOfLevel:
-            drawGameBoard(g2);
             showStartOfLevelScreen(g2);
             break;
          case gameplayScreen:
-            loadLevel();
-            drawGameBoardWithFood(g2);
-            drawSnakes(g2);
-            drawSnakes2(g2);
-            if (manager.isPaused())
-               drawPauseScreen(g2);
+            drawGamePlayScreen(g2);
+            break;
+         case paused:
+            drawPauseScreen(g2);
             break;
          case playerDied:
-            loadLevel();
             showPlayerDiedScreen(g2);
             break;
          case gameOver:
-            loadLevel();
-            drawGameBoard(g2);
             showGameOverScreen(g2);
       }
+   }
+
+   private void drawGamePlayScreen(Graphics2D g)
+   {
+      drawGameBoardWithFood(g);
+      drawSnakes(g);
    }
 
    public void stopTimer()
@@ -360,8 +345,7 @@ public class GamePanel extends JPanel
       level = manager.getLevel();
       Collidable[][] tempGrid = level.getLevelGrid();
       for (int column = 0; column < gameBoard.length; column++)
-         for (int row = 0; row < gameBoard[column].length; row++)
-            gameBoard[column][row] = tempGrid[column][row];
+         System.arraycopy(tempGrid[column], 0, gameBoard[column], 0, gameBoard[column].length);
    }
 
    private void drawGameBoard(Graphics2D g)
@@ -403,7 +387,6 @@ public class GamePanel extends JPanel
          Point2D.Double headLocation = snakes[i].getHeadLocation();
          g.setColor(Color.yellow);
          int xPos = xOffset + (int) headLocation.x * GameManager.CHAR_WIDTH;
-         int xPos2 = xOffset + (int) headLocation.x * GameManager.CHAR_WIDTH;
          int yPos = yOffset + (int) headLocation.y * GameManager.CHAR_WIDTH;
          g.fillRect(xPos, yPos, GameManager.CHAR_WIDTH, GameManager.CHAR_WIDTH);
          g.setColor(Color.orange);
@@ -449,6 +432,7 @@ public class GamePanel extends JPanel
 
    private void drawPauseScreen(Graphics2D g)
    {
+      drawGamePlayScreen(g);
       drawWhiteRedBox(g);
       g.setColor(Color.white);
       int xPos = xOffset + 26 * GameManager.CHAR_WIDTH;
@@ -458,21 +442,22 @@ public class GamePanel extends JPanel
 
    private void paintInformationLine(Graphics2D g)
    {
+      Snake[] snakes = manager.getSnakes();
       g.setColor(Color.blue);
       g.fillRect(MARGIN_SIZE, MARGIN_SIZE, GameManager.CHAR_WIDTH * gameBoard.length, GameManager.CHAR_HEIGHT);
       g.setColor(Color.white);
       int yPos = yOffset - 2;
       String sammyString = "SAMMY-->  Lives: "
-            + Integer.toString(manager.getPlayerLives(GameManager.playerEnum.PLAYER_ONE))
+            + Integer.toString(snakes[0].getLives())
             + "     "
-            + Integer.toString(manager.getPlayerScore(GameManager.playerEnum.PLAYER_ONE));
+            + Integer.toString(snakes[0].getScore());
       int xPos = xOffset + 48 * GameManager.CHAR_WIDTH;
       g.drawString(sammyString, xPos, yPos);
       if (manager.getNumberOfPlayers() == 2)
       {
-         String jakeString = Integer.toString(manager.getPlayerScore(GameManager.playerEnum.PLAYER_TWO))
+         String jakeString = Integer.toString(snakes[1].getScore())
                + "  Lives: "
-               + Integer.toString(manager.getPlayerLives(GameManager.playerEnum.PLAYER_TWO))
+               + Integer.toString(snakes[1].getLives())
                + "  <--JAKE";
          xPos = xOffset + GameManager.CHAR_WIDTH;
          g.drawString(jakeString, xPos, yPos);

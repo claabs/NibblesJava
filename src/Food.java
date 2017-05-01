@@ -13,39 +13,52 @@ import java.awt.geom.Point2D;
  */
 public class Food extends Collidable
 {
-   
+
    private int value;
    int foodID;
-   
-   
+
+   /**
+    This is the constructor for a Food.
+
+    @param foodValue The value of the food.
+    @param location  The location of the food.
+    @param id        The ID of the food.
+    */
    Food(int foodValue, Point2D.Double location, int id)
    {
       super(location, GameManager.CHAR_WIDTH, GameManager.CHAR_HEIGHT, Color.white, Color.white);
       value = foodValue;
       foodID = id;
    }
-   
+
+   /**
+    This method returns the value of the food.
+
+    @return The foods value.
+    */
    public int getValue()
    {
       return value;
    }
-   
+
+   /**
+    This method returns the position of the food.
+
+    @return The position of the food.
+    */
    public Point2D.Double getPosition()
    {
       return position;
    }
-   
-   public void setValue(int foodValue)
-   {
-      value = foodValue;
-   }
-   
-   public void setPosition(Point2D.Double location)
-   {
-      position = location;
-   }
-   
-   //@Override
+
+   /**
+    This method returns true if two objects are the same data-wise.
+
+    @param o The other object.
+
+    @return True if the two objects are the same data-wise.
+    */
+   @Override
    public boolean equals(Object o)
    {
       if (o == null)
@@ -56,8 +69,15 @@ public class Food extends Collidable
       return position.equals(food.position)
             && value == food.value;
    }
-   
-   //@Override
+ /**
+    This method will draw the Food on the Graphics2D provided at the
+    location provided.
+
+    @param g    The graphics on which to draw.
+    @param xPos The x-coordinate at which to draw the object.
+    @param yPos The y-coordinate at which to draw the object.
+    */
+   @Override
    public void draw(Graphics2D g, int xPos, int yPos)
    {
       g.setColor(EmptyCell.getDrawColor());
@@ -67,6 +87,6 @@ public class Food extends Collidable
       else
          g.setColor(color);
       if (foodID == 0)
-         g.drawString(Integer.toString(value), xPos, yPos+4);
+         g.drawString(Integer.toString(value), xPos, yPos + 4);
    }
 }

@@ -1,7 +1,6 @@
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.geom.Point2D;
+import java.awt.*;
+import java.awt.geom.*;
 
 /**
 
@@ -16,12 +15,29 @@ public abstract class Collidable extends Drawable
 
    protected Point2D.Double position;
 
+   /**
+    This is the constructor for a collidable object.
+
+    @param inPos       Position at which this object exists.
+    @param inWidth     Width of this object.
+    @param inHeight    Height of this object.
+    @param inColor     Color of this object when its drawn on a color monitor.
+    @param inMonoColor Color of this object when its drawn on a monochrome
+                       monitor.
+    */
    public Collidable(Point2D.Double inPos, int inWidth, int inHeight, Color inColor, Color inMonoColor)
    {
       super(inWidth, inHeight, inColor, inMonoColor);
       position = inPos;
    }
 
+   /**
+    This method will return true if two collidables have collided.
+
+    @param c The other collidable.
+
+    @return True if the two collidables have collided, false otherwise.
+    */
    public boolean collided(Collidable c)
    {
       if (c == null)
@@ -31,6 +47,13 @@ public abstract class Collidable extends Drawable
       return position.equals(c.position);
    }
 
+   /**
+    This method returns true if two objects are the same data-wise.
+
+    @param o The other object.
+
+    @return True if the two objects are the same data-wise.
+    */
    @Override
    public boolean equals(Object o)
    {
