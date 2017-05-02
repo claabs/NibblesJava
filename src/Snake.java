@@ -9,9 +9,8 @@ import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
 /**
- Course:  SE-3860 Spring 2017
- Project: Reengineering Project (Part 2) | Nibbles
- Purpose: This class 
+ Course: SE-3860 Spring 2017 Project: Reengineering Project (Part 2) | Nibbles
+ Purpose: This class
 
  @author Nick Sosinski
  @author Charlie Laabs
@@ -24,11 +23,12 @@ public class Snake
 
    private static final int MAX_SNAKE_LENGTH = 1000;
    private static final int GROW_FACTOR = 4;
-   private final ArrayList<SnakeSegment> body = new ArrayList();
+   private final List<SnakeSegment> body = new ArrayList();
    private int lives = 5;
    private int score = 0;
    private int numTimesEaten = 0;
    private int newSegments;
+   private List<Direction> directions = new ArrayList<Direction>();
 
    private Point2D.Double initialSpawn;
    private Direction initialDirection;
@@ -40,11 +40,11 @@ public class Snake
    };
 
    /**
-   This constructor 
-   
-   @param spawnPoint
-   @param dir 
-   */
+    This constructor
+
+    @param spawnPoint
+    @param dir
+    */
    public Snake(Point2D.Double spawnPoint, Direction dir)
    {
       initialDirection = dir;
@@ -53,11 +53,11 @@ public class Snake
    }
 
    /**
-   This method 
-   
-   @param newSpawn
-   @param newDir 
-   */
+    This method
+
+    @param newSpawn
+    @param newDir
+    */
    public void moveSpawn(Point2D.Double newSpawn, Direction newDir)
    {
       initialDirection = newDir;
@@ -66,8 +66,8 @@ public class Snake
    }
 
    /**
-   This method 
-   */
+    This method
+    */
    public void respawn()
    {
       newSegments = 0;
@@ -94,8 +94,8 @@ public class Snake
    }
 
    /**
-   This method 
-   */
+    This method
+    */
    private void addSegment()
    {
       body.add(new SnakeBody(body.get(body.size() - 1)));
@@ -103,12 +103,12 @@ public class Snake
    }
 
    /**
-   This method 
-   
-   @param g
-   @param xOffset
-   @param yOffset 
-   */
+    This method
+
+    @param g
+    @param xOffset
+    @param yOffset
+    */
    public void draw(Graphics2D g, int xOffset, int yOffset)
    {
       for (int i = 0; i < body.size(); i++)
@@ -117,11 +117,12 @@ public class Snake
    }
 
    /**
-   This method 
-   
-   @param snake
-   @return 
-   */
+    This method
+
+    @param snake
+
+    @return
+    */
    public boolean collidedWithOtherSnake(Snake snake)
    {
       java.util.List segments = snake.getSnakeSegments();
@@ -132,10 +133,10 @@ public class Snake
    }
 
    /**
-   This method 
-   
-   @param growValue 
-   */
+    This method
+
+    @param growValue
+    */
    private void growSnake(int growValue)
    {
       if (body.size() < MAX_SNAKE_LENGTH - 30)
@@ -143,12 +144,38 @@ public class Snake
             addSegment();
    }
 
+   private Direction otherDirection(Direction inDirection)
+   {
+      switch (inDirection)
+      {
+         case DOWN:
+            return Direction.UP;
+         case LEFT:
+            return Direction.RIGHT;
+         case RIGHT:
+            return Direction.LEFT;
+         case UP:
+         default:
+            return Direction.DOWN;
+      }
+   }
+
    /**
-   This method 
-   */
+    This method
+    */
    public void iterateForward()
    {
-      directionLastMoved = body.get(0).getDirection();
+      SnakeHead head = (SnakeHead) body.get(0);
+      Direction currentDirection = head.getDirection();
+      Direction newDirection = currentDirection;
+      if (directions.size() > 0)
+      {
+         newDirection = directions.remove(0);
+         while (newDirection == otherDirection(currentDirection) && !directions.isEmpty())
+            newDirection = directions.remove(0);
+      }
+      if (newDirection != otherDirection(currentDirection))
+         head.setDirection(newDirection);
       for (int i = 0; i < body.size() - newSegments; i++)
          body.get(i).moveForward();
       for (int i = body.size() - newSegments - 1; i > 1; i--)
@@ -159,69 +186,78 @@ public class Snake
    }
 
    /**
-   This method 
-   
-   @return 
-   */
+    This method
+
+    @return
+    */
    public Point2D.Double getHeadLocation()
    {
       return body.get(0).getPosition();
    }
 
    /**
-   This method 
-   
-   @return 
-   */
+    This method
+
+    @return
+    */
    public List<SnakeSegment> getSnakeSegments()
    {
       return body.subList(1, body.size());
    }
 
    /**
-   This method 
-   
-   @param c
-   @return 
-   */
+    This method
+
+    @param c
+
+    @return
+    */
    public boolean checkCollison(Collidable c)
    {
       return c.collided(body.get(0));
    }
 
    /**
-   This method 
-   
-   @return 
-   */
+    This method
+
+    @return
+    */
    public boolean gameOver()
    {
       return lives == 0;
    }
 
    /**
-   This method 
-   
-   @param inDir 
-   */
+    This method
+
+    @param inDir
+    */
    public void setDirection(Direction inDir)
    {
-      body.get(0).setDirection(inDir);
+      if (!directions.isEmpty())
+      {
+         if (directions.get(directions.size() - 1) != body.get(0).getDirection())
+            directions.add(inDir);
+      }
+      else
+         directions.add(inDir);
+
+      //body.get(0).setDirection(inDir);
    }
 
    /**
-   This method 
-   
-   @return 
-   */
+    This method
+
+    @return
+    */
    public Direction getDirectionLastMoved()
    {
       return directionLastMoved;
    }
 
    /**
-   This method 
-   */
+    This method
+    */
    public void die()
    {
       lives--;
@@ -240,10 +276,10 @@ public class Snake
    }
 
    /**
-   This method 
-   
-   @param food 
-   */
+    This method
+
+    @param food
+    */
    public void eat(Food food)
    {
       int foodValue = food.getValue();
@@ -263,30 +299,30 @@ public class Snake
    }
 
    /**
-   This method 
-   
-   @return 
-   */
+    This method
+
+    @return
+    */
    public int getScore()
    {
       return score;
    }
 
    /**
-   This method 
-   
-   @return 
-   */
+    This method
+
+    @return
+    */
    public int getLives()
    {
       return lives;
    }
 
    /**
-   This method 
-   
-   @return 
-   */
+    This method
+
+    @return
+    */
    public int getNumTimesEaten()
    {
       return numTimesEaten;
@@ -319,10 +355,10 @@ public class Snake
    }
 
    /**
-   This method 
-   
-   @return 
-   */
+    This method
+
+    @return
+    */
    @Override
    public int hashCode()
    {
