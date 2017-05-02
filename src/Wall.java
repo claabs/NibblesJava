@@ -4,16 +4,24 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 /**
+ Course:  SE-3860 Spring 2017
+ Project: Reengineering Project (Part 2) | Nibbles
+ Purpose: This class 
 
- @author Jake Ira
+ @author Nick Sosinski
  @author Charlie Laabs
  @author Noah Moss
- @author Nick Sosinski
+ @author Jake Ira
  @author Ed VanDerJagt
  */
 public class Wall extends Collidable
 {
 
+   /**
+   This constructor 
+   
+   @param inPosition 
+   */
    public Wall(Point2D.Double inPosition)
    {
       super(inPosition, GameManager.CHAR_WIDTH, GameManager.CHAR_WIDTH, Color.red, Color.gray);

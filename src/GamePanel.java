@@ -9,11 +9,14 @@ import javax.swing.*;
 import sun.audio.*;
 
 /**
+ Course:  SE-3860 Spring 2017
+ Project: Reengineering Project (Part 2) | Nibbles
+ Purpose: This class 
 
- @author Jake Ira
+ @author Nick Sosinski
  @author Charlie Laabs
  @author Noah Moss
- @author Nick Sosinski
+ @author Jake Ira
  @author Ed VanDerJagt
  */
 public class GamePanel extends JPanel
@@ -40,6 +43,13 @@ public class GamePanel extends JPanel
       EMPTY, WALL, FOOD, SNAKE, SNAKEHEAD
    };
 
+   /**
+   This constructor 
+   
+   @param boardWidth
+   @param boardHeight
+   @param inManager 
+   */
    public GamePanel(int boardWidth, int boardHeight, GameManager inManager)
    {
       sparkleCycle = 0;
@@ -68,16 +78,35 @@ public class GamePanel extends JPanel
       }
    }
 
+   /**
+   This method 
+   
+   @param column
+   @param row
+   @return 
+   */
    public Collidable getContents(int column, int row)
    {
       return gameBoard[column][row];
    }
 
+   /**
+   This method 
+   
+   @param column
+   @param row
+   @param contents 
+   */
    private void setContents(double column, double row, Collidable contents)
    {
       gameBoard[(int) column][(int) row] = contents;
    }
 
+   /**
+   This method 
+   
+   @param g 
+   */
    private void drawSparkles(Graphics2D g)
    {
       g.setColor(Color.red);
@@ -98,16 +127,27 @@ public class GamePanel extends JPanel
 
    }
 
+   /**
+   This method 
+   */
    public void slowTimerDown()
    {
       timer.setDelay(250);
    }
 
+   /**
+   This method 
+   */
    public void speedUpTimer()
    {
       timer.setDelay(20);
    }
 
+   /**
+   This method 
+   
+   @param g 
+   */
    private void showIntroScreen(Graphics2D g)
    {
       g.setFont(DISPLAY_FONT);
@@ -159,6 +199,12 @@ public class GamePanel extends JPanel
       drawSparkles(g);
    }
 
+   /**
+   This method 
+   
+   @param g
+   @param focused 
+   */
    private void showSkillLevelScreen(Graphics2D g, boolean focused)
    {
       showNumberOfPlayersScreen(g, false);
@@ -184,6 +230,12 @@ public class GamePanel extends JPanel
       g.drawString("(Computer speed may affect your skill level)", xPos, yPos);
    }
 
+   /**
+   This method 
+   
+   @param g
+   @param focused 
+   */
    private void showNumberOfPlayersScreen(Graphics2D g, boolean focused)
    {
       g.setColor(Color.black);
@@ -202,6 +254,12 @@ public class GamePanel extends JPanel
       g.drawString(stringToShow, xPos, yPos);
    }
 
+   /**
+   This method 
+   
+   @param g
+   @param focused 
+   */
    private void showIncreaseSpeedScreen(Graphics2D g, boolean focused)
    {
       showSkillLevelScreen(g, false);
@@ -218,6 +276,12 @@ public class GamePanel extends JPanel
       g.drawString(stringToShow, xPos, yPos);
    }
 
+   /**
+   This method 
+   
+   @param g
+   @param focused 
+   */
    private void showMonochromeOrColorScreen(Graphics2D g, boolean focused)
    {
       showIncreaseSpeedScreen(g, false);
@@ -234,6 +298,11 @@ public class GamePanel extends JPanel
       g.drawString(stringToShow, xPos, yPos);
    }
 
+   /**
+   This method 
+   
+   @param g 
+   */
    private void showStartOfLevelScreen(Graphics2D g)
    {
       drawGameBoard(g);
@@ -244,6 +313,11 @@ public class GamePanel extends JPanel
       g.drawString("Level " + Integer.toString(manager.getLevel().getLevelNumber()) + ",  Push Space", xPos, yPos);
    }
 
+   /**
+   This method 
+   
+   @param g 
+   */
    private void showGameOverScreen(Graphics2D g)
    {
       drawGameBoard(g);
@@ -268,6 +342,11 @@ public class GamePanel extends JPanel
       g.drawString("Play Again?   (Y/N)", xPos, yPos);
    }
 
+   /**
+   This method 
+   
+   @param g 
+   */
    private void showPlayerDiedScreen(Graphics2D g)
    {
       drawGameBoard(g);
@@ -281,6 +360,11 @@ public class GamePanel extends JPanel
          g.drawString("<---- Jake Dies! Push Space", xPos, yPos);
    }
 
+   /**
+   This method 
+   
+   @param g 
+   */
    @Override
    public void paintComponent(Graphics g)
    {
@@ -323,22 +407,36 @@ public class GamePanel extends JPanel
       }
    }
 
+   /**
+   This method 
+   
+   @param g 
+   */
    private void drawGamePlayScreen(Graphics2D g)
    {
       drawGameBoardWithFood(g);
       drawSnakes(g);
    }
 
+   /**
+   This method 
+   */
    public void stopTimer()
    {
       timer.stop();
    }
 
+   /**
+   This method 
+   */
    public void startTimer()
    {
       timer.start();
    }
 
+   /**
+   This method 
+   */
    private void loadLevel()
    {
       level = manager.getLevel();
@@ -347,6 +445,11 @@ public class GamePanel extends JPanel
          System.arraycopy(tempGrid[column], 0, gameBoard[column], 0, gameBoard[column].length);
    }
 
+   /**
+   This method 
+   
+   @param g 
+   */
    private void drawGameBoard(Graphics2D g)
    {
       loadLevel();
@@ -361,6 +464,11 @@ public class GamePanel extends JPanel
 
    }
 
+   /**
+   This method 
+   
+   @param g 
+   */
    private void drawGameBoardWithFood(Graphics2D g)
    {
       loadLevel();
@@ -378,6 +486,11 @@ public class GamePanel extends JPanel
 
    }
 
+   /**
+   This method 
+   
+   @param g 
+   */
    private void drawSnakes2(Graphics2D g)
    {
       for (Snake snake : manager.getSnakes())
@@ -399,6 +512,11 @@ public class GamePanel extends JPanel
       }
    }
 
+   /**
+   This method 
+   
+   @param g 
+   */
    private void drawSnakes(Graphics2D g)
    {
       for (Snake snake : manager.getSnakes())
@@ -411,6 +529,12 @@ public class GamePanel extends JPanel
          for (int row = 0; row < gameBoard[column].length; row++)
             gameBoard[column][row] = CellContents.EMPTY;
    }*/
+   
+   /**
+   This method 
+   
+   @param g 
+   */
    private void drawWhiteRedBox(Graphics2D g)
    {
       g.setColor(Color.white);
@@ -427,6 +551,11 @@ public class GamePanel extends JPanel
       g.fillRect(xPos, yPos, gWidth, gHeight);
    }
 
+   /**
+   This method 
+   
+   @param g 
+   */
    private void drawPauseScreen(Graphics2D g)
    {
       drawGamePlayScreen(g);
@@ -437,6 +566,11 @@ public class GamePanel extends JPanel
       g.drawString("Game Paused ... Push Space", xPos, yPos);
    }
 
+   /**
+   This method 
+   
+   @param g 
+   */
    private void paintInformationLine(Graphics2D g)
    {
       Snake[] snakes = manager.getSnakes();

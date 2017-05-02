@@ -2,16 +2,25 @@
 import java.awt.geom.Point2D;
 
 /**
+ Course:  SE-3860 Spring 2017
+ Project: Reengineering Project (Part 2) | Nibbles
+ Purpose: This class 
 
- @author Jake Ira
+ @author Nick Sosinski
  @author Charlie Laabs
  @author Noah Moss
- @author Nick Sosinski
+ @author Jake Ira
  @author Ed VanDerJagt
  */
 public class SnakeHead extends SnakeSegment
 {
 
+   /**
+   This constructor 
+   
+   @param spawnPoint
+   @param dir 
+   */
    SnakeHead(Point2D.Double spawnPoint, Snake.Direction dir)
    {
       super(spawnPoint, dir);
@@ -36,6 +45,11 @@ public class SnakeHead extends SnakeSegment
             && getDirection() == head.getDirection();
    }
 
+   /**
+   This constructor 
+   
+   @return 
+   */
    @Override
    public int hashCode()
    {

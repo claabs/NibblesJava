@@ -3,22 +3,32 @@ import java.awt.geom.Point2D;
 import java.util.Arrays;
 
 /**
+ Course:  SE-3860 Spring 2017
+ Project: Reengineering Project (Part 2) | Nibbles
+ Purpose: This class 
 
- @author Jake Ira
+ @author Nick Sosinski
  @author Charlie Laabs
  @author Noah Moss
- @author Nick Sosinski
+ @author Jake Ira
  @author Ed VanDerJagt
  */
 public class Level
 {
-   // Nick and Noah Area
 
    private final Collidable[][] levelGrid;
    private final Snake.Direction[] snakeDirections;
    private final Point2D.Double[] snakeSpawns;
    private final int levelNumber;
 
+   /**
+   This constructor 
+   
+   @param levelGrid
+   @param snakeOrientations
+   @param snakeSpawns
+   @param levelNumber 
+   */
    public Level(Collidable[][] levelGrid,
          Snake.Direction[] snakeOrientations,
          Point2D.Double[] snakeSpawns,
@@ -30,21 +40,41 @@ public class Level
       this.levelNumber = levelNumber;
    }
 
+   /**
+   This method 
+   
+   @return 
+   */
    public Collidable[][] getLevelGrid()
    {
       return levelGrid;
    }
 
+   /**
+   This method 
+   
+   @return 
+   */
    public Snake.Direction[] getStartingDirections()
    {
       return snakeDirections;
    }
 
+   /**
+   This method 
+   
+   @return 
+   */
    public Point2D.Double[] getSpawnPoints()
    {
       return snakeSpawns;
    }
    
+   /**
+   This method 
+   
+   @return 
+   */
    public int getLevelNumber()
    {
       return levelNumber;
@@ -78,6 +108,11 @@ public class Level
       return true;
    }
 
+   /**
+   This method 
+   
+   @return 
+   */
    @Override
    public int hashCode()
    {

@@ -2,11 +2,14 @@
 import java.awt.*;
 
 /**
+ Course:  SE-3860 Spring 2017
+ Project: Reengineering Project (Part 2) | Nibbles
+ Purpose: This class 
 
- @author Jake Ira
+ @author Nick Sosinski
  @author Charlie Laabs
  @author Noah Moss
- @author Nick Sosinski
+ @author Jake Ira
  @author Ed VanDerJagt
  */
 public abstract class Drawable

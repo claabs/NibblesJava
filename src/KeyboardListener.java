@@ -2,11 +2,14 @@
 import java.awt.event.*;
 
 /**
+ Course:  SE-3860 Spring 2017
+ Project: Reengineering Project (Part 2) | Nibbles
+ Purpose: This class 
 
- @author Jake Ira
+ @author Nick Sosinski
  @author Charlie Laabs
  @author Noah Moss
- @author Nick Sosinski
+ @author Jake Ira
  @author Ed VanDerJagt
  */
 public class KeyboardListener extends KeyAdapter
@@ -14,11 +17,22 @@ public class KeyboardListener extends KeyAdapter
 
    private final GameManager manager;
 
+   
+   /**
+   This constructor 
+   
+   @param inManager 
+   */
    KeyboardListener(GameManager inManager)
    {
       manager = inManager;
    }
 
+   /**
+   This method 
+   
+   @param e 
+   */
    @Override
    public void keyPressed(KeyEvent e)
    {

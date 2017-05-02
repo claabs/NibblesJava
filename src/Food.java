@@ -4,11 +4,14 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 /**
+ Course:  SE-3860 Spring 2017
+ Project: Reengineering Project (Part 2) | Nibbles
+ Purpose: This class 
 
- @author Jake Ira
+ @author Nick Sosinski
  @author Charlie Laabs
  @author Noah Moss
- @author Nick Sosinski
+ @author Jake Ira
  @author Ed VanDerJagt
  */
 public class Food extends Collidable
@@ -70,6 +73,11 @@ public class Food extends Collidable
             && value == food.value;
    }
 
+   /**
+   This method 
+   
+   @return 
+   */
    @Override
    public int hashCode()
    {
@@ -78,14 +86,15 @@ public class Food extends Collidable
       hash = 43 * hash + this.foodID;
       return hash;
    }
- /**
+   
+   /**
     This method will draw the Food on the Graphics2D provided at the
     location provided.
 
     @param g    The graphics on which to draw.
     @param xPos The x-coordinate at which to draw the object.
     @param yPos The y-coordinate at which to draw the object.
-    */
+   */
    @Override
    public void draw(Graphics2D g, int xPos, int yPos)
    {

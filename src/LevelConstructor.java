@@ -2,11 +2,14 @@
 import java.awt.geom.Point2D;
 
 /**
+ Course:  SE-3860 Spring 2017
+ Project: Reengineering Project (Part 2) | Nibbles
+ Purpose: This class 
 
- @author Jake Ira
+ @author Nick Sosinski
  @author Charlie Laabs
  @author Noah Moss
- @author Nick Sosinski
+ @author Jake Ira
  @author Ed VanDerJagt
  */
 public class LevelConstructor
@@ -29,6 +32,10 @@ public class LevelConstructor
 
     Board is 80 wide by 48 tall including red border wall
     */
+   
+   /**
+   This class 
+   */
    LevelConstructor()
    {
       levelList[0] = createLevel1();
@@ -43,11 +50,22 @@ public class LevelConstructor
       levelList[9] = createLevel10();
    }
 
+   /**
+   This method 
+   
+   @param levelIndex
+   @return 
+   */
    public Level getLevel(int levelIndex)
    {
       return levelList[levelIndex];
    }
 
+   /**
+   This method 
+   
+   @param grid 
+   */
    private void createBorderWalls(Drawable[][] grid)
    {
       //Create 4 walls
@@ -65,6 +83,11 @@ public class LevelConstructor
             tempGrid[col][row] = new EmptyCell(new Point2D.Double(col, row));
    }
 
+   /**
+   This method 
+   
+   @return 
+   */
    private Level createLevel1()
    {
       spawnDirections = new Snake.Direction[2];
@@ -82,6 +105,11 @@ public class LevelConstructor
       return new Level(tempGrid, spawnDirections, tempSpawns, 1);
    }
 
+   /**
+   This method 
+   
+   @return 
+   */
    private Level createLevel2()
    {
       spawnDirections = new Snake.Direction[2];
@@ -101,6 +129,11 @@ public class LevelConstructor
       return new Level(tempGrid, spawnDirections, tempSpawns, 2);
    }
 
+   /**
+   This method 
+   
+   @return 
+   */
    private Level createLevel3()
    {
       spawnDirections = new Snake.Direction[2];
@@ -123,6 +156,11 @@ public class LevelConstructor
       return new Level(tempGrid, spawnDirections, tempSpawns,3);
    }
 
+   /**
+   This method 
+   
+   @return 
+   */
    private Level createLevel4()
    {
       spawnDirections = new Snake.Direction[2];
@@ -150,6 +188,11 @@ public class LevelConstructor
       return new Level(tempGrid, spawnDirections, tempSpawns,4);
    }
 
+   /**
+   This method 
+   
+   @return 
+   */
    private Level createLevel5()
    {
       spawnDirections = new Snake.Direction[2];
@@ -177,6 +220,11 @@ public class LevelConstructor
       return new Level(tempGrid, spawnDirections, tempSpawns,5);
    }
 
+   /**
+   This method 
+   
+   @return 
+   */
    private Level createLevel6()
    {
       spawnDirections = new Snake.Direction[2];
@@ -205,6 +253,11 @@ public class LevelConstructor
       return new Level(tempGrid, spawnDirections, tempSpawns,6);
    }
 
+   /**
+   This method 
+   
+   @return 
+   */
    private Level createLevel7()
    {
       spawnDirections = new Snake.Direction[2];
@@ -224,6 +277,11 @@ public class LevelConstructor
       return new Level(tempGrid, spawnDirections, tempSpawns,7);
    }
 
+   /**
+   This method 
+   
+   @return 
+   */
    private Level createLevel8()
    {
       spawnDirections = new Snake.Direction[2];
@@ -251,6 +309,11 @@ public class LevelConstructor
       return new Level(tempGrid, spawnDirections, tempSpawns,8);
    }
 
+   /**
+   This method 
+   
+   @return 
+   */
    private Level createLevel9()
    {
       spawnDirections = new Snake.Direction[2];
@@ -273,6 +336,11 @@ public class LevelConstructor
       return new Level(tempGrid, spawnDirections, tempSpawns,9);
    }
 
+   /**
+   This method 
+   
+   @return 
+   */
    private Level createLevel10()
    {
       spawnDirections = new Snake.Direction[2];

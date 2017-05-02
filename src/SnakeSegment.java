@@ -5,11 +5,14 @@ import java.awt.geom.Point2D;
 import java.util.Objects;
 
 /**
+ Course:  SE-3860 Spring 2017
+ Project: Reengineering Project (Part 2) | Nibbles
+ Purpose: This class 
 
- @author Jake Ira
+ @author Nick Sosinski
  @author Charlie Laabs
  @author Noah Moss
- @author Nick Sosinski
+ @author Jake Ira
  @author Ed VanDerJagt
  */
 public abstract class SnakeSegment extends Collidable
@@ -17,12 +20,21 @@ public abstract class SnakeSegment extends Collidable
 
    private Snake.Direction direction;
 
+   /**
+   This constructor 
+   
+   @param spawnPoint
+   @param inDir 
+   */
    SnakeSegment(Point2D.Double spawnPoint, Snake.Direction inDir)
    {
       super(spawnPoint, GameManager.CHAR_WIDTH, GameManager.CHAR_WIDTH, Color.yellow, Color.white);
       direction = inDir;
    }
 
+   /**
+   This method 
+   */
    public void moveForward()
    {
       //Left/Right math is reversed when dealing with drawing graphics
@@ -44,16 +56,31 @@ public abstract class SnakeSegment extends Collidable
       }
    }
 
+   /**
+   This method 
+   
+   @return 
+   */
    protected Point2D.Double getPosition()
    {
       return position;
    }
 
+   /**
+   This method 
+   
+   @return 
+   */
    protected Snake.Direction getDirection()
    {
       return direction;
    }
 
+   /**
+   This method 
+   
+   @param inDir 
+   */
    protected void setDirection(Snake.Direction inDir)
    {
       direction = inDir;
@@ -78,6 +105,11 @@ public abstract class SnakeSegment extends Collidable
             && position.equals(segment.position);
    }
 
+   /**
+   This method 
+   
+   @return 
+   */
    @Override
    public int hashCode()
    {

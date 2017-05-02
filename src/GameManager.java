@@ -7,11 +7,14 @@ import javax.swing.*;
 import sun.audio.*;
 
 /**
+ Course:  SE-3860 Spring 2017
+ Project: Reengineering Project (Part 2) | Nibbles
+ Purpose: This class 
 
- @author Jake Ira
+ @author Nick Sosinski
  @author Charlie Laabs
  @author Noah Moss
- @author Nick Sosinski
+ @author Jake Ira
  @author Ed VanDerJagt
  */
 public class GameManager
@@ -122,46 +125,48 @@ public class GameManager
    }
 
    /**
-    **************************************************************
-
-    @return
-    */
+   This method 
+   
+   @return 
+   */
    public boolean getIncreaseSpeed()
    {
       return increaseSpeed;
    }
 
    /**
-    **************************************************************
-
-    @param inIncreaseSpeed
-    */
+   This method 
+   
+   @param inIncreaseSpeed 
+   */
    public void setIncreaseSpeed(boolean inIncreaseSpeed)
    {
       increaseSpeed = inIncreaseSpeed;
    }
 
    /**
-    **************************************************************
-    @return
-    */
+   This method 
+   
+   @return 
+   */
    public boolean getMonochrome()
    {
       return monochrome;
    }
 
    /**
-    **************************************************************
-    @param inMonochrome
-    */
+   This method 
+   
+   @param inMonochrome 
+   */
    public void setMonochrome(boolean inMonochrome)
    {
       monochrome = inMonochrome;
    }
 
    /**
-    This method will restart the game using the initial settings.
-    */
+   This method will restart the game with the initial settings.
+   */
    public void restart()
    {
       currentLevel = 0;
@@ -171,7 +176,7 @@ public class GameManager
 
    /**
     This method will get the game ready to play the current level.
-    */
+   */
    private void prepGame()
    {
       for (int i = 0; i < numberOfPlayers; i++)
@@ -362,7 +367,7 @@ public class GameManager
     This method will return a random position on the level that is an
     EmptyCell. DOES NOT CHECK FOR SNAKE!!!
 
-    @return
+    @return 
     */
    private Point2D.Double getRandomPosition()
    {

@@ -9,11 +9,14 @@ import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
 /**
+ Course:  SE-3860 Spring 2017
+ Project: Reengineering Project (Part 2) | Nibbles
+ Purpose: This class 
 
- @author Jake Ira
+ @author Nick Sosinski
  @author Charlie Laabs
  @author Noah Moss
- @author Nick Sosinski
+ @author Jake Ira
  @author Ed VanDerJagt
  */
 public class Snake
@@ -36,6 +39,12 @@ public class Snake
       RIGHT, UP, LEFT, DOWN
    };
 
+   /**
+   This constructor 
+   
+   @param spawnPoint
+   @param dir 
+   */
    public Snake(Point2D.Double spawnPoint, Direction dir)
    {
       initialDirection = dir;
@@ -43,6 +52,12 @@ public class Snake
       respawn();
    }
 
+   /**
+   This method 
+   
+   @param newSpawn
+   @param newDir 
+   */
    public void moveSpawn(Point2D.Double newSpawn, Direction newDir)
    {
       initialDirection = newDir;
@@ -50,6 +65,9 @@ public class Snake
       respawn();
    }
 
+   /**
+   This method 
+   */
    public void respawn()
    {
       newSegments = 0;
@@ -75,12 +93,22 @@ public class Snake
       body.add(new SnakeBody(firstSegmentSpawnPoint, firstSegmentDirection));
    }
 
+   /**
+   This method 
+   */
    private void addSegment()
    {
       body.add(new SnakeBody(body.get(body.size() - 1)));
       newSegments++;
    }
 
+   /**
+   This method 
+   
+   @param g
+   @param xOffset
+   @param yOffset 
+   */
    public void draw(Graphics2D g, int xOffset, int yOffset)
    {
       for (int i = 0; i < body.size(); i++)
@@ -88,6 +116,12 @@ public class Snake
 
    }
 
+   /**
+   This method 
+   
+   @param snake
+   @return 
+   */
    public boolean collidedWithOtherSnake(Snake snake)
    {
       java.util.List segments = snake.getSnakeSegments();
@@ -97,6 +131,11 @@ public class Snake
       return false;
    }
 
+   /**
+   This method 
+   
+   @param growValue 
+   */
    private void growSnake(int growValue)
    {
       if (body.size() < MAX_SNAKE_LENGTH - 30)
@@ -104,6 +143,9 @@ public class Snake
             addSegment();
    }
 
+   /**
+   This method 
+   */
    public void iterateForward()
    {
       directionLastMoved = body.get(0).getDirection();
@@ -116,36 +158,70 @@ public class Snake
          newSegments--;
    }
 
+   /**
+   This method 
+   
+   @return 
+   */
    public Point2D.Double getHeadLocation()
    {
       return body.get(0).getPosition();
    }
 
+   /**
+   This method 
+   
+   @return 
+   */
    public List<SnakeSegment> getSnakeSegments()
    {
       return body.subList(1, body.size());
    }
 
+   /**
+   This method 
+   
+   @param c
+   @return 
+   */
    public boolean checkCollison(Collidable c)
    {
       return c.collided(body.get(0));
    }
 
+   /**
+   This method 
+   
+   @return 
+   */
    public boolean gameOver()
    {
       return lives == 0;
    }
 
+   /**
+   This method 
+   
+   @param inDir 
+   */
    public void setDirection(Direction inDir)
    {
       body.get(0).setDirection(inDir);
    }
 
+   /**
+   This method 
+   
+   @return 
+   */
    public Direction getDirectionLastMoved()
    {
       return directionLastMoved;
    }
 
+   /**
+   This method 
+   */
    public void die()
    {
       lives--;
@@ -163,6 +239,11 @@ public class Snake
       }
    }
 
+   /**
+   This method 
+   
+   @param food 
+   */
    public void eat(Food food)
    {
       int foodValue = food.getValue();
@@ -181,16 +262,31 @@ public class Snake
       numTimesEaten++;
    }
 
+   /**
+   This method 
+   
+   @return 
+   */
    public int getScore()
    {
       return score;
    }
 
+   /**
+   This method 
+   
+   @return 
+   */
    public int getLives()
    {
       return lives;
    }
 
+   /**
+   This method 
+   
+   @return 
+   */
    public int getNumTimesEaten()
    {
       return numTimesEaten;
@@ -222,6 +318,11 @@ public class Snake
             && lives == snake.lives;
    }
 
+   /**
+   This method 
+   
+   @return 
+   */
    @Override
    public int hashCode()
    {

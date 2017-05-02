@@ -4,11 +4,14 @@ import java.awt.geom.*;
 import java.util.Objects;
 
 /**
+ Course:  SE-3860 Spring 2017
+ Project: Reengineering Project (Part 2) | Nibbles
+ Purpose: This class 
 
- @author Jake Ira
+ @author Nick Sosinski
  @author Charlie Laabs
  @author Noah Moss
- @author Nick Sosinski
+ @author Jake Ira
  @author Ed VanDerJagt
  */
 public abstract class Collidable extends Drawable
@@ -66,6 +69,11 @@ public abstract class Collidable extends Drawable
       return position.equals(collidable.position);
    }
 
+   /**
+   This method 
+   
+   @return 
+   */
    @Override
    public int hashCode()
    {
