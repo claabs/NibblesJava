@@ -6,7 +6,8 @@ import java.awt.geom.Point2D;
 /**
  Course:  SE-3860 Spring 2017
  Project: Reengineering Project (Part 2) | Nibbles
- Purpose: This class 
+ Purpose: This class handles the snake's food. It will handle the construction
+          of the food and where the food should be positioned on a level.
 
  @author Nick Sosinski
  @author Charlie Laabs

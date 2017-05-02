@@ -4,7 +4,8 @@ import javax.swing.*;
 /**
  Course:  SE-3860 Spring 2017
  Project: Reengineering Project (Part 2) | Nibbles
- Purpose: This class 
+ Purpose: This class serves only one purpose and that is to create a new
+          game frame and create a new Game Manager window. 
 
  @author Nick Sosinski
  @author Charlie Laabs

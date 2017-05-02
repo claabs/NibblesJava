@@ -4,7 +4,8 @@ import java.awt.*;
 /**
  Course:  SE-3860 Spring 2017
  Project: Reengineering Project (Part 2) | Nibbles
- Purpose: This class 
+ Purpose: This class is an abstract class that is used when objects must be 
+          drawn at specified locations.
 
  @author Nick Sosinski
  @author Charlie Laabs

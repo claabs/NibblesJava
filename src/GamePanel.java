@@ -11,7 +11,8 @@ import sun.audio.*;
 /**
  Course:  SE-3860 Spring 2017
  Project: Reengineering Project (Part 2) | Nibbles
- Purpose: This class 
+ Purpose: This class handles the drawing of all of the various game 
+          level components on the games panel.
 
  @author Nick Sosinski
  @author Charlie Laabs
@@ -57,9 +58,6 @@ public class GamePanel extends JPanel
       gameBoard = new Collidable[boardWidth][boardHeight];
       xOffset = MARGIN_SIZE;
       yOffset = MARGIN_SIZE + GameManager.CHAR_HEIGHT;
-      /*for (int column = 0; column < gameBoard.length; column++)
-         for (int row = 0; row < gameBoard[column].length; row++)
-            gameBoard[column][row] = CellContents.EMPTY;*/
       setPreferredSize(
             new Dimension(GameManager.CHAR_WIDTH * boardWidth + 2 * MARGIN_SIZE,
                   GameManager.CHAR_WIDTH * boardHeight + 2 * MARGIN_SIZE + GameManager.CHAR_HEIGHT));

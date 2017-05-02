@@ -9,7 +9,10 @@ import sun.audio.*;
 /**
  Course:  SE-3860 Spring 2017
  Project: Reengineering Project (Part 2) | Nibbles
- Purpose: This class 
+ Purpose: This class manages all of the game's primary functions. It will
+          handle functions like progressing the state of the game, killing
+          players, setting skill levels, increasing game speed, switching
+          levels, pausing the game and acquiring food.
 
  @author Nick Sosinski
  @author Charlie Laabs

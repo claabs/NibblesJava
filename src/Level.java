@@ -5,7 +5,8 @@ import java.util.Arrays;
 /**
  Course:  SE-3860 Spring 2017
  Project: Reengineering Project (Part 2) | Nibbles
- Purpose: This class 
+ Purpose: This class handles returning the snake spawn points, the starting 
+          snake directions, the level grid and the current level number.
 
  @author Nick Sosinski
  @author Charlie Laabs

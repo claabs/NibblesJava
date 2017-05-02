@@ -6,7 +6,8 @@ import java.util.Objects;
 /**
  Course:  SE-3860 Spring 2017
  Project: Reengineering Project (Part 2) | Nibbles
- Purpose: This class 
+ Purpose: This class is an abstract class used to determine collision between 
+          objects.
 
  @author Nick Sosinski
  @author Charlie Laabs

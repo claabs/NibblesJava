@@ -4,7 +4,8 @@ import java.awt.event.*;
 /**
  Course:  SE-3860 Spring 2017
  Project: Reengineering Project (Part 2) | Nibbles
- Purpose: This class 
+ Purpose: This class handles the listening of all of the user keyboard
+          presses. 
 
  @author Nick Sosinski
  @author Charlie Laabs

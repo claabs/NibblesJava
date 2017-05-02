@@ -6,7 +6,10 @@ import java.awt.geom.Point2D;
 /**
  Course:  SE-3860 Spring 2017
  Project: Reengineering Project (Part 2) | Nibbles
- Purpose: This class 
+ Purpose: This class is a child class of Collidable. It will handle when to
+          draw an empty cell, what color that empty cell will be, where to
+          draw the empty cell, and makes sure that the empty cell is not
+          collidable.
 
  @author Nick Sosinski
  @author Charlie Laabs
