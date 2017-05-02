@@ -10,7 +10,10 @@ import sun.audio.AudioStream;
 
 /**
  Course: SE-3860 Spring 2017 Project: Reengineering Project (Part 2) | Nibbles
- Purpose: This class
+ Purpose: This class handles all of the snakes processes. It will handle
+          checking whether the snake has collided with anything, the snake
+          eating, the snake dying, growing the snake, respawning the snake, 
+          and changing the direction of the snake.
 
  @author Nick Sosinski
  @author Charlie Laabs
