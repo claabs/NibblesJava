@@ -1,12 +1,8 @@
 
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.*;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
+
 
 /**
  Course: SE-3860 Spring 2017 Project: Reengineering Project (Part 2) | Nibbles
@@ -32,7 +28,7 @@ public class Snake
    private int numTimesEaten = 0;
    private int newSegments;
    private List<Direction> directions = new ArrayList<Direction>();
-
+   private final AudioEffectPlayer audio = new AudioEffectPlayer();
    private Point2D.Double initialSpawn;
    private Direction initialDirection;
    private Direction directionLastMoved;
@@ -266,16 +262,7 @@ public class Snake
       lives--;
       numTimesEaten = 0;
       score -= 1000;
-      try
-      {
-         InputStream inputStream = new FileInputStream("./resources/crash.wav");
-         AudioStream audioStream = new AudioStream(inputStream);
-         AudioPlayer.player.start(audioStream);
-      }
-      catch (IOException e)
-      {
-         System.err.println("File not found.");
-      }
+      audio.playSound("crash.wav");
    }
 
    /**
@@ -288,16 +275,7 @@ public class Snake
       int foodValue = food.getValue();
       growSnake(foodValue);
       score += 100 * foodValue;
-      try
-      {
-         InputStream inputStream = new FileInputStream("./resources/get-food-2.wav");
-         AudioStream audioStream = new AudioStream(inputStream);
-         AudioPlayer.player.start(audioStream);
-      }
-      catch (IOException e)
-      {
-         System.err.println("File not found.");
-      }
+      audio.playSound("get-food-2.wav");
       numTimesEaten++;
    }
 

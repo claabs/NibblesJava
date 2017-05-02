@@ -2,11 +2,10 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
-import java.io.FileInputStream;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.logging.Logger;
 import javax.swing.*;
-import sun.audio.*;
 
 /**
  Course:  SE-3860 Spring 2017
@@ -22,8 +21,7 @@ import sun.audio.*;
  */
 public class GamePanel extends JPanel
 {
-
-   private static final Font DISPLAY_FONT = new Font(Font.MONOSPACED, Font.BOLD, 14);
+   private Font displayFont;
    private static final int MARGIN_SIZE = 0;
    private Collidable gameBoard[][];
    private Level level;
@@ -33,6 +31,7 @@ public class GamePanel extends JPanel
    private final int yOffset;
    private boolean flashState;
    private final GameManager manager;
+   private final AudioEffectPlayer audio = new AudioEffectPlayer();
    private ActionListener taskPerformer = (ActionEvent)
          -> 
          {
@@ -64,16 +63,17 @@ public class GamePanel extends JPanel
 
       timer = new Timer(15, taskPerformer);
       timer.start();
+      audio.playSound("theme-slow.wav");
+      File fontFile = new File(getClass().getClassLoader().getResource("perfect-dos-vga-437.ttf").getFile());
       try
       {
-         InputStream inputStream = new FileInputStream("./resources/theme-slow.wav");
-         AudioStream audioStream = new AudioStream(inputStream);
-         AudioPlayer.player.start(audioStream);
+         displayFont = Font.createFont(Font.TRUETYPE_FONT, fontFile);
       }
-      catch (IOException e)
+      catch (FontFormatException | IOException ex)
       {
-         System.err.println("File not found.");
+         System.out.println("Error: Font not found.");
       }
+      displayFont = displayFont.deriveFont(16f);
    }
 
    /**
@@ -148,7 +148,7 @@ public class GamePanel extends JPanel
    */
    private void showIntroScreen(Graphics2D g)
    {
-      g.setFont(DISPLAY_FONT);
+      g.setFont(displayFont);
       g.setColor(Color.black);
       g.fillRect(0, 0, getWidth(), getHeight());
       g.setColor(Color.white);
@@ -369,7 +369,7 @@ public class GamePanel extends JPanel
       g.setColor(getBackground());
       g.fillRect(0, 0, getWidth(), getHeight());
       Graphics2D g2 = (Graphics2D) g;
-      g2.setFont(DISPLAY_FONT);
+      g2.setFont(displayFont);
       flashState = !flashState;
       switch (manager.getCurrentState())
       {

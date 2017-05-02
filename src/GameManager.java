@@ -2,9 +2,7 @@
 import java.util.Random;
 import java.awt.event.*;
 import java.awt.geom.*;
-import java.io.*;
 import javax.swing.*;
-import sun.audio.*;
 
 /**
  Course:  SE-3860 Spring 2017
@@ -42,6 +40,7 @@ public class GameManager
    private eventEnum currentState = eventEnum.introScreen;
    public static boolean monochrome;
    private int lastDeath;
+   private final AudioEffectPlayer audio = new AudioEffectPlayer();
 
    private static final int NUM_ROWS = 48;
    private static final int NUM_COLUMNS = 80;
@@ -239,16 +238,7 @@ public class GameManager
             currentState = eventEnum.gameplayScreen;
             gameBoard.stopTimer();
             gameBoard.speedUpTimer();
-            try
-            {
-               InputStream inputStream = new FileInputStream("./resources/theme-fast.wav");
-               AudioStream audioStream = new AudioStream(inputStream);
-               AudioPlayer.player.start(audioStream);
-            }
-            catch (IOException e)
-            {
-               System.err.println("File not found.");
-            }
+            audio.playSound("theme-fast.wav");
             startGame();
             break;
          case playerDied:
