@@ -241,10 +241,8 @@ public class GameManager
             break;
          case startOfLevel:
             currentState = eventEnum.gameplayScreen;
-            //gameBoard.stopTimer();
             gameBoard.speedUpTimer();
             audio.playSound("theme-fast.wav");
-            //startGame();
             timer.start();
             break;
          case playerDied:
@@ -256,8 +254,6 @@ public class GameManager
                currentState = eventEnum.gameplayScreen;
                respawn();
                food = spawnFood(1);
-               //timer.start
-               //startGame();
             }
       }
    }
@@ -270,16 +266,6 @@ public class GameManager
    public int getNumberOfPlayers()
    {
       return numberOfPlayers;
-   }
-
-   /**
-    This method will start both the game engine timer and the game display
-    timer.
-    */
-   private void startGame()
-   {
-      //timer.start();
-      //gameBoard.startTimer();
    }
 
    /**
@@ -335,8 +321,7 @@ public class GameManager
                {
                   players[i].eat(food[0]);
                   numTimesEaten++;
-
-                  if (numTimesEaten == 8)
+                  if (numTimesEaten == 9)
                   {
                      nextLevel();
                      return;
@@ -364,7 +349,6 @@ public class GameManager
     */
    private void nextLevel()
    {
-      //timer.stop();
       currentState = eventEnum.startOfLevel;
       currentLevel++;
       loadLevel(currentLevel);
@@ -398,7 +382,6 @@ public class GameManager
     */
    private void killPlayer(int playerIndex)
    {
-      //timer.stop();
       players[playerIndex].die();
       numTimesEaten = 0;
 
@@ -432,7 +415,6 @@ public class GameManager
    public void pause()
    {
       currentState = eventEnum.paused;
-      //timer.stop();
    }
 
    /**
@@ -441,7 +423,6 @@ public class GameManager
    public void unpause()
    {
       currentState = eventEnum.gameplayScreen;
-      //timer.start();
    }
 
    /**

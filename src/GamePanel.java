@@ -78,7 +78,7 @@ public class GamePanel extends JPanel
          System.out.println("Error: Font not found.");
       }
       displayFont = displayFont.deriveFont(16f);
-      //displayFont = new Font(Font.MONOSPACED, Font.BOLD, 14);
+      
    }
 
    /**

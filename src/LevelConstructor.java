@@ -81,7 +81,7 @@ public class LevelConstructor
       //Fill inside with empty
       for (int col = 1; col < 79; col++)
          for (int row = 1; row < 47; row++)
-            tempGrid[col][row] = new EmptyCell(new Point2D.Double(col, row));
+            newGrid[col][row] = new EmptyCell(new Point2D.Double(col, row));
       return newGrid;
    }
 
