@@ -68,7 +68,7 @@ public class GamePanel extends JPanel
       timer = new Timer(15, taskPerformer);
       timer.start();
       audio.playSound("theme-slow.wav");
-      /*File fontFile = new File(getClass().getClassLoader().getResource("perfect-dos-vga-437.ttf").getFile());
+      File fontFile = new File(getClass().getClassLoader().getResource("LessPerfectDOSVGA.ttf").getFile());
       try
       {
          displayFont = Font.createFont(Font.TRUETYPE_FONT,fontFile);
@@ -77,8 +77,8 @@ public class GamePanel extends JPanel
       {
          System.out.println("Error: Font not found.");
       }
-      displayFont = displayFont.deriveFont(14f);*/
-      displayFont = new Font(Font.MONOSPACED, Font.BOLD, 14);
+      displayFont = displayFont.deriveFont(16f);
+      //displayFont = new Font(Font.MONOSPACED, Font.BOLD, 14);
    }
 
    /**
@@ -160,7 +160,7 @@ public class GamePanel extends JPanel
       int yPos = MARGIN_SIZE + 4 * GameManager.CHAR_HEIGHT;
       int xPos = xOffset + 27 * GameManager.CHAR_WIDTH;
       g.drawString("Q B a s i c   N i b b l e s", xPos, yPos);
-      g.setColor(Color.gray);
+      g.setColor(Color.decode("#AAAAAA"));
       yPos += 2 * GameManager.CHAR_HEIGHT;
       xPos = xOffset + 20 * GameManager.CHAR_WIDTH;
       g.drawString("Copyright (C) Microsoft Corporation 1990", xPos, yPos);
@@ -221,7 +221,7 @@ public class GamePanel extends JPanel
          stringToShow += "_";
       int xPos = xOffset + 20 * GameManager.CHAR_WIDTH;
       int yPos = yOffset + 5 * GameManager.CHAR_HEIGHT;
-      g.setColor(Color.gray);
+      g.setColor(Color.decode("#AAAAAA"));
       g.drawString(stringToShow, xPos, yPos);
       xPos = xOffset + 21 * GameManager.CHAR_WIDTH;
       yPos += GameManager.CHAR_HEIGHT;
@@ -247,7 +247,7 @@ public class GamePanel extends JPanel
    {
       g.setColor(Color.black);
       g.fillRect(0, 0, getWidth(), getHeight());
-      g.setColor(Color.gray);
+      g.setColor(Color.decode("#AAAAAA"));
       String stringToShow = "How many players (1 or 2)? ";
       int numberOfPlayers = manager.getNumberOfPlayers();
       if (numberOfPlayers == 1)
@@ -281,7 +281,7 @@ public class GamePanel extends JPanel
          stringToShow += "_";
       int xPos = xOffset + 14 * GameManager.CHAR_WIDTH;
       int yPos = yOffset + 12 * GameManager.CHAR_HEIGHT;
-      g.setColor(Color.gray);
+      g.setColor(Color.decode("#AAAAAA"));
       g.drawString(stringToShow, xPos, yPos);
    }
 
@@ -306,7 +306,7 @@ public class GamePanel extends JPanel
          stringToShow += "_";
       int xPos = xOffset + 16 * GameManager.CHAR_WIDTH;
       int yPos = yOffset + 14 * GameManager.CHAR_HEIGHT;
-      g.setColor(Color.gray);
+      g.setColor(Color.decode("#AAAAAA"));
       g.drawString(stringToShow, xPos, yPos);
    }
 
@@ -525,7 +525,7 @@ public class GamePanel extends JPanel
       int gWidth = 33 * GameManager.CHAR_WIDTH;
       int gHeight = 3 * GameManager.CHAR_HEIGHT;
       g.fillRect(xPos, yPos, gWidth, gHeight);
-      g.setColor(Color.red);
+      g.setColor(Color.decode("#AA0000"));
       xPos = xOffset + 24 * GameManager.CHAR_WIDTH;
       yPos = yOffset + (int) (9.5 * GameManager.CHAR_HEIGHT);
       gWidth = 31 * GameManager.CHAR_WIDTH;

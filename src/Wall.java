@@ -28,7 +28,7 @@ public class Wall extends Collidable
    */
    public Wall(Point2D.Double inPosition)
    {
-      super(inPosition, GameManager.CHAR_WIDTH, GameManager.CHAR_WIDTH, Color.red, Color.gray);
+      super(inPosition, GameManager.CHAR_WIDTH, GameManager.CHAR_WIDTH, Color.decode("#FF5555"), Color.gray);
    }
 
    /**

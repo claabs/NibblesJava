@@ -28,7 +28,7 @@ public class EmptyCell extends Collidable
     */
    public EmptyCell(Point2D.Double inPos)
    {
-      super(inPos, GameManager.CHAR_WIDTH, GameManager.CHAR_WIDTH, Color.blue, Color.black);
+      super(inPos, GameManager.CHAR_WIDTH, GameManager.CHAR_WIDTH, Color.decode("#0000AA"), Color.black);
    }
 
    /**
