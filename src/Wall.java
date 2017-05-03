@@ -6,7 +6,7 @@ import java.awt.geom.Point2D;
 /**
  Course:  SE-3860 Spring 2017
  Project: Reengineering Project (Part 2) | Nibbles
- Purpose: This class 
+ Purpose: This class handles drawing the walls for the game.
 
  @author Nick Sosinski
  @author Charlie Laabs

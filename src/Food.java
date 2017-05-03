@@ -75,9 +75,9 @@ public class Food extends Collidable
    }
 
    /**
-   This method 
+   This method generates a random hash code for this object and returns it.
    
-   @return 
+   @return Random hash code for this object.
    */
    @Override
    public int hashCode()

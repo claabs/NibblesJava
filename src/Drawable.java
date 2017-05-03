@@ -30,7 +30,7 @@ public abstract class Drawable
     @param inMonoColor Color of this object when its drawn on a monochrome
                        monitor.
     */
-   Drawable(int drawWidth, int drawHeight, Color inColor, Color inMonoColor)
+   public Drawable(int drawWidth, int drawHeight, Color inColor, Color inMonoColor)
    {
       width = drawWidth;
       height = drawHeight;

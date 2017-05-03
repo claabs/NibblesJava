@@ -71,9 +71,9 @@ public abstract class Collidable extends Drawable
    }
 
    /**
-   This method 
+   This method generates a random hash code for this object and returns it.
    
-   @return 
+   @return Random hash code for the object.
    */
    @Override
    public int hashCode()

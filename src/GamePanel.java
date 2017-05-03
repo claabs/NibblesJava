@@ -47,11 +47,12 @@ public class GamePanel extends JPanel
    };
 
    /**
-   This constructor 
+   This constructor builds a new game panel with a specified width, height,
+   and a game manager.
    
-   @param boardWidth
-   @param boardHeight
-   @param inManager 
+   @param boardWidth Width of the board.
+   @param boardHeight Height of the board.
+   @param inManager To-be active game manager.
    */
    public GamePanel(int boardWidth, int boardHeight, GameManager inManager)
    {
@@ -105,9 +106,9 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method 
+   This method will draw sparkles along the border of the intro screen.
    
-   @param g 
+   @param g Graphics to be drawn upon.
    */
    private void drawSparkles(Graphics2D g)
    {
@@ -130,7 +131,7 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method 
+   This method will slow the timer down.
    */
    public void slowTimerDown()
    {
@@ -138,7 +139,7 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method 
+   This method will speed the timer up.
    */
    public void speedUpTimer()
    {
@@ -146,9 +147,9 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method 
+   This method will draw/display the intro screen.
    
-   @param g 
+   @param g Graphics to be drawn upon.
    */
    private void showIntroScreen(Graphics2D g)
    {
@@ -202,10 +203,12 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method 
+   This method will draw/display the skill level screen.
    
-   @param g
-   @param focused 
+   @param g Graphics to be drawn upon.
+   @param focused Determines whether the underscore character should be
+   flashing if true, false otherwise. It is primarily meant to draw the
+   focus of the user.
    */
    private void showSkillLevelScreen(Graphics2D g, boolean focused)
    {
@@ -233,10 +236,12 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method 
+   This method will draw/display the number of players screen.
    
-   @param g
-   @param focused 
+   @param g Graphics to be drawn upon.
+   @param focused Determines whether the underscore character should be
+   flashing if true, false otherwise. It is primarily meant to draw the
+   focus of the user.
    */
    private void showNumberOfPlayersScreen(Graphics2D g, boolean focused)
    {
@@ -257,10 +262,12 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method 
+   This method will draw/display the increase speed screen.
    
-   @param g
-   @param focused 
+   @param g Graphics to be drawn upon.
+   @param focused Determines whether the underscore character should be
+   flashing if true, false otherwise. It is primarily meant to draw the
+   focus of the user.
    */
    private void showIncreaseSpeedScreen(Graphics2D g, boolean focused)
    {
@@ -279,10 +286,13 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method 
+   This method will display the select whether the game should be in color
+   or monochrome screen.
    
-   @param g
-   @param focused 
+   @param g Graphics to be drawn upon.
+   @param focused Determines whether the underscore character should be
+   flashing if true, false otherwise. It is primarily meant to draw the
+   focus of the user.
    */
    private void showMonochromeOrColorScreen(Graphics2D g, boolean focused)
    {
@@ -301,9 +311,9 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method 
+   This method will draw/display the start of the level screen.
    
-   @param g 
+   @param g Graphics to be drawn upon.
    */
    private void showStartOfLevelScreen(Graphics2D g)
    {
@@ -316,9 +326,9 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method 
+   This method will draw/display the game over screen.
    
-   @param g 
+   @param g Graphics to be drawn upon.
    */
    private void showGameOverScreen(Graphics2D g)
    {
@@ -345,9 +355,9 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method 
+   This method will draw/display the screen notifying that the player died.
    
-   @param g 
+   @param g Graphics to be drawn upon.
    */
    private void showPlayerDiedScreen(Graphics2D g)
    {
@@ -363,9 +373,10 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method 
+   This method will paint the screen depending on what state the game
+   manager is in.
    
-   @param g 
+   @param g Graphics to be drawn upon.
    */
    @Override
    public void paintComponent(Graphics g)
@@ -410,9 +421,9 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method 
+   This method will draw the play screen of the game.
    
-   @param g 
+   @param g Graphics to be drawn upon.
    */
    private void drawGamePlayScreen(Graphics2D g)
    {
@@ -421,7 +432,7 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method 
+   This method will stop the timer.
    */
    public void stopTimer()
    {
@@ -429,7 +440,7 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method 
+   This method will start the timer.
    */
    public void startTimer()
    {
@@ -437,7 +448,8 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method 
+   This method will load the level, set by the game manager, onto the game 
+   board.
    */
    private void loadLevel()
    {
@@ -448,9 +460,9 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method 
+   This method will draw the game board.
    
-   @param g 
+   @param g Graphics to be drawn upon.
    */
    private void drawGameBoard(Graphics2D g)
    {
@@ -462,14 +474,14 @@ public class GamePanel extends JPanel
             int yPos = yOffset + row * GameManager.CHAR_WIDTH;
             gameBoard[column][row].draw(g, xPos, yPos);
          }
-      paintInformationLine(g);
+      paintPlayerInfoHeader(g);
 
    }
 
    /**
-   This method 
+   This method will draw the game board with food on it.
    
-   @param g 
+   @param g Graphics to be drawn upon.
    */
    private void drawGameBoardWithFood(Graphics2D g)
    {
@@ -484,58 +496,26 @@ public class GamePanel extends JPanel
             int yPos = yOffset + row * GameManager.CHAR_WIDTH;
             gameBoard[column][row].draw(g, xPos, yPos);
          }
-      paintInformationLine(g);
+      paintPlayerInfoHeader(g);
 
    }
 
    /**
-   This method 
+   This method will draw the snakes.
    
-   @param g 
-   */
-   private void drawSnakes2(Graphics2D g)
-   {
-      for (Snake snake : manager.getSnakes())
-      {
-         Point2D.Double headLocation = snake.getHeadLocation();
-         g.setColor(Color.yellow);
-         int xPos = xOffset + (int) headLocation.x * GameManager.CHAR_WIDTH;
-         int yPos = yOffset + (int) headLocation.y * GameManager.CHAR_WIDTH;
-         g.fillRect(xPos, yPos, GameManager.CHAR_WIDTH, GameManager.CHAR_WIDTH);
-         g.setColor(Color.orange);
-         java.util.List<SnakeSegment> segments = snake.getSnakeSegments();
-         for (int j = 0; j < segments.size(); j++)
-         {
-            Point2D.Double segmentPosition = segments.get(j).getPosition();
-            xPos = xOffset + (int) segmentPosition.x * GameManager.CHAR_WIDTH;
-            yPos = yOffset + (int) segmentPosition.y * GameManager.CHAR_WIDTH;
-            g.fillRect(xPos, yPos, GameManager.CHAR_WIDTH, GameManager.CHAR_WIDTH);
-         }
-      }
-   }
-
-   /**
-   This method 
-   
-   @param g 
+   @param g Graphics to be drawn upon.
    */
    private void drawSnakes(Graphics2D g)
    {
       for (Snake snake : manager.getSnakes())
          snake.draw(g, xOffset, yOffset);
    }
-
-   /*private void flushGameBoard()
-   {
-      for (int column = 0; column < gameBoard.length; column++)
-         for (int row = 0; row < gameBoard[column].length; row++)
-            gameBoard[column][row] = CellContents.EMPTY;
-   }*/
    
    /**
-   This method 
+   This method will draw the white red box displayed before the start of each
+   round, at the end of each round, and during pause screens.
    
-   @param g 
+   @param g Graphics to be drawn upon.
    */
    private void drawWhiteRedBox(Graphics2D g)
    {
@@ -554,9 +534,9 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method 
+   This method will draw the pause screen when the game is paused.
    
-   @param g 
+   @param g Graphics to be drawn upon.
    */
    private void drawPauseScreen(Graphics2D g)
    {
@@ -569,11 +549,12 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method 
+   This method will paint the player information that is display at the
+   top of the game panel.
    
-   @param g 
+   @param g Graphics to be drawn upon.
    */
-   private void paintInformationLine(Graphics2D g)
+   private void paintPlayerInfoHeader(Graphics2D g)
    {
       Snake[] snakes = manager.getSnakes();
       g.setColor(Color.blue);

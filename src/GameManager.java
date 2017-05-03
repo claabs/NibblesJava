@@ -127,9 +127,10 @@ public class GameManager
    }
 
    /**
-   This method 
+   This method will return the amount of speed to increase the speed of the 
+   game by.
    
-   @return 
+   @return The amount of speed to increase the speed of the game by.
    */
    public boolean getIncreaseSpeed()
    {
@@ -137,9 +138,11 @@ public class GameManager
    }
 
    /**
-   This method 
+   This method takes in a speed to increase the game by and sets the
+   increase speed value to be equal to that passed in value.
    
-   @param inIncreaseSpeed 
+   @param inIncreaseSpeed The amount of speed to increase the speed of the
+                          game by.
    */
    public void setIncreaseSpeed(boolean inIncreaseSpeed)
    {
@@ -147,9 +150,9 @@ public class GameManager
    }
 
    /**
-   This method 
+   This method returns whether the game is in a monochrome color or not.
    
-   @return 
+   @return Whether the game is in a monochrome color or not.
    */
    public boolean getMonochrome()
    {
@@ -157,13 +160,14 @@ public class GameManager
    }
 
    /**
-   This method 
+   This method will set the color of the game to monochrome.
    
-   @param inMonochrome 
+   @param isInMonochrome Sets the color of the game to be monochrome if true,
+                       color if false.
    */
-   public void setMonochrome(boolean inMonochrome)
+   public void setMonochrome(boolean isInMonochrome)
    {
-      monochrome = inMonochrome;
+      monochrome = isInMonochrome;
    }
 
    /**
@@ -309,7 +313,10 @@ public class GameManager
    }
 
    /**
-    This method will be called by the timer only if the game is not paused.
+    This method checks player collisions in regards as to whether the player
+    has collided with food, collided with a wall, or collided with another
+    player.
+    It will be called by the timer only if the game is not paused.
     */
    private void updateGame()
    {
@@ -419,7 +426,7 @@ public class GameManager
    }
 
    /**
-    This method will unpause the game.
+    This method will un-pause the game.
     */
    public void unpause()
    {
