@@ -3,13 +3,12 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.*;
 
-
 /**
  Course: SE-3860 Spring 2017 Project: Reengineering Project (Part 2) | Nibbles
  Purpose: This class handles all of the snakes processes. It will handle
-          checking whether the snake has collided with anything, the snake
-          eating, the snake dying, growing the snake, respawning the snake, 
-          and changing the direction of the snake.
+ checking whether the snake has collided with anything, the snake eating, the
+ snake dying, growing the snake, respawning the snake, and changing the
+ direction of the snake.
 
  @author Nick Sosinski
  @author Charlie Laabs
@@ -25,7 +24,6 @@ public class Snake
    private final List<SnakeSegment> body = new ArrayList();
    private int lives = 5;
    private int score = 0;
-   private int numTimesEaten = 0;
    private int newSegments;
    private List<Direction> directions = new ArrayList<Direction>();
    private final AudioEffectPlayer audio = new AudioEffectPlayer();
@@ -39,10 +37,11 @@ public class Snake
    };
 
    /**
-    This constructor
+    This constructor will create a new snake with an initial spawn point and
+    an initial direction it will be facing.
 
-    @param spawnPoint
-    @param dir
+    @param spawnPoint Initial spawn point of the snake.
+    @param dir        Initial direction the snake will be facing.
     */
    public Snake(Point2D.Double spawnPoint, Direction dir)
    {
@@ -52,20 +51,21 @@ public class Snake
    }
 
    /**
-    This method
+    This method will move the spawn point of the snake to a new spawn point.
+    Also, it will change the direction that the snake will be facing.
 
-    @param newSpawn
-    @param newDir
+    @param newSpawn New spawn point for the snake.
+    @param newDir   New direction that the snake will be facing.
     */
    public void moveSpawn(Point2D.Double newSpawn, Direction newDir)
    {
       initialDirection = newDir;
       initialSpawn = newSpawn;
-      respawn();
    }
 
    /**
-    This method
+    This method will respawn the snake at the initial spawn points with the
+    initial spawn direction.
     */
    public void respawn()
    {
@@ -93,7 +93,7 @@ public class Snake
    }
 
    /**
-    This method
+    This method will add a segment to the end of the body of the snake.
     */
    private void addSegment()
    {
@@ -102,11 +102,12 @@ public class Snake
    }
 
    /**
-    This method
+    This method will draw the snake including all of its segments; namely, the
+    entire snake.
 
-    @param g
-    @param xOffset
-    @param yOffset
+    @param g       Graphics to be drawn upon.
+    @param xOffset Offset in the x plane.
+    @param yOffset Offset in the y plane.
     */
    public void draw(Graphics2D g, int xOffset, int yOffset)
    {
@@ -116,11 +117,13 @@ public class Snake
    }
 
    /**
-    This method
+    This method will check to see if the snake head has collided with any
+    snake segments of the opposing snake.
 
-    @param snake
+    @param snake The opposing snake.
 
-    @return
+    @return True if the snake head has collided with any snake segments of the
+            opposing snake, false otherwise.
     */
    public boolean collidedWithOtherSnake(Snake snake)
    {
@@ -132,9 +135,9 @@ public class Snake
    }
 
    /**
-    This method
+    This method will grow the body of the snake by the specified grow value.
 
-    @param growValue
+    @param growValue Value to which the snake will grow by.
     */
    private void growSnake(int growValue)
    {
@@ -143,6 +146,13 @@ public class Snake
             addSegment();
    }
 
+   /**
+    This method returns the other direction of the passed direction.
+
+    @param inDirection The passed direction.
+
+    @return The other direction of the passed direction.
+    */
    private Direction otherDirection(Direction inDirection)
    {
       switch (inDirection)
@@ -160,7 +170,8 @@ public class Snake
    }
 
    /**
-    This method
+    This method moves the snake forward with the first valid direction change
+    from the directed user input.
     */
    public void iterateForward()
    {
@@ -185,9 +196,9 @@ public class Snake
    }
 
    /**
-    This method
+    This method will return the location of the snake head.
 
-    @return
+    @return The location of the snake head.
     */
    public Point2D.Double getHeadLocation()
    {
@@ -195,9 +206,9 @@ public class Snake
    }
 
    /**
-    This method
+    This method will return the segments of the snake that are not the head.
 
-    @return
+    @return The segments of the snake that are not the head.
     */
    public List<SnakeSegment> getSnakeSegments()
    {
@@ -205,11 +216,13 @@ public class Snake
    }
 
    /**
-    This method
+    This method checks to see whether there has been a collision with the body
+    of the snake and any other component.
 
-    @param c
+    @param c Component collided with.
 
-    @return
+    @return True if the body of the snake has collided with a component, false
+            otherwise.
     */
    public boolean checkCollison(Collidable c)
    {
@@ -217,9 +230,9 @@ public class Snake
    }
 
    /**
-    This method
+    This method checks to see whether the game is over.
 
-    @return
+    @return True if the game is over, false otherwise.
     */
    public boolean gameOver()
    {
@@ -227,15 +240,16 @@ public class Snake
    }
 
    /**
-    This method
+    This method will process a direction from user input. The direction will
+    be added if it is legitimate, otherwise it will not.
 
-    @param inDir
+    @param inDir Direction to be processed from the user.
     */
    public void setDirection(Direction inDir)
    {
       if (!directions.isEmpty())
       {
-         if (directions.get(directions.size() - 1) != body.get(0).getDirection())
+         if (directions.get(directions.size() - 1) != inDir)
             directions.add(inDir);
       }
       else
@@ -245,9 +259,9 @@ public class Snake
    }
 
    /**
-    This method
+    This method returns the last direction the snake has moved.
 
-    @return
+    @return The last direction the snake has moved.
     */
    public Direction getDirectionLastMoved()
    {
@@ -255,20 +269,21 @@ public class Snake
    }
 
    /**
-    This method
+    This method will trigger what will occur when the snake dies during
+    gameplay.
     */
    public void die()
    {
       lives--;
-      numTimesEaten = 0;
       score -= 1000;
       audio.playSound("crash.wav");
    }
 
    /**
-    This method
+    This method will trigger what will occur when the snake eats food during
+    gameplay.
 
-    @param food
+    @param food Food the snake will eat.
     */
    public void eat(Food food)
    {
@@ -276,13 +291,12 @@ public class Snake
       growSnake(foodValue);
       score += 100 * foodValue;
       audio.playSound("get-food-2.wav");
-      numTimesEaten++;
    }
 
    /**
-    This method
+    This method returns the score of the game.
 
-    @return
+    @return The score of the game.
     */
    public int getScore()
    {
@@ -290,23 +304,13 @@ public class Snake
    }
 
    /**
-    This method
+    This method returns the lives the snake has remaining.
 
-    @return
+    @return The lives the snake has remaining.
     */
    public int getLives()
    {
       return lives;
-   }
-
-   /**
-    This method
-
-    @return
-    */
-   public int getNumTimesEaten()
-   {
-      return numTimesEaten;
    }
 
    /**
@@ -336,9 +340,9 @@ public class Snake
    }
 
    /**
-    This method
+    This method generates a random hash code for this object and returns it.
 
-    @return
+    @return Random hash code for the object.
     */
    @Override
    public int hashCode()
@@ -347,7 +351,6 @@ public class Snake
       hash = 53 * hash + Objects.hashCode(this.body);
       hash = 53 * hash + this.lives;
       hash = 53 * hash + this.score;
-      hash = 53 * hash + this.numTimesEaten;
       hash = 53 * hash + this.newSegments;
       hash = 53 * hash + Objects.hashCode(this.initialSpawn);
       hash = 53 * hash + Objects.hashCode(this.initialDirection);

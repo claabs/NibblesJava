@@ -20,9 +20,9 @@ public class LevelConstructor
    private static final int NUM_LEVELS = 10;
    private final Level[] levelList = new Level[NUM_LEVELS];
 
-   Snake.Direction[] spawnDirections = new Snake.Direction[2];
-   Point2D.Double[] tempSpawns = new Point2D.Double[2];
-   Collidable[][] tempGrid = new Collidable[WIDTH][HEIGHT];
+   private Snake.Direction[] spawnDirections = new Snake.Direction[2];
+   private Point2D.Double[] tempSpawns = new Point2D.Double[2];
+   private Collidable[][] tempGrid = new Collidable[WIDTH][HEIGHT];
 
    /**
     NOTE: On old NIBBLES code: 1 = UP, 2 = DOWN, 3 = LEFT, 4 = RIGHT
@@ -34,9 +34,9 @@ public class LevelConstructor
     */
    
    /**
-   This class 
+   This constructor constructs an array of new levels; namely, levels 1-10.
    */
-   LevelConstructor()
+   public LevelConstructor()
    {
       levelList[0] = createLevel1();
       levelList[1] = createLevel2();
@@ -51,10 +51,12 @@ public class LevelConstructor
    }
 
    /**
-   This method 
+   This method returns the level from the level list array specified by the 
+   level index.
    
-   @param levelIndex
-   @return 
+   @param levelIndex Index of the level list array.
+   
+   @return Level from the level list array specified by the level index.
    */
    public Level getLevel(int levelIndex)
    {
@@ -62,38 +64,37 @@ public class LevelConstructor
    }
 
    /**
-   This method 
-   
-   @param grid 
+   This method will create a blank level with the accompanying bordering walls.
    */
-   private void createBorderWalls(Drawable[][] grid)
+   private Collidable[][] createBlankLevelWithWalls()
    {
+       Collidable[][] newGrid = new Collidable[WIDTH][HEIGHT];
       //Create 4 walls
       for (int row = 0; row < 48; row++)
-         grid[0][row] = new Wall(new Point2D.Double(0, row));
+         newGrid[0][row] = new Wall(new Point2D.Double(0, row));
       for (int row = 0; row < 48; row++)
-         grid[79][row] = new Wall(new Point2D.Double(79, row));
+         newGrid[79][row] = new Wall(new Point2D.Double(79, row));
       for (int col = 0; col < 80; col++)
-         grid[col][0] = new Wall(new Point2D.Double(col, 0));
+         newGrid[col][0] = new Wall(new Point2D.Double(col, 0));
       for (int col = 0; col < 80; col++)
-         grid[col][47] = new Wall(new Point2D.Double(col, 47));
+         newGrid[col][47] = new Wall(new Point2D.Double(col, 47));
       //Fill inside with empty
       for (int col = 1; col < 79; col++)
          for (int row = 1; row < 47; row++)
             tempGrid[col][row] = new EmptyCell(new Point2D.Double(col, row));
+      return newGrid;
    }
 
    /**
-   This method 
+   This method will create level 1 for Nibbles.
    
-   @return 
+   @return Newly created level; namely, level 1.
    */
    private Level createLevel1()
    {
       spawnDirections = new Snake.Direction[2];
       tempSpawns = new Point2D.Double[2];
-      tempGrid = new Collidable[WIDTH][HEIGHT];
-      createBorderWalls(tempGrid);
+      tempGrid = createBlankLevelWithWalls();
 
       spawnDirections[0] = Snake.Direction.RIGHT;
       spawnDirections[1] = Snake.Direction.LEFT;
@@ -106,16 +107,15 @@ public class LevelConstructor
    }
 
    /**
-   This method 
+   This method will create level 2 for Nibbles.
    
-   @return 
+   @return Newly created level; namely, level 2.
    */
    private Level createLevel2()
    {
       spawnDirections = new Snake.Direction[2];
       tempSpawns = new Point2D.Double[2];
-      tempGrid = new Collidable[WIDTH][HEIGHT];
-      createBorderWalls(tempGrid);
+      tempGrid = createBlankLevelWithWalls();
 
       spawnDirections[0] = Snake.Direction.LEFT;
       spawnDirections[1] = Snake.Direction.RIGHT;
@@ -130,16 +130,15 @@ public class LevelConstructor
    }
 
    /**
-   This method 
+   This method will create level 3 for Nibbles.
    
-   @return 
+   @return Newly created level; namely, level 3.
    */
    private Level createLevel3()
    {
       spawnDirections = new Snake.Direction[2];
       tempSpawns = new Point2D.Double[2];
-      tempGrid = new Collidable[WIDTH][HEIGHT];
-      createBorderWalls(tempGrid);
+      tempGrid = createBlankLevelWithWalls();
 
       spawnDirections[0] = Snake.Direction.UP;
       spawnDirections[1] = Snake.Direction.DOWN;
@@ -157,16 +156,15 @@ public class LevelConstructor
    }
 
    /**
-   This method 
+   This method will create level 4 for Nibbles.
    
-   @return 
+   @return Newly created level; namely, level 4.
    */
    private Level createLevel4()
    {
       spawnDirections = new Snake.Direction[2];
       tempSpawns = new Point2D.Double[2];
-      tempGrid = new Collidable[WIDTH][HEIGHT];
-      createBorderWalls(tempGrid);
+      tempGrid = createBlankLevelWithWalls();
 
       spawnDirections[0] = Snake.Direction.LEFT;
       spawnDirections[1] = Snake.Direction.RIGHT;
@@ -189,16 +187,15 @@ public class LevelConstructor
    }
 
    /**
-   This method 
+   This method will create level 5 for Nibbles.
    
-   @return 
+   @return Newly created level; namely, level 5.
    */
    private Level createLevel5()
    {
       spawnDirections = new Snake.Direction[2];
       tempSpawns = new Point2D.Double[2];
-      tempGrid = new Collidable[WIDTH][HEIGHT];
-      createBorderWalls(tempGrid);
+      tempGrid = createBlankLevelWithWalls();
 
       spawnDirections[0] = Snake.Direction.UP;
       spawnDirections[1] = Snake.Direction.DOWN;
@@ -221,16 +218,15 @@ public class LevelConstructor
    }
 
    /**
-   This method 
+   This method will create level 6 for Nibbles.
    
-   @return 
+   @return Newly created level; namely, level 6.
    */
    private Level createLevel6()
    {
       spawnDirections = new Snake.Direction[2];
       tempSpawns = new Point2D.Double[2];
-      tempGrid = new Collidable[WIDTH][HEIGHT];
-      createBorderWalls(tempGrid);
+      tempGrid = createBlankLevelWithWalls();
 
       spawnDirections[0] = Snake.Direction.DOWN;
       spawnDirections[1] = Snake.Direction.UP;
@@ -254,16 +250,15 @@ public class LevelConstructor
    }
 
    /**
-   This method 
+   This method will create level 7 for Nibbles.
    
-   @return 
+   @return Newly created level; namely, level 7.
    */
    private Level createLevel7()
    {
       spawnDirections = new Snake.Direction[2];
       tempSpawns = new Point2D.Double[2];
-      tempGrid = new Collidable[WIDTH][HEIGHT];
-      createBorderWalls(tempGrid);
+      tempGrid = createBlankLevelWithWalls();
 
       spawnDirections[0] = Snake.Direction.DOWN;
       spawnDirections[1] = Snake.Direction.UP;
@@ -278,16 +273,15 @@ public class LevelConstructor
    }
 
    /**
-   This method 
+   This method will create level 8 for Nibbles.
    
-   @return 
+   @return Newly created level; namely, level 8.
    */
    private Level createLevel8()
    {
       spawnDirections = new Snake.Direction[2];
       tempSpawns = new Point2D.Double[2];
-      tempGrid = new Collidable[WIDTH][HEIGHT];
-      createBorderWalls(tempGrid);
+      tempGrid = createBlankLevelWithWalls();
 
       spawnDirections[0] = Snake.Direction.DOWN;
       spawnDirections[1] = Snake.Direction.UP;
@@ -310,16 +304,15 @@ public class LevelConstructor
    }
 
    /**
-   This method 
+   This method will create level 9 for Nibbles.
    
-   @return 
+   @return Newly created level; namely, level 9.
    */
    private Level createLevel9()
    {
       spawnDirections = new Snake.Direction[2];
       tempSpawns = new Point2D.Double[2];
-      tempGrid = new Collidable[WIDTH][HEIGHT];
-      createBorderWalls(tempGrid);
+      tempGrid = createBlankLevelWithWalls();
 
       spawnDirections[0] = Snake.Direction.UP;
       spawnDirections[1] = Snake.Direction.DOWN;
@@ -337,16 +330,15 @@ public class LevelConstructor
    }
 
    /**
-   This method 
+   This method will create level 10 for Nibbles.
    
-   @return 
+   @return Newly created level; namely, level 10.
    */
    private Level createLevel10()
    {
       spawnDirections = new Snake.Direction[2];
       tempSpawns = new Point2D.Double[2];
-      tempGrid = new Collidable[WIDTH][HEIGHT];
-      createBorderWalls(tempGrid);
+      tempGrid = createBlankLevelWithWalls();
 
       spawnDirections[0] = Snake.Direction.DOWN;
       spawnDirections[1] = Snake.Direction.UP;

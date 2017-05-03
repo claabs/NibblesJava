@@ -20,19 +20,20 @@ public class KeyboardListener extends KeyAdapter
 
    
    /**
-   This constructor 
+   This constructor builds a new Keyboard Listener by taking in a game 
+   manager and setting it equal to the classes game manager.
    
-   @param inManager 
+   @param inManager Current Nibbles game manager.
    */
-   KeyboardListener(GameManager inManager)
+   public KeyboardListener(GameManager inManager)
    {
       manager = inManager;
    }
 
    /**
-   This method 
+   This method will handle all of the keyboard presses made by the user.
    
-   @param e 
+   @param e Key pressed by the user.
    */
    @Override
    public void keyPressed(KeyEvent e)
@@ -115,19 +116,15 @@ public class KeyboardListener extends KeyAdapter
             switch (e.getKeyCode())
             {
                case KeyEvent.VK_RIGHT:
-                  if (directionLastMoved != Snake.Direction.LEFT)
                      snakes[0].setDirection(Snake.Direction.RIGHT);
                   break;
                case KeyEvent.VK_UP:
-                  if (directionLastMoved != Snake.Direction.DOWN)
                      snakes[0].setDirection(Snake.Direction.UP);
                   break;
                case KeyEvent.VK_LEFT:
-                  if (directionLastMoved != Snake.Direction.RIGHT)
                      snakes[0].setDirection(Snake.Direction.LEFT);
                   break;
                case KeyEvent.VK_DOWN:
-                  if (directionLastMoved != Snake.Direction.UP)
                      snakes[0].setDirection(Snake.Direction.DOWN);
                   break;
                case KeyEvent.VK_P:
@@ -139,19 +136,15 @@ public class KeyboardListener extends KeyAdapter
                switch (e.getKeyCode())
                {
                   case KeyEvent.VK_D:
-                     if (directionLastMoved != Snake.Direction.LEFT)
                         snakes[1].setDirection(Snake.Direction.RIGHT);
                      break;
                   case KeyEvent.VK_W:
-                     if (directionLastMoved != Snake.Direction.DOWN)
                         snakes[1].setDirection(Snake.Direction.UP);
                      break;
                   case KeyEvent.VK_A:
-                     if (directionLastMoved != Snake.Direction.RIGHT)
                         snakes[1].setDirection(Snake.Direction.LEFT);
                      break;
                   case KeyEvent.VK_S:
-                     if (directionLastMoved != Snake.Direction.UP)
                         snakes[1].setDirection(Snake.Direction.DOWN);
                }
             }

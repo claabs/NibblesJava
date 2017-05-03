@@ -5,12 +5,11 @@ import java.awt.geom.*;
 import javax.swing.*;
 
 /**
- Course:  SE-3860 Spring 2017
- Project: Reengineering Project (Part 2) | Nibbles
+ Course: SE-3860 Spring 2017 Project: Reengineering Project (Part 2) | Nibbles
  Purpose: This class manages all of the game's primary functions. It will
-          handle functions like progressing the state of the game, killing
-          players, setting skill levels, increasing game speed, switching
-          levels, pausing the game and acquiring food.
+ handle functions like progressing the state of the game, killing players,
+ setting skill levels, increasing game speed, switching levels, pausing the
+ game and acquiring food.
 
  @author Nick Sosinski
  @author Charlie Laabs
@@ -40,15 +39,17 @@ public class GameManager
    private eventEnum currentState = eventEnum.introScreen;
    public static boolean monochrome;
    private int lastDeath;
+   private int numTimesEaten = 0;
+
    private final AudioEffectPlayer audio = new AudioEffectPlayer();
 
    private static final int NUM_ROWS = 48;
    private static final int NUM_COLUMNS = 80;
 
    private final ActionListener taskPerformer = (ActionEvent)
-         -> 
-         {
-            updateGame();
+         ->
+   {
+      updateGame();
    };
 
    public enum playerEnum
@@ -127,52 +128,52 @@ public class GameManager
    }
 
    /**
-   This method will return the amount of speed to increase the speed of the 
-   game by.
-   
-   @return The amount of speed to increase the speed of the game by.
-   */
+    This method will return the amount of speed to increase the speed of the
+    game by.
+
+    @return The amount of speed to increase the speed of the game by.
+    */
    public boolean getIncreaseSpeed()
    {
       return increaseSpeed;
    }
 
    /**
-   This method takes in a speed to increase the game by and sets the
-   increase speed value to be equal to that passed in value.
-   
-   @param inIncreaseSpeed The amount of speed to increase the speed of the
-                          game by.
-   */
+    This method takes in a speed to increase the game by and sets the increase
+    speed value to be equal to that passed in value.
+
+    @param inIncreaseSpeed The amount of speed to increase the speed of the
+                           game by.
+    */
    public void setIncreaseSpeed(boolean inIncreaseSpeed)
    {
       increaseSpeed = inIncreaseSpeed;
    }
 
    /**
-   This method returns whether the game is in a monochrome color or not.
-   
-   @return Whether the game is in a monochrome color or not.
-   */
+    This method returns whether the game is in a monochrome color or not.
+
+    @return Whether the game is in a monochrome color or not.
+    */
    public boolean getMonochrome()
    {
       return monochrome;
    }
 
    /**
-   This method will set the color of the game to monochrome.
-   
-   @param isInMonochrome Sets the color of the game to be monochrome if true,
-                       color if false.
-   */
+    This method will set the color of the game to monochrome.
+
+    @param isInMonochrome Sets the color of the game to be monochrome if true,
+                          color if false.
+    */
    public void setMonochrome(boolean isInMonochrome)
    {
       monochrome = isInMonochrome;
    }
 
    /**
-   This method will restart the game with the initial settings.
-   */
+    This method will restart the game with the initial settings.
+    */
    public void restart()
    {
       currentLevel = 0;
@@ -182,7 +183,7 @@ public class GameManager
 
    /**
     This method will get the game ready to play the current level.
-   */
+    */
    private void prepGame()
    {
       for (int i = 0; i < numberOfPlayers; i++)
@@ -299,7 +300,10 @@ public class GameManager
       Snake.Direction[] startingDirections = level.getStartingDirections();
       Point2D.Double[] spawnPoints = level.getSpawnPoints();
       for (int i = 0; i < numberOfPlayers; i++)
+      {
          players[i].moveSpawn(spawnPoints[i], startingDirections[i]);
+         respawn();
+      }
    }
 
    /**
@@ -315,8 +319,7 @@ public class GameManager
    /**
     This method checks player collisions in regards as to whether the player
     has collided with food, collided with a wall, or collided with another
-    player.
-    It will be called by the timer only if the game is not paused.
+    player. It will be called by the timer only if the game is not paused.
     */
    private void updateGame()
    {
@@ -328,7 +331,9 @@ public class GameManager
             if (contents.getClass() == Food.class)
             {
                players[i].eat(food[0]);
-               if (players[i].getNumTimesEaten() == 8)
+                     numTimesEaten++;
+
+               if (      numTimesEaten == 8)
                {
                   nextLevel();
                   return;
@@ -367,7 +372,7 @@ public class GameManager
     This method will return a random position on the level that is an
     EmptyCell. DOES NOT CHECK FOR SNAKE!!!
 
-    @return 
+    @return
     */
    private Point2D.Double getRandomPosition()
    {
@@ -392,6 +397,8 @@ public class GameManager
    {
       timer.stop();
       players[playerIndex].die();
+            numTimesEaten = 0;
+
       lastDeath = playerIndex;
       currentState = eventEnum.playerDied;
    }

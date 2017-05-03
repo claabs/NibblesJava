@@ -23,19 +23,24 @@ public abstract class SnakeSegment extends Collidable
    private Snake.Direction direction;
 
    /**
-   This constructor 
+   This constructor creates a new snake segment at a specific spawn point
+   and facing a specific direction. 
+   Also, the color of the snake segment is determined; namely, the snake
+   segment is yellow if the game is in color and the snake segment is white
+   if the game is in monochrome.
    
-   @param spawnPoint
-   @param inDir 
+   @param spawnPoint Specific spawn point.
+   @param inDir Specific spawn direction.
    */
-   SnakeSegment(Point2D.Double spawnPoint, Snake.Direction inDir)
+   public SnakeSegment(Point2D.Double spawnPoint, Snake.Direction inDir)
    {
       super(spawnPoint, GameManager.CHAR_WIDTH, GameManager.CHAR_WIDTH, Color.yellow, Color.white);
       direction = inDir;
    }
 
    /**
-   This method 
+   This method will move the snake segment forward in the direction of the
+   segments direction.
    */
    public void moveForward()
    {
@@ -59,9 +64,9 @@ public abstract class SnakeSegment extends Collidable
    }
 
    /**
-   This method 
+   This method gets the position of the snake segment.
    
-   @return 
+   @return The position of the snake segment.
    */
    protected Point2D.Double getPosition()
    {
@@ -69,9 +74,9 @@ public abstract class SnakeSegment extends Collidable
    }
 
    /**
-   This method 
+   This method gets the direction that the snake segment is facing.
    
-   @return 
+   @return The direction that the snake segment is facing.
    */
    protected Snake.Direction getDirection()
    {
@@ -79,9 +84,9 @@ public abstract class SnakeSegment extends Collidable
    }
 
    /**
-   This method 
+   This method will set the direction for the snake segment to face.
    
-   @param inDir 
+   @param inDir The direction for the snake segment to face.
    */
    protected void setDirection(Snake.Direction inDir)
    {
@@ -108,9 +113,9 @@ public abstract class SnakeSegment extends Collidable
    }
 
    /**
-   This method 
+   This method generates a random hash code for this object and returns it.
    
-   @return 
+   @return Random hash code for the object.
    */
    @Override
    public int hashCode()

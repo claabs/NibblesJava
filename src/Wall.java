@@ -18,7 +18,11 @@ public class Wall extends Collidable
 {
 
    /**
-   This constructor 
+   This constructor creates a new wall for the game with a specified width
+   and height.
+   Also, the color of the wall is to be determined; namely, the wall will be
+   painted red if the game is in color or the wall will be painted gray if
+   the game is in monochrome.
    
    @param inPosition 
    */

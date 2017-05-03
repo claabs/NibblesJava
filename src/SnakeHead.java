@@ -17,10 +17,11 @@ public class SnakeHead extends SnakeSegment
 {
 
    /**
-   This constructor 
+   This constructor creates a new snake head at a specific spawn point
+   facing a specific direction.
    
-   @param spawnPoint
-   @param dir 
+   @param spawnPoint Specific spawn point.
+   @param dir Specific spawn direction.
    */
    SnakeHead(Point2D.Double spawnPoint, Snake.Direction dir)
    {
@@ -47,9 +48,9 @@ public class SnakeHead extends SnakeSegment
    }
 
    /**
-   This constructor 
+   This method generates a random hash code for this object and returns it.
    
-   @return 
+   @return Random hash code for the object.
    */
    @Override
    public int hashCode()

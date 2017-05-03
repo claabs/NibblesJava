@@ -23,12 +23,13 @@ public class Level
    private final int levelNumber;
 
    /**
-   This constructor 
+   This constructor will build a new level for Nibbles.
    
-   @param levelGrid
-   @param snakeOrientations
-   @param snakeSpawns
-   @param levelNumber 
+   @param levelGrid The arrangement of empty spaces and walls for the level.
+   @param snakeOrientations The orientations of which the snakes face when they
+                            spawn.
+   @param snakeSpawns The location where the snakes will spawn.
+   @param levelNumber The number of the level (level numbers start at 1).
    */
    public Level(Collidable[][] levelGrid,
          Snake.Direction[] snakeOrientations,
@@ -42,9 +43,9 @@ public class Level
    }
 
    /**
-   This method 
+   This method will return the level grid.
    
-   @return 
+   @return The level grid.
    */
    public Collidable[][] getLevelGrid()
    {
@@ -52,9 +53,9 @@ public class Level
    }
 
    /**
-   This method 
+   This method will return the starting directions of the snake.
    
-   @return 
+   @return The starting directions of the snake.
    */
    public Snake.Direction[] getStartingDirections()
    {
@@ -62,9 +63,9 @@ public class Level
    }
 
    /**
-   This method 
+   This method will return the spawn points of the snake.
    
-   @return 
+   @return The spawn points of the snake.
    */
    public Point2D.Double[] getSpawnPoints()
    {
@@ -72,9 +73,9 @@ public class Level
    }
    
    /**
-   This method 
+   This method will return the number of the level.
    
-   @return 
+   @return The number of the level.
    */
    public int getLevelNumber()
    {
@@ -110,9 +111,9 @@ public class Level
    }
 
    /**
-   This method 
+   This method generates a random hash code for this object and returns it.
    
-   @return 
+   @return Random hash code for the object.
    */
    @Override
    public int hashCode()
