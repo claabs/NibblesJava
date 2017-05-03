@@ -18,7 +18,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses(
       {
-            NibblesTest.class, FoodTest.class, GameManagerTest.class, SnakeTest.class, EmptyCellTest.class, SnakeBodyTest.class, KeyboardListenerTest.class, AudioEffectPlayerTest.class, DrawableTest.class, SnakeHeadTest.class, LevelConstructorTest.class, WallTest.class, LevelTest.class, GamePanelTest.class
+            NibblesTest.class, FoodTest.class, GameManagerTest.class, SnakeTest.class, SnakeBodyTest.class, KeyboardListenerTest.class, SnakeHeadTest.class, LevelConstructorTest.class, WallTest.class, LevelTest.class, GamePanelTest.class
 
       })
 public class RootSuite

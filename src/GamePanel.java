@@ -358,7 +358,7 @@ public class GamePanel extends JPanel
    {
       drawGameBoard(g);
       paintPlayerInfoHeader(g);
-      g.setColor(new Color(0, 0, 0));
+      g.setColor(new Color(255, 255, 255));
       int xPos = xOffset + 23 * GameManager.CHAR_WIDTH;
       int yPos = yOffset + 8 * GameManager.CHAR_HEIGHT;
       int gWidth = 33 * GameManager.CHAR_WIDTH;
@@ -372,7 +372,7 @@ public class GamePanel extends JPanel
       g.fillRect(xPos, yPos, gWidth, gHeight);
       xPos = xOffset + 31 * GameManager.CHAR_WIDTH;
       yPos = yOffset + 10 * GameManager.CHAR_HEIGHT - GameManager.CHAR_WIDTH;
-      g.setColor(new Color(0, 0, 0));
+      g.setColor(new Color(255, 255, 255));
       g.drawString("G A M E   O V E R", xPos, yPos);
       xPos = xOffset + 30 * GameManager.CHAR_WIDTH;
       yPos = yOffset + 12 * GameManager.CHAR_HEIGHT - GameManager.CHAR_WIDTH;
@@ -389,7 +389,7 @@ public class GamePanel extends JPanel
       drawGameBoard(g);
       paintPlayerInfoHeader(g);
       drawWhiteRedBox(g);
-      g.setColor(new Color(0, 0, 0));
+      g.setColor(new Color(255, 255, 255));
       int xPos = xOffset + 26 * GameManager.CHAR_WIDTH;
       int yPos = yOffset + (int) (11 * GameManager.CHAR_HEIGHT);
       if (manager.getLastDeath() == 0)
@@ -571,7 +571,7 @@ public class GamePanel extends JPanel
    {
       drawGamePlayScreen(g);
       drawWhiteRedBox(g);
-      g.setColor(new Color(0, 0, 0));
+      g.setColor(new Color(255, 255, 255));
       int xPos = xOffset + 26 * GameManager.CHAR_WIDTH;
       int yPos = yOffset + (int) (10.75 * GameManager.CHAR_HEIGHT);
       g.drawString("Game Paused ... Push Space", xPos, yPos);

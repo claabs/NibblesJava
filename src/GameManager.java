@@ -23,15 +23,15 @@ public class GameManager
    public static final int CHAR_WIDTH = 8;
    public static final int CHAR_HEIGHT = 2 * CHAR_WIDTH;
 
-   private static final Random random = new Random();
+   private static Random random;
    private int currentLevel = 0;
-   private final GamePanel gameBoard;
+   private GamePanel gameBoard;
    private final LevelConstructor levelConstructor = new LevelConstructor();
    private Level level = null;
    private Snake players[];
-   private final Timer timer;
+   private Timer timer;
    private int updateInterval = 55;  // ms
-   private final JFrame window;
+   private JFrame window;
    private Food[] food = new Food[2];
    private int numberOfPlayers = -1;
    private int skill = 0;
@@ -77,6 +77,18 @@ public class GameManager
     @param inWindow The window that the game will start, run, and display on.
     */
    public GameManager(JFrame inWindow)
+   {
+      prepWindow(inWindow);
+      random = new Random();
+   }
+
+   public GameManager(JFrame inWindow, int seed)
+   {
+      prepWindow(inWindow);
+      random = new Random(seed);
+   }
+
+   private void prepWindow(JFrame inWindow)
    {
       window = inWindow;
       gameBoard = new GamePanel(NUM_COLUMNS, NUM_ROWS, this);
@@ -205,7 +217,7 @@ public class GameManager
    {
       Food food1 = new Food(foodValue, getRandomPosition(), 0);
       Food food2 = new Food(foodValue, new Point2D.Double(food1.position.x, food1.position.y - 1), 1);
-      if ( canFoodSpawn(food1) && canFoodSpawn(food2) )
+      if (canFoodSpawn(food1) && canFoodSpawn(food2))
          return new Food[]
          {
             food1, food2
@@ -213,7 +225,7 @@ public class GameManager
       else
          return spawnFood(foodValue);
    }
-   
+
    /**
     This method checks for obstacles in the way of a food spawn.
 
@@ -221,15 +233,13 @@ public class GameManager
 
     @return Whether or not the space is clear and the food can spawn there.
     */
-   private boolean canFoodSpawn( Food food )
+   private boolean canFoodSpawn(Food food)
    {
-      if ( level.getLevelGrid()[(int) food.position.x][(int) food.position.y].getClass() != EmptyCell.class )
+      if (level.getLevelGrid()[(int) food.position.x][(int) food.position.y].getClass() != EmptyCell.class)
          return false;
-      for ( int i = 0; i < players.length; i++ )
-      {
-         if ( players[i].collidedWithCollidable(food) )
+      for (int i = 0; i < players.length; i++)
+         if (players[i].collidedWithCollidable(food))
             return false;
-      }
       return true;
    }
 
@@ -261,8 +271,8 @@ public class GameManager
             break;
          case startOfLevel:
             currentState = eventEnum.gameplayScreen;
-            gameBoard.speedUpTimer();
             audio.playSound("theme-fast.wav");
+            gameBoard.speedUpTimer();
             timer.start();
             break;
          case playerDied:
@@ -272,6 +282,7 @@ public class GameManager
             if (currentState == eventEnum.playerDied)
             {
                currentState = eventEnum.gameplayScreen;
+               audio.playSound("theme-fast.wav");
                respawn();
                food = spawnFood(1);
             }
