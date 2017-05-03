@@ -1,9 +1,12 @@
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.font.TextAttribute;
 import java.awt.geom.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 import javax.swing.*;
 
@@ -64,16 +67,17 @@ public class GamePanel extends JPanel
       timer = new Timer(15, taskPerformer);
       timer.start();
       audio.playSound("theme-slow.wav");
-      File fontFile = new File(getClass().getClassLoader().getResource("perfect-dos-vga-437.ttf").getFile());
+      /*File fontFile = new File(getClass().getClassLoader().getResource("perfect-dos-vga-437.ttf").getFile());
       try
       {
-         displayFont = Font.createFont(Font.TRUETYPE_FONT, fontFile);
+         displayFont = Font.createFont(Font.TRUETYPE_FONT,fontFile);
       }
       catch (FontFormatException | IOException ex)
       {
          System.out.println("Error: Font not found.");
       }
-      displayFont = displayFont.deriveFont(16f);
+      displayFont = displayFont.deriveFont(14f);*/
+      displayFont = new Font(Font.MONOSPACED, Font.BOLD, 14);
    }
 
    /**
