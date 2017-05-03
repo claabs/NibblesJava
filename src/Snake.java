@@ -182,8 +182,8 @@ public class Snake
    public boolean collidedWithCollidable(Collidable coll)
    {
       for (int k = 0; k < body.size(); k++)
-         if (checkCollison(coll))
-            return true;
+         if (coll.collided(body.get(k)))
+             return true;
       return false;
    }
    
