@@ -47,9 +47,9 @@ public class GameManager
    private static final int NUM_COLUMNS = 80;
 
    private final ActionListener taskPerformer = (ActionEvent)
-         ->
-   {
-      updateGame();
+         -> 
+         {
+            updateGame();
    };
 
    public enum playerEnum
@@ -187,7 +187,7 @@ public class GameManager
    private void prepGame()
    {
       for (int i = 0; i < numberOfPlayers; i++)
-         players[i] = new Snake(new Point2D.Double(5, 5), Snake.Direction.UP);
+         players[i] = new Snake(new Point2D.Double(5, 5), Snake.Direction.UP, i + 1);
       loadLevel(currentLevel);
       food = spawnFood(1);
    }
@@ -241,10 +241,11 @@ public class GameManager
             break;
          case startOfLevel:
             currentState = eventEnum.gameplayScreen;
-            gameBoard.stopTimer();
+            //gameBoard.stopTimer();
             gameBoard.speedUpTimer();
             audio.playSound("theme-fast.wav");
-            startGame();
+            //startGame();
+            timer.start();
             break;
          case playerDied:
             for (int i = 0; i < numberOfPlayers; i++)
@@ -255,7 +256,8 @@ public class GameManager
                currentState = eventEnum.gameplayScreen;
                respawn();
                food = spawnFood(1);
-               startGame();
+               //timer.start
+               //startGame();
             }
       }
    }
@@ -276,8 +278,8 @@ public class GameManager
     */
    private void startGame()
    {
-      timer.start();
-      gameBoard.startTimer();
+      //timer.start();
+      //gameBoard.startTimer();
    }
 
    /**
@@ -323,36 +325,37 @@ public class GameManager
     */
    private void updateGame()
    {
-      for (int i = 0; i < players.length; i++)
-      {
-         Point2D.Double headPos = players[i].getHeadLocation();
-         Collidable contents = gameBoard.getContents((int) headPos.x, (int) headPos.y);
-         if (players[i].checkCollison(contents))
-            if (contents.getClass() == Food.class)
-            {
-               players[i].eat(food[0]);
-                     numTimesEaten++;
-
-               if (      numTimesEaten == 8)
+      if (currentState == eventEnum.gameplayScreen)
+         for (int i = 0; i < players.length; i++)
+         {
+            Point2D.Double headPos = players[i].getHeadLocation();
+            Collidable contents = gameBoard.getContents((int) headPos.x, (int) headPos.y);
+            if (players[i].checkCollison(contents))
+               if (contents.getClass() == Food.class)
                {
-                  nextLevel();
+                  players[i].eat(food[0]);
+                  numTimesEaten++;
+
+                  if (numTimesEaten == 8)
+                  {
+                     nextLevel();
+                     return;
+                  }
+                  food = spawnFood(food[i].getValue() + 1);
+               }
+               else if (contents.getClass() == Wall.class)
+               {
+                  killPlayer(i);
                   return;
                }
-               food = spawnFood(food[i].getValue() + 1);
-            }
-            else if (contents.getClass() == Wall.class)
-            {
-               killPlayer(i);
-               return;
-            }
-         players[i].iterateForward();
-         for (Snake otherPlayer : players)
-            if (players[i].collidedWithOtherSnake(otherPlayer))
-            {
-               killPlayer(i);
-               return;
-            }
-      }
+            players[i].iterateForward();
+            for (Snake otherPlayer : players)
+               if (players[i].collidedWithOtherSnake(otherPlayer))
+               {
+                  killPlayer(i);
+                  return;
+               }
+         }
    }
 
    /**
@@ -361,7 +364,7 @@ public class GameManager
     */
    private void nextLevel()
    {
-      timer.stop();
+      //timer.stop();
       currentState = eventEnum.startOfLevel;
       currentLevel++;
       loadLevel(currentLevel);
@@ -395,9 +398,9 @@ public class GameManager
     */
    private void killPlayer(int playerIndex)
    {
-      timer.stop();
+      //timer.stop();
       players[playerIndex].die();
-            numTimesEaten = 0;
+      numTimesEaten = 0;
 
       lastDeath = playerIndex;
       currentState = eventEnum.playerDied;
@@ -429,7 +432,7 @@ public class GameManager
    public void pause()
    {
       currentState = eventEnum.paused;
-      timer.stop();
+      //timer.stop();
    }
 
    /**
@@ -438,7 +441,7 @@ public class GameManager
    public void unpause()
    {
       currentState = eventEnum.gameplayScreen;
-      timer.start();
+      //timer.start();
    }
 
    /**

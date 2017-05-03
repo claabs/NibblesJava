@@ -20,6 +20,9 @@ import java.awt.geom.Point2D;
 public class EmptyCell extends Collidable
 {
 
+   private final static Color COLOR_COLOR = new Color(0,0,170);
+   private final static Color MONO_COLOR = new Color(0,0,0);
+   
    /**
     This is the constructor for an EmptyCell, and all it needs is the position
     of the EmptyCell.
@@ -53,9 +56,9 @@ public class EmptyCell extends Collidable
    public static Color getDrawColor()
    {
       if (GameManager.monochrome)
-         return Color.black;
+         return MONO_COLOR;
       else
-         return Color.blue;
+         return COLOR_COLOR;
    }
 
    /**

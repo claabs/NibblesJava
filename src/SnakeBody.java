@@ -22,9 +22,9 @@ public class SnakeBody extends SnakeSegment
    
    @param oldEndOfSnake Old end of the snake.
    */
-   public SnakeBody(SnakeSegment oldEndOfSnake)
+   public SnakeBody(SnakeSegment oldEndOfSnake, Snake parent)
    {
-      super(oldEndOfSnake.getPosition(), oldEndOfSnake.getDirection());
+      super(oldEndOfSnake.getPosition(), oldEndOfSnake.getDirection(), parent);
    }
 
    /**
@@ -34,9 +34,9 @@ public class SnakeBody extends SnakeSegment
    @param spawnLocation Specific spawn location.
    @param spawnDirection Specific spawn direction.
    */
-   public SnakeBody(Point2D.Double spawnLocation, Snake.Direction spawnDirection)
+   public SnakeBody(Point2D.Double spawnLocation, Snake.Direction spawnDirection, Snake parent)
    {
-      super(spawnLocation, spawnDirection);
+      super(spawnLocation, spawnDirection, parent);
    }
 
 }

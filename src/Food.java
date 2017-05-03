@@ -4,10 +4,9 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 /**
- Course:  SE-3860 Spring 2017
- Project: Reengineering Project (Part 2) | Nibbles
+ Course: SE-3860 Spring 2017 Project: Reengineering Project (Part 2) | Nibbles
  Purpose: This class handles the snake's food. It will handle the construction
-          of the food and where the food should be positioned on a level.
+ of the food and where the food should be positioned on a level.
 
  @author Nick Sosinski
  @author Charlie Laabs
@@ -18,6 +17,8 @@ import java.awt.geom.Point2D;
 public class Food extends Collidable
 {
 
+   private final static Color COLOR_COLOR = new Color(255, 255, 255);
+   private final static Color MONO_COLOR = COLOR_COLOR;
    private final int value;
    private final int foodID;
 
@@ -75,10 +76,10 @@ public class Food extends Collidable
    }
 
    /**
-   This method generates a random hash code for this object and returns it.
-   
-   @return Random hash code for this object.
-   */
+    This method generates a random hash code for this object and returns it.
+
+    @return Random hash code for this object.
+    */
    @Override
    public int hashCode()
    {
@@ -87,24 +88,24 @@ public class Food extends Collidable
       hash = 43 * hash + this.foodID;
       return hash;
    }
-   
+
    /**
-    This method will draw the Food on the Graphics2D provided at the
-    location provided.
+    This method will draw the Food on the Graphics2D provided at the location
+    provided.
 
     @param g    The graphics on which to draw.
     @param xPos The x-coordinate at which to draw the object.
     @param yPos The y-coordinate at which to draw the object.
-   */
+    */
    @Override
    public void draw(Graphics2D g, int xPos, int yPos)
    {
       g.setColor(EmptyCell.getDrawColor());
       g.fillRect(xPos, yPos, width, height);
       if (GameManager.monochrome)
-         g.setColor(monoColor);
+         g.setColor(MONO_COLOR);
       else
-         g.setColor(color);
+         g.setColor(COLOR_COLOR);
       if (foodID == 0)
          g.drawString(Integer.toString(value), xPos, yPos + 4);
    }

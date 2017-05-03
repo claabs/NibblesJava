@@ -5,11 +5,10 @@ import java.awt.geom.Point2D;
 import java.util.Objects;
 
 /**
- Course:  SE-3860 Spring 2017
- Project: Reengineering Project (Part 2) | Nibbles
- Purpose: This class is an abstract class that manages the segment of a snake. 
-          The snake segment handles the drawing, moving, and setting a 
-          direction of a snake segment.
+ Course: SE-3860 Spring 2017 Project: Reengineering Project (Part 2) | Nibbles
+ Purpose: This class is an abstract class that manages the segment of a snake.
+ The snake segment handles the drawing, moving, and setting a direction of a
+ snake segment.
 
  @author Nick Sosinski
  @author Charlie Laabs
@@ -23,25 +22,24 @@ public abstract class SnakeSegment extends Collidable
    private Snake.Direction direction;
 
    /**
-   This constructor creates a new snake segment at a specific spawn point
-   and facing a specific direction. 
-   Also, the color of the snake segment is determined; namely, the snake
-   segment is yellow if the game is in color and the snake segment is white
-   if the game is in monochrome.
-   
-   @param spawnPoint Specific spawn point.
-   @param inDir Specific spawn direction.
-   */
-   public SnakeSegment(Point2D.Double spawnPoint, Snake.Direction inDir)
+    This constructor creates a new snake segment at a specific spawn point and
+    facing a specific direction. Also, the color of the snake segment is
+    determined; namely, the snake segment is yellow if the game is in color
+    and the snake segment is white if the game is in monochrome.
+
+    @param spawnPoint   Specific spawn point.
+    @param inDir        Specific spawn direction.
+    */
+   public SnakeSegment(Point2D.Double spawnPoint, Snake.Direction inDir, Snake parent)
    {
-      super(spawnPoint, GameManager.CHAR_WIDTH, GameManager.CHAR_WIDTH, Color.yellow, Color.white);
+      super(spawnPoint, GameManager.CHAR_WIDTH, GameManager.CHAR_WIDTH, parent.getColorColor(), parent.getMonoColor());
       direction = inDir;
    }
 
    /**
-   This method will move the snake segment forward in the direction of the
-   segments direction.
-   */
+    This method will move the snake segment forward in the direction of the
+    segments direction.
+    */
    public void moveForward()
    {
       //Left/Right math is reversed when dealing with drawing graphics
@@ -64,30 +62,30 @@ public abstract class SnakeSegment extends Collidable
    }
 
    /**
-   This method gets the position of the snake segment.
-   
-   @return The position of the snake segment.
-   */
+    This method gets the position of the snake segment.
+
+    @return The position of the snake segment.
+    */
    protected Point2D.Double getPosition()
    {
       return position;
    }
 
    /**
-   This method gets the direction that the snake segment is facing.
-   
-   @return The direction that the snake segment is facing.
-   */
+    This method gets the direction that the snake segment is facing.
+
+    @return The direction that the snake segment is facing.
+    */
    protected Snake.Direction getDirection()
    {
       return direction;
    }
 
    /**
-   This method will set the direction for the snake segment to face.
-   
-   @param inDir The direction for the snake segment to face.
-   */
+    This method will set the direction for the snake segment to face.
+
+    @param inDir The direction for the snake segment to face.
+    */
    protected void setDirection(Snake.Direction inDir)
    {
       direction = inDir;
@@ -113,10 +111,10 @@ public abstract class SnakeSegment extends Collidable
    }
 
    /**
-   This method generates a random hash code for this object and returns it.
-   
-   @return Random hash code for the object.
-   */
+    This method generates a random hash code for this object and returns it.
+
+    @return Random hash code for the object.
+    */
    @Override
    public int hashCode()
    {

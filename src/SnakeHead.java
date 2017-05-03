@@ -1,4 +1,5 @@
 
+import java.awt.Color;
 import java.awt.geom.Point2D;
 
 /**
@@ -23,9 +24,9 @@ public class SnakeHead extends SnakeSegment
    @param spawnPoint Specific spawn point.
    @param dir Specific spawn direction.
    */
-   SnakeHead(Point2D.Double spawnPoint, Snake.Direction dir)
+   SnakeHead(Point2D.Double spawnPoint, Snake.Direction dir, Snake parent)
    {
-      super(spawnPoint, dir);
+      super(spawnPoint, dir, parent);
    }
 
    /**

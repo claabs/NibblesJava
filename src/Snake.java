@@ -1,4 +1,5 @@
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.*;
@@ -21,15 +22,21 @@ public class Snake
 
    private static final int MAX_SNAKE_LENGTH = 1000;
    private static final int GROW_FACTOR = 4;
+   private static final Color PLAYER_1_COLORCOLOR = new Color(255, 255, 85);
+   private static final Color PLAYER_1_MONOCOLOR = new Color(255, 255, 255);
+   private static final Color PLAYER_2_COLORCOLOR = new Color(255, 85, 255);
+   private static final Color PLAYER_2_MONOCOLOR = new Color(170, 170, 170);
    private final List<SnakeSegment> body = new ArrayList();
    private int lives = 5;
    private int score = 0;
    private int newSegments;
-   private List<Direction> directions = new ArrayList<Direction>();
+   private final List<Direction> directions = new ArrayList<>();
    private final AudioEffectPlayer audio = new AudioEffectPlayer();
    private Point2D.Double initialSpawn;
    private Direction initialDirection;
    private Direction directionLastMoved;
+   private final Color color;
+   private final Color monoColor;
 
    public enum Direction
    {
@@ -42,11 +49,22 @@ public class Snake
 
     @param spawnPoint Initial spawn point of the snake.
     @param dir        Initial direction the snake will be facing.
+    @param playerNum  The player number used to determine color when drawing (starts at 1).
     */
-   public Snake(Point2D.Double spawnPoint, Direction dir)
+   public Snake(Point2D.Double spawnPoint, Direction dir, int playerNum)
    {
       initialDirection = dir;
       initialSpawn = spawnPoint;
+      if (playerNum == 1)
+      {
+         color = PLAYER_1_COLORCOLOR;
+         monoColor = PLAYER_1_MONOCOLOR;
+      }
+      else
+      {
+         color = PLAYER_2_COLORCOLOR;
+         monoColor = PLAYER_2_MONOCOLOR;
+      }
       respawn();
    }
 
@@ -63,15 +81,25 @@ public class Snake
       initialSpawn = newSpawn;
    }
 
+   public Color getColorColor()
+   {
+      return color;
+   }
+
+   public Color getMonoColor()
+   {
+      return monoColor;
+   }
+
    /**
     This method will respawn the snake at the initial spawn points with the
     initial spawn direction.
     */
-   public void respawn()
+   public final void respawn()
    {
       newSegments = 0;
       body.clear();
-      body.add(new SnakeHead(initialSpawn, initialDirection));
+      body.add(new SnakeHead(initialSpawn, initialDirection, this));
       Point2D.Double firstSegmentSpawnPoint = body.get(0).getPosition();
       Direction firstSegmentDirection = initialDirection;
       switch (initialDirection)
@@ -89,7 +117,7 @@ public class Snake
             firstSegmentSpawnPoint = new Point2D.Double(firstSegmentSpawnPoint.x - 1, firstSegmentSpawnPoint.y);
             break;
       }
-      body.add(new SnakeBody(firstSegmentSpawnPoint, firstSegmentDirection));
+      body.add(new SnakeBody(firstSegmentSpawnPoint, firstSegmentDirection, this));
    }
 
    /**
@@ -97,8 +125,16 @@ public class Snake
     */
    private void addSegment()
    {
-      body.add(new SnakeBody(body.get(body.size() - 1)));
+      body.add(new SnakeBody(body.get(body.size() - 1), this));
       newSegments++;
+   }
+
+   public Color getColor()
+   {
+      if (GameManager.monochrome)
+         return monoColor;
+      else
+         return color;
    }
 
    /**
