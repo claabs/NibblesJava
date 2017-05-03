@@ -190,6 +190,7 @@ public class GameManager
          players[i] = new Snake(new Point2D.Double(5, 5), Snake.Direction.UP, i + 1);
       loadLevel(currentLevel);
       food = spawnFood(1);
+      numTimesEaten = 0;
    }
 
    /**
