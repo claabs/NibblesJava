@@ -139,37 +139,37 @@ public class KeyboardListenerTest
       robot.delay(250);
       //Test P1 up
       robot.keyRelease(KeyEvent.VK_UP);
-      
+
       robot.delay(250);
       robot.keyPress(KeyEvent.VK_S);
       robot.delay(250);
       //Test P2 down
       robot.keyRelease(KeyEvent.VK_S);
-      
+
       robot.delay(250);
       robot.keyPress(KeyEvent.VK_LEFT);
       robot.delay(250);
       //Test P1 left
       robot.keyRelease(KeyEvent.VK_LEFT);
-      
+
       robot.delay(250);
       robot.keyPress(KeyEvent.VK_D);
       robot.delay(250);
       //Test P2 right
       robot.keyRelease(KeyEvent.VK_D);
-      
+
       robot.delay(250);
       robot.keyPress(KeyEvent.VK_DOWN);
       robot.delay(250);
       //Test P1 down
       robot.keyRelease(KeyEvent.VK_DOWN);
-      
+
       robot.delay(250);
       robot.keyPress(KeyEvent.VK_W);
       robot.delay(250);
       //Test P2 up
       robot.keyRelease(KeyEvent.VK_W);
-      
+
       robot.delay(250);
       robot.keyPress(KeyEvent.VK_RIGHT);
       robot.delay(250);
@@ -181,6 +181,44 @@ public class KeyboardListenerTest
       robot.delay(250);
       //Test P2 left
       robot.keyRelease(KeyEvent.VK_A);
+
+      for (int i = 0; i < 5; i++)
+      {
+         robot.delay(2000);
+         System.out.println("pressing space");
+         robot.keyPress(KeyEvent.VK_SPACE);
+         robot.delay(250);
+         robot.keyRelease(KeyEvent.VK_SPACE);
+      }
+
+      robot.delay(250);
+      robot.keyPress(KeyEvent.VK_Y);
+      robot.delay(250);
+      robot.keyRelease(KeyEvent.VK_Y);
+      System.out.println("Verify Game restarted");
+      robot.delay(250);
+      robot.keyPress(KeyEvent.VK_SPACE);
+      robot.delay(250);
+      robot.keyRelease(KeyEvent.VK_SPACE);
+
+      for (int i = 0; i < 5; i++)
+      {
+         robot.delay(2000);
+         System.out.println("pressing space");
+         robot.keyPress(KeyEvent.VK_SPACE);
+         robot.delay(250);
+         robot.keyRelease(KeyEvent.VK_SPACE);
+      }
+      robot.delay(250);
+      robot.keyPress(KeyEvent.VK_SPACE);
+      robot.delay(250);
+      robot.keyRelease(KeyEvent.VK_SPACE);
+      System.out.println("Verify Game closes");
+      robot.delay(250);
+      robot.keyPress(KeyEvent.VK_N);
+      robot.delay(250);
+      robot.keyRelease(KeyEvent.VK_N);
+      assertTrue(true);//If it got here it passed
 
    }
 
