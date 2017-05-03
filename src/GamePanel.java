@@ -42,6 +42,8 @@ public class GamePanel extends JPanel
             repaint();
    };
 
+   
+   
    public enum CellContents
    {
       EMPTY, WALL, FOOD, SNAKE, SNAKEHEAD
@@ -113,7 +115,7 @@ public class GamePanel extends JPanel
     */
    private void drawSparkles(Graphics2D g)
    {
-      g.setColor(Color.decode("#AA0000"));
+      g.setColor(new Color(170, 0, 0));
       for (int i = sparkleCycle; i < gameBoard.length; i += 5)
       {
          g.drawString("*", MARGIN_SIZE + i * GameManager.CHAR_WIDTH, MARGIN_SIZE + 12);
@@ -125,7 +127,7 @@ public class GamePanel extends JPanel
          g.drawString("*", MARGIN_SIZE + ((gameBoard.length - 1) * GameManager.CHAR_WIDTH), yOffset + i * GameManager.CHAR_WIDTH - 4);
          g.drawString("*", xOffset, yOffset + ((gameBoard[0].length - i) * GameManager.CHAR_WIDTH) - 6 * GameManager.CHAR_WIDTH);
       }
-      
+
       sparkleCycle = (sparkleCycle + 1) % 5;
 
    }
@@ -154,13 +156,13 @@ public class GamePanel extends JPanel
    private void showIntroScreen(Graphics2D g)
    {
       g.setFont(displayFont);
-      g.setColor(Color.black);
+      g.setColor(new Color(0, 0, 0));
       g.fillRect(0, 0, getWidth(), getHeight());
-      g.setColor(Color.white);
+      g.setColor(new Color(255, 255, 255));
       int yPos = MARGIN_SIZE + 4 * GameManager.CHAR_HEIGHT;
       int xPos = xOffset + 27 * GameManager.CHAR_WIDTH;
       g.drawString("Q B a s i c   N i b b l e s", xPos, yPos);
-      g.setColor(Color.decode("#AAAAAA"));
+      g.setColor(new Color(170, 170, 170));
       yPos += 2 * GameManager.CHAR_HEIGHT;
       xPos = xOffset + 20 * GameManager.CHAR_WIDTH;
       g.drawString("Copyright (C) Microsoft Corporation 1990", xPos, yPos);
@@ -207,14 +209,14 @@ public class GamePanel extends JPanel
    {
       Font arrowFont = new Font(Font.MONOSPACED, Font.BOLD, 14);
       g.setFont(arrowFont);
-      g.setColor(Color.gray);
+      g.setColor(new Color(170, 170, 170));
       int xPos = xOffset + 37 * GameManager.CHAR_WIDTH;
       int yPos = yOffset + 16 * GameManager.CHAR_HEIGHT;
       g.drawString("\u2191", xPos, yPos);
       yPos += GameManager.CHAR_HEIGHT;
       xPos = xOffset + 35 * GameManager.CHAR_WIDTH - 4;//Different because unicode arrow is not 8px wide
       g.drawString("\u2190", xPos, yPos);
-      xPos += 3.75*GameManager.CHAR_WIDTH;
+      xPos += 3.75 * GameManager.CHAR_WIDTH;
       g.drawString("\u2192", xPos, yPos);
       yPos += GameManager.CHAR_HEIGHT;
       xPos = xOffset + 37 * GameManager.CHAR_WIDTH;
@@ -241,7 +243,7 @@ public class GamePanel extends JPanel
          stringToShow += "_";
       int xPos = xOffset + 20 * GameManager.CHAR_WIDTH;
       int yPos = yOffset + 5 * GameManager.CHAR_HEIGHT;
-      g.setColor(Color.decode("#AAAAAA"));
+      g.setColor(new Color(170, 170, 170));
       g.drawString(stringToShow, xPos, yPos);
       xPos = xOffset + 21 * GameManager.CHAR_WIDTH;
       yPos += GameManager.CHAR_HEIGHT;
@@ -265,9 +267,9 @@ public class GamePanel extends JPanel
     */
    private void showNumberOfPlayersScreen(Graphics2D g, boolean focused)
    {
-      g.setColor(Color.black);
+      g.setColor(new Color(0, 0, 0));
       g.fillRect(0, 0, getWidth(), getHeight());
-      g.setColor(Color.decode("#AAAAAA"));
+      g.setColor(new Color(170, 170, 170));
       String stringToShow = "How many players (1 or 2)? ";
       int numberOfPlayers = manager.getNumberOfPlayers();
       if (numberOfPlayers == 1)
@@ -301,7 +303,7 @@ public class GamePanel extends JPanel
          stringToShow += "_";
       int xPos = xOffset + 14 * GameManager.CHAR_WIDTH;
       int yPos = yOffset + 12 * GameManager.CHAR_HEIGHT;
-      g.setColor(Color.decode("#AAAAAA"));
+      g.setColor(new Color(170, 170, 170));
       g.drawString(stringToShow, xPos, yPos);
    }
 
@@ -326,7 +328,7 @@ public class GamePanel extends JPanel
          stringToShow += "_";
       int xPos = xOffset + 16 * GameManager.CHAR_WIDTH;
       int yPos = yOffset + 14 * GameManager.CHAR_HEIGHT;
-      g.setColor(Color.decode("#AAAAAA"));
+      g.setColor(new Color(170, 170, 170));
       g.drawString(stringToShow, xPos, yPos);
    }
 
@@ -341,7 +343,7 @@ public class GamePanel extends JPanel
       if (manager.getLevel().getLevelNumber() != 1)
          paintPlayerInfoHeader(g);
       drawWhiteRedBox(g);
-      g.setColor(Color.white);
+      g.setColor(new Color(255, 255, 255));
       int xPos = xOffset + 30 * GameManager.CHAR_WIDTH;
       int yPos = yOffset + (int) (10.75 * GameManager.CHAR_HEIGHT);
       g.drawString("Level " + Integer.toString(manager.getLevel().getLevelNumber()) + ",  Push Space", xPos, yPos);
@@ -356,13 +358,13 @@ public class GamePanel extends JPanel
    {
       drawGameBoard(g);
       paintPlayerInfoHeader(g);
-      g.setColor(Color.white);
+      g.setColor(new Color(0, 0, 0));
       int xPos = xOffset + 23 * GameManager.CHAR_WIDTH;
       int yPos = yOffset + 8 * GameManager.CHAR_HEIGHT;
       int gWidth = 33 * GameManager.CHAR_WIDTH;
       int gHeight = 5 * GameManager.CHAR_HEIGHT;
       g.fillRect(xPos, yPos, gWidth, gHeight);
-      g.setColor(Color.red);
+      g.setColor(new Color(170, 0, 0));
       xPos = xOffset + 24 * GameManager.CHAR_WIDTH;
       yPos = yOffset + (int) (8.5 * GameManager.CHAR_HEIGHT);
       gWidth = 31 * GameManager.CHAR_WIDTH;
@@ -370,7 +372,7 @@ public class GamePanel extends JPanel
       g.fillRect(xPos, yPos, gWidth, gHeight);
       xPos = xOffset + 31 * GameManager.CHAR_WIDTH;
       yPos = yOffset + 10 * GameManager.CHAR_HEIGHT - GameManager.CHAR_WIDTH;
-      g.setColor(Color.white);
+      g.setColor(new Color(0, 0, 0));
       g.drawString("G A M E   O V E R", xPos, yPos);
       xPos = xOffset + 30 * GameManager.CHAR_WIDTH;
       yPos = yOffset + 12 * GameManager.CHAR_HEIGHT - GameManager.CHAR_WIDTH;
@@ -387,7 +389,7 @@ public class GamePanel extends JPanel
       drawGameBoard(g);
       paintPlayerInfoHeader(g);
       drawWhiteRedBox(g);
-      g.setColor(Color.white);
+      g.setColor(new Color(0, 0, 0));
       int xPos = xOffset + 26 * GameManager.CHAR_WIDTH;
       int yPos = yOffset + (int) (11 * GameManager.CHAR_HEIGHT);
       if (manager.getLastDeath() == 0)
@@ -498,7 +500,11 @@ public class GamePanel extends JPanel
             int yPos = yOffset + row * GameManager.CHAR_WIDTH;
             gameBoard[column][row].draw(g, xPos, yPos);
          }
-
+      if (manager.getMonochrome())
+         g.setColor(new Color(0, 0, 0));
+      else
+         g.setColor(new Color(0, 0, 170));
+      g.fillRect(xOffset, MARGIN_SIZE, gameBoard.length * GameManager.CHAR_WIDTH, GameManager.CHAR_HEIGHT);
    }
 
    /**
@@ -542,13 +548,13 @@ public class GamePanel extends JPanel
     */
    private void drawWhiteRedBox(Graphics2D g)
    {
-      g.setColor(Color.white);
+      g.setColor(new Color(255, 255, 255));
       int xPos = xOffset + 23 * GameManager.CHAR_WIDTH;
       int yPos = yOffset + 9 * GameManager.CHAR_HEIGHT;
       int gWidth = 33 * GameManager.CHAR_WIDTH;
       int gHeight = 3 * GameManager.CHAR_HEIGHT;
       g.fillRect(xPos, yPos, gWidth, gHeight);
-      g.setColor(Color.decode("#AA0000"));
+      g.setColor(new Color(170, 0, 0));
       xPos = xOffset + 24 * GameManager.CHAR_WIDTH;
       yPos = yOffset + (int) (9.5 * GameManager.CHAR_HEIGHT);
       gWidth = 31 * GameManager.CHAR_WIDTH;
@@ -565,7 +571,7 @@ public class GamePanel extends JPanel
    {
       drawGamePlayScreen(g);
       drawWhiteRedBox(g);
-      g.setColor(Color.white);
+      g.setColor(new Color(0, 0, 0));
       int xPos = xOffset + 26 * GameManager.CHAR_WIDTH;
       int yPos = yOffset + (int) (10.75 * GameManager.CHAR_HEIGHT);
       g.drawString("Game Paused ... Push Space", xPos, yPos);
@@ -580,9 +586,9 @@ public class GamePanel extends JPanel
    private void paintPlayerInfoHeader(Graphics2D g)
    {
       Snake[] snakes = manager.getSnakes();
-      g.setColor(Color.blue);
+      g.setColor(new Color(0, 0, 170));
       g.fillRect(MARGIN_SIZE, MARGIN_SIZE, GameManager.CHAR_WIDTH * gameBoard.length, GameManager.CHAR_HEIGHT);
-      g.setColor(Color.white);
+      g.setColor(new Color(255, 255, 255));
       int yPos = yOffset - 2;
       String sammyString = "SAMMY-->  Lives: "
             + Integer.toString(snakes[0].getLives())
