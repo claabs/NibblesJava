@@ -112,21 +112,20 @@ public class GamePanel extends JPanel
    */
    private void drawSparkles(Graphics2D g)
    {
-      g.setColor(Color.red);
+      g.setColor(Color.decode("#AA0000"));
       for (int i = sparkleCycle; i < gameBoard.length; i += 5)
       {
-         g.drawString("*", MARGIN_SIZE + i * GameManager.CHAR_WIDTH, MARGIN_SIZE + GameManager.CHAR_HEIGHT);
+         g.drawString("*", MARGIN_SIZE + i * GameManager.CHAR_WIDTH, MARGIN_SIZE + 12);
          int yPos = yOffset + (21 * GameManager.CHAR_HEIGHT);
          g.drawString("*", xOffset + (gameBoard.length - i) * GameManager.CHAR_WIDTH, yPos);
       }
-      for (int i = sparkleCycle; i < gameBoard[0].length - 4; i += 5)
+      for (int i = sparkleCycle; i < gameBoard[0].length - 5; i += 5)
       {
-         g.drawString("*", MARGIN_SIZE + ((gameBoard.length - 1) * GameManager.CHAR_WIDTH), yOffset + i * GameManager.CHAR_WIDTH - 2 * GameManager.CHAR_WIDTH);
-         g.drawString("*", xOffset, yOffset + ((gameBoard[0].length - i) * GameManager.CHAR_WIDTH) - 5 * GameManager.CHAR_WIDTH);
+         g.drawString("*", MARGIN_SIZE + ((gameBoard.length - 1) * GameManager.CHAR_WIDTH), yOffset + i * GameManager.CHAR_WIDTH - 4);
+         g.drawString("*", xOffset, yOffset + ((gameBoard[0].length - i) * GameManager.CHAR_WIDTH) - 6 * GameManager.CHAR_WIDTH);
       }
-      if (sparkleCycle >= 5)
-         sparkleCycle = 0;
-      sparkleCycle++;
+      
+      sparkleCycle = (sparkleCycle + 1) % 5;
 
    }
 

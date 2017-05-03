@@ -30,7 +30,7 @@ public class GameManager
    private Level level = null;
    private Snake players[];
    private final Timer timer;
-   private int updateInterval = 60;  // ms
+   private int updateInterval = 55;  // ms
    private final JFrame window;
    private Food[] food = new Food[2];
    private int numberOfPlayers = -1;
