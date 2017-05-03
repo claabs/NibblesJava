@@ -354,6 +354,7 @@ public class GameManager
       currentLevel++;
       loadLevel(currentLevel);
       food = spawnFood(1);
+      numTimesEaten = 0;
    }
 
    /**
