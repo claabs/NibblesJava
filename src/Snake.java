@@ -171,6 +171,23 @@ public class Snake
    }
 
    /**
+    This method will check to see if a collidable object (such as food) is
+    colliding with this snake.
+
+    @param coll And object that may be colliding with the snake.
+
+    @return True if the the collidable object has collided with any snake 
+            segments of this snake, false otherwise.
+    */
+   public boolean collidedWithCollidable(Collidable coll)
+   {
+      for (int k = 0; k < body.size(); k++)
+         if (checkCollison(coll))
+            return true;
+      return false;
+   }
+   
+   /**
     This method will grow the body of the snake by the specified grow value.
 
     @param growValue Value to which the snake will grow by.

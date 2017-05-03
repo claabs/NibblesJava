@@ -194,7 +194,7 @@ public class GameManager
    }
 
    /**
-    This method will spawn the food randomly. DOES NOT CHECK FOR SNAKE!
+    This method will spawn the food randomly.
 
     @param foodValue The value of the food.
 
@@ -205,13 +205,32 @@ public class GameManager
    {
       Food food1 = new Food(foodValue, getRandomPosition(), 0);
       Food food2 = new Food(foodValue, new Point2D.Double(food1.position.x, food1.position.y - 1), 1);
-      if (level.getLevelGrid()[(int) food2.position.x][(int) food2.position.y].getClass() == EmptyCell.class)
+      if ( canFoodSpawn(food1) && canFoodSpawn(food2) )
          return new Food[]
          {
             food1, food2
          };
       else
          return spawnFood(foodValue);
+   }
+   
+   /**
+    This method checks for obstacles in the way of a food spawn.
+
+    @param food A food being checked for placement.
+
+    @return Whether or not the space is clear and the food can spawn there.
+    */
+   private boolean canFoodSpawn( Food food )
+   {
+      if ( level.getLevelGrid()[(int) food.position.x][(int) food.position.y].getClass() != EmptyCell.class )
+         return false;
+      for ( int i = 0; i < players.length; i++ )
+      {
+         if ( players[i].collidedWithCollidable(food) )
+            return false;
+      }
+      return true;
    }
 
    /**
@@ -359,7 +378,7 @@ public class GameManager
 
    /**
     This method will return a random position on the level that is an
-    EmptyCell. DOES NOT CHECK FOR SNAKE!!!
+    EmptyCell.
 
     @return
     */
