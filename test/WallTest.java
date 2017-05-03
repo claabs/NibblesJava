@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import java.awt.Graphics2D;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -45,6 +46,22 @@ public class WallTest
    @Test
    public void testSomeMethod()
    {
+   }
+
+   /**
+    * Test of draw method, of class Wall.
+    */
+   @Test
+   public void testDraw()
+   {
+      System.out.println("draw");
+      Graphics2D g = null;
+      int xPos = 0;
+      int yPos = 0;
+      Wall instance = null;
+      instance.draw(g, xPos, yPos);
+      // TODO review the generated test code and remove the default call to fail.
+      fail("The test case is a prototype.");
    }
    
 }

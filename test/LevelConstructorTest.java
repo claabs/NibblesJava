@@ -74,8 +74,9 @@ public class LevelConstructorTest
          for (int row = 1; row < 47; row++)
             tempGrid[col][row] = GamePanel.CellContents.EMPTY;
 
-      Level level = new Level(tempGrid, tempOrientations, tempSpawns);
-      assertTrue(level.equals(instance.getLevel(0)));
+      //Level level = new Level(tempGrid, tempOrientations, tempSpawns);
+      //assertTrue(level.equals(instance.getLevel(0)));
+      fail("Not done");
    }
 
 }

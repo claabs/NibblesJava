@@ -11,10 +11,9 @@ import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
- Course:  SE-3860 Spring 2017
- Project: Reengineering Project (Part 2) | Nibbles
- Purpose: This class handles the drawing of all of the various game 
-          level components on the games panel.
+ Course: SE-3860 Spring 2017 Project: Reengineering Project (Part 2) | Nibbles
+ Purpose: This class handles the drawing of all of the various game level
+ components on the games panel.
 
  @author Nick Sosinski
  @author Charlie Laabs
@@ -24,6 +23,7 @@ import javax.swing.*;
  */
 public class GamePanel extends JPanel
 {
+
    private Font displayFont;
    private static final int MARGIN_SIZE = 0;
    private Collidable gameBoard[][];
@@ -33,6 +33,7 @@ public class GamePanel extends JPanel
    private final int xOffset;
    private final int yOffset;
    private boolean flashState;
+   private final File fontFile = new File(getClass().getClassLoader().getResource("LessPerfectDOSVGA.ttf").getFile());
    private final GameManager manager;
    private final AudioEffectPlayer audio = new AudioEffectPlayer();
    private ActionListener taskPerformer = (ActionEvent)
@@ -47,13 +48,13 @@ public class GamePanel extends JPanel
    };
 
    /**
-   This constructor builds a new game panel with a specified width, height,
-   and a game manager.
-   
-   @param boardWidth Width of the board.
-   @param boardHeight Height of the board.
-   @param inManager To-be active game manager.
-   */
+    This constructor builds a new game panel with a specified width, height,
+    and a game manager.
+
+    @param boardWidth  Width of the board.
+    @param boardHeight Height of the board.
+    @param inManager   To-be active game manager.
+    */
    public GamePanel(int boardWidth, int boardHeight, GameManager inManager)
    {
       sparkleCycle = 0;
@@ -68,48 +69,48 @@ public class GamePanel extends JPanel
       timer = new Timer(15, taskPerformer);
       timer.start();
       audio.playSound("theme-slow.wav");
-      File fontFile = new File(getClass().getClassLoader().getResource("LessPerfectDOSVGA.ttf").getFile());
       try
       {
-         displayFont = Font.createFont(Font.TRUETYPE_FONT,fontFile);
+         displayFont = Font.createFont(Font.TRUETYPE_FONT, fontFile);
       }
       catch (FontFormatException | IOException ex)
       {
          System.out.println("Error: Font not found.");
       }
       displayFont = displayFont.deriveFont(16f);
-      
+
    }
 
    /**
-   This method 
-   
-   @param column
-   @param row
-   @return 
-   */
+    This method
+
+    @param column
+    @param row
+
+    @return
+    */
    public Collidable getContents(int column, int row)
    {
       return gameBoard[column][row];
    }
 
    /**
-   This method 
-   
-   @param column
-   @param row
-   @param contents 
-   */
+    This method
+
+    @param column
+    @param row
+    @param contents
+    */
    private void setContents(double column, double row, Collidable contents)
    {
       gameBoard[(int) column][(int) row] = contents;
    }
 
    /**
-   This method will draw sparkles along the border of the intro screen.
-   
-   @param g Graphics to be drawn upon.
-   */
+    This method will draw sparkles along the border of the intro screen.
+
+    @param g Graphics to be drawn upon.
+    */
    private void drawSparkles(Graphics2D g)
    {
       g.setColor(Color.decode("#AA0000"));
@@ -130,26 +131,26 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method will slow the timer down.
-   */
+    This method will slow the timer down.
+    */
    public void slowTimerDown()
    {
       timer.setDelay(250);
    }
 
    /**
-   This method will speed the timer up.
-   */
+    This method will speed the timer up.
+    */
    public void speedUpTimer()
    {
       timer.setDelay(20);
    }
 
    /**
-   This method will draw/display the intro screen.
-   
-   @param g Graphics to be drawn upon.
-   */
+    This method will draw/display the intro screen.
+
+    @param g Graphics to be drawn upon.
+    */
    private void showIntroScreen(Graphics2D g)
    {
       g.setFont(displayFont);
@@ -185,13 +186,13 @@ public class GamePanel extends JPanel
       g.drawString("(Up)                   (Up)", xPos, yPos);
       yPos += GameManager.CHAR_HEIGHT;
       xPos = xOffset + 12 * GameManager.CHAR_WIDTH;
-      g.drawString("P - Pause                " + '\u2191' + "                      W", xPos, yPos);
+      g.drawString("P - Pause                                       W", xPos, yPos);
       yPos += GameManager.CHAR_HEIGHT;
-      xPos = xOffset + 28 * GameManager.CHAR_WIDTH - 2;//Different because unicode arrow is not 8px wide
-      g.drawString("(Left) " + '\u2190' + "  " + '\u2192' + " (Right)   (Left) A   D (Right)", xPos, yPos);
+      xPos = xOffset + 28 * GameManager.CHAR_WIDTH;//Different because unicode arrow is not 8px wide
+      g.drawString("(Left)      (Right)    (Left) A   D (Right)", xPos, yPos);
       yPos += GameManager.CHAR_HEIGHT;
       xPos = xOffset + 37 * GameManager.CHAR_WIDTH;
-      g.drawString('\u2193' + "                      S", xPos, yPos);
+      g.drawString("                       S", xPos, yPos);
       yPos += GameManager.CHAR_HEIGHT;
       xPos = xOffset + 34 * GameManager.CHAR_WIDTH;
       g.drawString("(Down)                 (Down)", xPos, yPos);
@@ -199,16 +200,36 @@ public class GamePanel extends JPanel
       xPos = xOffset + 27 * GameManager.CHAR_WIDTH;
       g.drawString("Press any key to continue", xPos, yPos);
       drawSparkles(g);
+      drawArrowsOnIntroScreen(g);
+   }
+
+   private void drawArrowsOnIntroScreen(Graphics2D g)
+   {
+      Font arrowFont = new Font(Font.MONOSPACED, Font.BOLD, 14);
+      g.setFont(arrowFont);
+      g.setColor(Color.gray);
+      int xPos = xOffset + 37 * GameManager.CHAR_WIDTH;
+      int yPos = yOffset + 16 * GameManager.CHAR_HEIGHT;
+      g.drawString("\u2191", xPos, yPos);
+      yPos += GameManager.CHAR_HEIGHT;
+      xPos = xOffset + 35 * GameManager.CHAR_WIDTH - 4;//Different because unicode arrow is not 8px wide
+      g.drawString("\u2190", xPos, yPos);
+      xPos += 3.75*GameManager.CHAR_WIDTH;
+      g.drawString("\u2192", xPos, yPos);
+      yPos += GameManager.CHAR_HEIGHT;
+      xPos = xOffset + 37 * GameManager.CHAR_WIDTH;
+      g.drawString("\u2193", xPos, yPos);
+      g.setFont(displayFont);
    }
 
    /**
-   This method will draw/display the skill level screen.
-   
-   @param g Graphics to be drawn upon.
-   @param focused Determines whether the underscore character should be
-   flashing if true, false otherwise. It is primarily meant to draw the
-   focus of the user.
-   */
+    This method will draw/display the skill level screen.
+
+    @param g       Graphics to be drawn upon.
+    @param focused Determines whether the underscore character should be
+                   flashing if true, false otherwise. It is primarily meant to
+                   draw the focus of the user.
+    */
    private void showSkillLevelScreen(Graphics2D g, boolean focused)
    {
       showNumberOfPlayersScreen(g, false);
@@ -235,13 +256,13 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method will draw/display the number of players screen.
-   
-   @param g Graphics to be drawn upon.
-   @param focused Determines whether the underscore character should be
-   flashing if true, false otherwise. It is primarily meant to draw the
-   focus of the user.
-   */
+    This method will draw/display the number of players screen.
+
+    @param g       Graphics to be drawn upon.
+    @param focused Determines whether the underscore character should be
+                   flashing if true, false otherwise. It is primarily meant to
+                   draw the focus of the user.
+    */
    private void showNumberOfPlayersScreen(Graphics2D g, boolean focused)
    {
       g.setColor(Color.black);
@@ -261,13 +282,13 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method will draw/display the increase speed screen.
-   
-   @param g Graphics to be drawn upon.
-   @param focused Determines whether the underscore character should be
-   flashing if true, false otherwise. It is primarily meant to draw the
-   focus of the user.
-   */
+    This method will draw/display the increase speed screen.
+
+    @param g       Graphics to be drawn upon.
+    @param focused Determines whether the underscore character should be
+                   flashing if true, false otherwise. It is primarily meant to
+                   draw the focus of the user.
+    */
    private void showIncreaseSpeedScreen(Graphics2D g, boolean focused)
    {
       showSkillLevelScreen(g, false);
@@ -285,14 +306,14 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method will display the select whether the game should be in color
-   or monochrome screen.
-   
-   @param g Graphics to be drawn upon.
-   @param focused Determines whether the underscore character should be
-   flashing if true, false otherwise. It is primarily meant to draw the
-   focus of the user.
-   */
+    This method will display the select whether the game should be in color or
+    monochrome screen.
+
+    @param g       Graphics to be drawn upon.
+    @param focused Determines whether the underscore character should be
+                   flashing if true, false otherwise. It is primarily meant to
+                   draw the focus of the user.
+    */
    private void showMonochromeOrColorScreen(Graphics2D g, boolean focused)
    {
       showIncreaseSpeedScreen(g, false);
@@ -310,13 +331,15 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method will draw/display the start of the level screen.
-   
-   @param g Graphics to be drawn upon.
-   */
+    This method will draw/display the start of the level screen.
+
+    @param g Graphics to be drawn upon.
+    */
    private void showStartOfLevelScreen(Graphics2D g)
    {
       drawGameBoard(g);
+      if (manager.getLevel().getLevelNumber() != 1)
+         paintPlayerInfoHeader(g);
       drawWhiteRedBox(g);
       g.setColor(Color.white);
       int xPos = xOffset + 30 * GameManager.CHAR_WIDTH;
@@ -325,13 +348,14 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method will draw/display the game over screen.
-   
-   @param g Graphics to be drawn upon.
-   */
+    This method will draw/display the game over screen.
+
+    @param g Graphics to be drawn upon.
+    */
    private void showGameOverScreen(Graphics2D g)
    {
       drawGameBoard(g);
+      paintPlayerInfoHeader(g);
       g.setColor(Color.white);
       int xPos = xOffset + 23 * GameManager.CHAR_WIDTH;
       int yPos = yOffset + 8 * GameManager.CHAR_HEIGHT;
@@ -354,13 +378,14 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method will draw/display the screen notifying that the player died.
-   
-   @param g Graphics to be drawn upon.
-   */
+    This method will draw/display the screen notifying that the player died.
+
+    @param g Graphics to be drawn upon.
+    */
    private void showPlayerDiedScreen(Graphics2D g)
    {
       drawGameBoard(g);
+      paintPlayerInfoHeader(g);
       drawWhiteRedBox(g);
       g.setColor(Color.white);
       int xPos = xOffset + 26 * GameManager.CHAR_WIDTH;
@@ -372,11 +397,11 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method will paint the screen depending on what state the game
-   manager is in.
-   
-   @param g Graphics to be drawn upon.
-   */
+    This method will paint the screen depending on what state the game manager
+    is in.
+
+    @param g Graphics to be drawn upon.
+    */
    @Override
    public void paintComponent(Graphics g)
    {
@@ -420,10 +445,10 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method will draw the play screen of the game.
-   
-   @param g Graphics to be drawn upon.
-   */
+    This method will draw the play screen of the game.
+
+    @param g Graphics to be drawn upon.
+    */
    private void drawGamePlayScreen(Graphics2D g)
    {
       drawGameBoardWithFood(g);
@@ -431,25 +456,25 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method will stop the timer.
-   */
+    This method will stop the timer.
+    */
    public void stopTimer()
    {
       timer.stop();
    }
 
    /**
-   This method will start the timer.
-   */
+    This method will start the timer.
+    */
    public void startTimer()
    {
       timer.start();
    }
 
    /**
-   This method will load the level, set by the game manager, onto the game 
-   board.
-   */
+    This method will load the level, set by the game manager, onto the game
+    board.
+    */
    private void loadLevel()
    {
       level = manager.getLevel();
@@ -459,10 +484,10 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method will draw the game board.
-   
-   @param g Graphics to be drawn upon.
-   */
+    This method will draw the game board.
+
+    @param g Graphics to be drawn upon.
+    */
    private void drawGameBoard(Graphics2D g)
    {
       loadLevel();
@@ -473,15 +498,14 @@ public class GamePanel extends JPanel
             int yPos = yOffset + row * GameManager.CHAR_WIDTH;
             gameBoard[column][row].draw(g, xPos, yPos);
          }
-      paintPlayerInfoHeader(g);
 
    }
 
    /**
-   This method will draw the game board with food on it.
-   
-   @param g Graphics to be drawn upon.
-   */
+    This method will draw the game board with food on it.
+
+    @param g Graphics to be drawn upon.
+    */
    private void drawGameBoardWithFood(Graphics2D g)
    {
       loadLevel();
@@ -500,22 +524,22 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method will draw the snakes.
-   
-   @param g Graphics to be drawn upon.
-   */
+    This method will draw the snakes.
+
+    @param g Graphics to be drawn upon.
+    */
    private void drawSnakes(Graphics2D g)
    {
       for (Snake snake : manager.getSnakes())
          snake.draw(g, xOffset, yOffset);
    }
-   
+
    /**
-   This method will draw the white red box displayed before the start of each
-   round, at the end of each round, and during pause screens.
-   
-   @param g Graphics to be drawn upon.
-   */
+    This method will draw the white red box displayed before the start of each
+    round, at the end of each round, and during pause screens.
+
+    @param g Graphics to be drawn upon.
+    */
    private void drawWhiteRedBox(Graphics2D g)
    {
       g.setColor(Color.white);
@@ -533,10 +557,10 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method will draw the pause screen when the game is paused.
-   
-   @param g Graphics to be drawn upon.
-   */
+    This method will draw the pause screen when the game is paused.
+
+    @param g Graphics to be drawn upon.
+    */
    private void drawPauseScreen(Graphics2D g)
    {
       drawGamePlayScreen(g);
@@ -548,11 +572,11 @@ public class GamePanel extends JPanel
    }
 
    /**
-   This method will paint the player information that is display at the
-   top of the game panel.
-   
-   @param g Graphics to be drawn upon.
-   */
+    This method will paint the player information that is display at the top
+    of the game panel.
+
+    @param g Graphics to be drawn upon.
+    */
    private void paintPlayerInfoHeader(Graphics2D g)
    {
       Snake[] snakes = manager.getSnakes();

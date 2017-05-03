@@ -4,6 +4,8 @@
  and open the template in the editor.
  */
 
+import java.awt.Graphics;
+import java.awt.geom.Point2D;
 import javax.swing.JFrame;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -49,8 +51,7 @@ public class GamePanelTest
       window.setTitle("Nibbles - .min.jHawks V2");
       window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       window.setVisible(true);
-      instance = new GamePanel(WIDTH, HEIGHT, CELL_SIZE,
-            new GameManager(new JFrame()));
+      instance = new GamePanel(WIDTH, HEIGHT, new GameManager(new JFrame()));
       window.add(instance);
    }
 
@@ -66,15 +67,7 @@ public class GamePanelTest
    public void testGetContents()
    {
       System.out.println("getContents");
-      for (int i = 0; i < GamePanel.CellContents.values().length - 1; i++)
-      {
-         for (int column = 0; column < WIDTH - 1; column++)
-            for (int row = 0; row < HEIGHT - 1; row++)
-               instance.setContents(column, row, GamePanel.CellContents.values()[i]);
-         for (int column = 0; column < WIDTH - 1; column++)
-            for (int row = 0; row < HEIGHT - 1; row++)
-               assertTrue(GamePanel.CellContents.values()[i] == instance.getContents(column, row));
-      }
+      fail("The test case is a prototype");
    }
 
    /**
@@ -84,16 +77,73 @@ public class GamePanelTest
    public void testSetContents() throws InterruptedException
    {
       System.out.println("setContents");
-      for (int i = 0; i < GamePanel.CellContents.values().length - 1; i++)
-      {
-         for (int column = 0; column < WIDTH - 1; column++)
-            for (int row = 0; row < HEIGHT - 1; row++)
-               instance.setContents(column, row, GamePanel.CellContents.values()[i]);
-         window.invalidate();
-         for (int column = 0; column < WIDTH - 1; column++)
-            for (int row = 0; row < HEIGHT - 1; row++)
-               assertTrue(GamePanel.CellContents.values()[i] == instance.getContents(column, row));
-      }
+      fail("The test case is a prototype");
+   }
+
+   /**
+    Test of slowTimerDown method, of class GamePanel.
+    */
+   @Test
+   public void testSlowTimerDown()
+   {
+      System.out.println("slowTimerDown");
+      GamePanel instance = null;
+      instance.slowTimerDown();
+      // TODO review the generated test code and remove the default call to fail.
+      fail("The test case is a prototype.");
+   }
+
+   /**
+    Test of speedUpTimer method, of class GamePanel.
+    */
+   @Test
+   public void testSpeedUpTimer()
+   {
+      System.out.println("speedUpTimer");
+      GamePanel instance = null;
+      instance.speedUpTimer();
+      // TODO review the generated test code and remove the default call to fail.
+      fail("The test case is a prototype.");
+   }
+
+   /**
+    Test of paintComponent method, of class GamePanel.
+    */
+   @Test
+   public void testPaintComponent()
+   {
+      System.out.println("paintComponent");
+      Graphics g = null;
+      GamePanel instance = null;
+      instance.paintComponent(g);
+      // TODO review the generated test code and remove the default call to fail.
+      fail("The test case is a prototype.");
+   }
+
+   /**
+    Test of stopTimer method, of class GamePanel.
+    */
+   @Test
+   public void testStopTimer()
+   {
+      System.out.println("stopTimer");
+      GamePanel instance = null;
+      instance.stopTimer();
+      // TODO review the generated test code and remove the default call to fail.
+      fail("The test case is a prototype.");
+   }
+
+   /**
+    Test of startTimer method, of class GamePanel.
+    */
+   @Test
+   public void testStartTimer()
+   {
+      System.out.println("startTimer");
+      GamePanel instance = null;
+      instance.startTimer();
+      // TODO review the generated test code and remove the default call to fail.
+      fail("The test case is a prototype.");
    }
 
 }

@@ -89,77 +89,6 @@ public class GameManagerTest
    }
 
    /**
-    Test of isPaused method, of class GameManager.
-    */
-   @Test
-   public void testIsPaused() throws InterruptedException
-   {
-      System.out.println("isPaused");
-      instance.pause();
-      Thread.sleep(2500);
-      assertTrue(instance.isPaused());
-      instance.unpause();
-      Thread.sleep(2500);
-      assertFalse(instance.isPaused());
-   }
-
-   /**
-    Test of setPlayerDirection method, of class GameManager.
-    */
-   @Test
-   public void testSetPlayerDirection()
-   {
-      System.out.println("setSnakeDirection");
-      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.UP);
-      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.RIGHT);
-      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.RIGHT);
-      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.UP);
-      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.UP);
-      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.LEFT);
-      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.LEFT);
-      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.DOWN);
-      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.DOWN);
-
-      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.UP);
-      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.RIGHT);
-      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.RIGHT);
-      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.UP);
-      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.UP);
-      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.LEFT);
-      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.LEFT);
-      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.DOWN);
-      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.DOWN);
-   }
-
-   /**
-    Test of getDirectionLastMoved method, of class GameManager.
-    */
-   @Test
-   public void testGetSnakeDirection()
-   {
-      System.out.println("getSnakeDirection");
-      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.UP);
-      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.RIGHT);
-      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.RIGHT);
-      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.UP);
-      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.UP);
-      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.LEFT);
-      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.LEFT);
-      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_ONE, Snake.Direction.DOWN);
-      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_ONE) == Snake.Direction.DOWN);
-
-      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.UP);
-      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.RIGHT);
-      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.RIGHT);
-      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.UP);
-      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.UP);
-      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.LEFT);
-      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.LEFT);
-      instance.setPlayerDirection(GameManager.playerEnum.PLAYER_TWO, Snake.Direction.DOWN);
-      assertTrue(instance.getDirectionLastMoved(GameManager.playerEnum.PLAYER_TWO) == Snake.Direction.DOWN);
-   }
-
-   /**
     Test of getSnakes method, of class GameManager.
     */
    @Test
@@ -178,7 +107,7 @@ public class GameManagerTest
          assertTrue(expectedSnakes[i].equals(result[i]));
        */
       Snake[] result = instance.getSnakes();
-      assertTrue(new Snake(new Point2D.Double(20, 20), Snake.Direction.UP).equals(result[0]));
+      assertTrue(new Snake(new Point2D.Double(20, 20), Snake.Direction.UP, 0).equals(result[0]));
    }
 
    /**
@@ -188,7 +117,7 @@ public class GameManagerTest
    public void testGetFood()
    {
       System.out.println("getFood");
-      assertTrue(instance.getFood().equals(new Food(1, new Point2D.Double(30, 30))));
+      assertTrue(instance.getFood().equals(new Food(1, new Point2D.Double(30, 30), 0)));
    }
 
    /**
@@ -201,25 +130,6 @@ public class GameManagerTest
       assertTrue(instance.getNumberOfPlayers() == 1);
    }
 
-   /**
-    Test of getPlayerLives method, of class GameManager.
-    */
-   @Test
-   public void testGetPlayerLives()
-   {
-      System.out.println("getPlayerLives");
-      assertTrue(instance.getPlayerLives(GameManager.playerEnum.PLAYER_ONE) == 5);
-   }
-
-   /**
-    Test of getPlayerScore method, of class GameManager.
-    */
-   @Test
-   public void testGetPlayerScore()
-   {
-      System.out.println("getPlayerScore");
-      assertTrue(instance.getPlayerScore(GameManager.playerEnum.PLAYER_ONE) == 0);
-   }
 
    /**
     Test of getLevel method, of class GameManager.
@@ -229,6 +139,163 @@ public class GameManagerTest
    {
       System.out.println("getLevel");
       assertTrue(instance.getLevel() == null);
+   }
+
+   /**
+    * Test of setNumberOfPlayers method, of class GameManager.
+    */
+   @Test
+   public void testSetNumberOfPlayers()
+   {
+      System.out.println("setNumberOfPlayers");
+      int inNumberOfPlayers = 0;
+      GameManager instance = null;
+      instance.setNumberOfPlayers(inNumberOfPlayers);
+      // TODO review the generated test code and remove the default call to fail.
+      fail("The test case is a prototype.");
+   }
+
+   /**
+    * Test of getSkill method, of class GameManager.
+    */
+   @Test
+   public void testGetSkill()
+   {
+      System.out.println("getSkill");
+      GameManager instance = null;
+      int expResult = 0;
+      int result = instance.getSkill();
+      assertEquals(expResult, result);
+      // TODO review the generated test code and remove the default call to fail.
+      fail("The test case is a prototype.");
+   }
+
+   /**
+    * Test of setSkill method, of class GameManager.
+    */
+   @Test
+   public void testSetSkill()
+   {
+      System.out.println("setSkill");
+      int inSkill = 0;
+      GameManager instance = null;
+      instance.setSkill(inSkill);
+      // TODO review the generated test code and remove the default call to fail.
+      fail("The test case is a prototype.");
+   }
+
+   /**
+    * Test of getCurrentState method, of class GameManager.
+    */
+   @Test
+   public void testGetCurrentState()
+   {
+      System.out.println("getCurrentState");
+      GameManager instance = null;
+      GameManager.eventEnum expResult = null;
+      GameManager.eventEnum result = instance.getCurrentState();
+      assertEquals(expResult, result);
+      // TODO review the generated test code and remove the default call to fail.
+      fail("The test case is a prototype.");
+   }
+
+   /**
+    * Test of getIncreaseSpeed method, of class GameManager.
+    */
+   @Test
+   public void testGetIncreaseSpeed()
+   {
+      System.out.println("getIncreaseSpeed");
+      GameManager instance = null;
+      boolean expResult = false;
+      boolean result = instance.getIncreaseSpeed();
+      assertEquals(expResult, result);
+      // TODO review the generated test code and remove the default call to fail.
+      fail("The test case is a prototype.");
+   }
+
+   /**
+    * Test of setIncreaseSpeed method, of class GameManager.
+    */
+   @Test
+   public void testSetIncreaseSpeed()
+   {
+      System.out.println("setIncreaseSpeed");
+      boolean inIncreaseSpeed = false;
+      GameManager instance = null;
+      instance.setIncreaseSpeed(inIncreaseSpeed);
+      // TODO review the generated test code and remove the default call to fail.
+      fail("The test case is a prototype.");
+   }
+
+   /**
+    * Test of getMonochrome method, of class GameManager.
+    */
+   @Test
+   public void testGetMonochrome()
+   {
+      System.out.println("getMonochrome");
+      GameManager instance = null;
+      boolean expResult = false;
+      boolean result = instance.getMonochrome();
+      assertEquals(expResult, result);
+      // TODO review the generated test code and remove the default call to fail.
+      fail("The test case is a prototype.");
+   }
+
+   /**
+    * Test of setMonochrome method, of class GameManager.
+    */
+   @Test
+   public void testSetMonochrome()
+   {
+      System.out.println("setMonochrome");
+      boolean isInMonochrome = false;
+      GameManager instance = null;
+      instance.setMonochrome(isInMonochrome);
+      // TODO review the generated test code and remove the default call to fail.
+      fail("The test case is a prototype.");
+   }
+
+   /**
+    * Test of restart method, of class GameManager.
+    */
+   @Test
+   public void testRestart()
+   {
+      System.out.println("restart");
+      GameManager instance = null;
+      instance.restart();
+      // TODO review the generated test code and remove the default call to fail.
+      fail("The test case is a prototype.");
+   }
+
+   /**
+    * Test of progressState method, of class GameManager.
+    */
+   @Test
+   public void testProgressState()
+   {
+      System.out.println("progressState");
+      GameManager instance = null;
+      instance.progressState();
+      // TODO review the generated test code and remove the default call to fail.
+      fail("The test case is a prototype.");
+   }
+
+   /**
+    * Test of getLastDeath method, of class GameManager.
+    */
+   @Test
+   public void testGetLastDeath()
+   {
+      System.out.println("getLastDeath");
+      GameManager instance = null;
+      int expResult = 0;
+      int result = instance.getLastDeath();
+      assertEquals(expResult, result);
+      // TODO review the generated test code and remove the default call to fail.
+      fail("The test case is a prototype.");
    }
 
 }

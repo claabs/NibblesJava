@@ -4,7 +4,9 @@
  and open the template in the editor.
  */
 
+import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
+import java.util.Random;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -38,7 +40,7 @@ public class FoodTest
    @Before
    public void setUp()
    {
-      instance = new Food(1, new Point2D.Double(10, 20));
+      instance = new Food(1, new Point2D.Double(10, 20), 0);
    }
 
    @After
@@ -67,42 +69,47 @@ public class FoodTest
    }
 
    /**
-    Test of setValue method, of class Food.
-    */
-   @Test
-   public void testSetValue()
-   {
-      System.out.println("setValue");
-      assertTrue(instance.getValue() == 1);
-      for (int i = 0; i < 500; i++)
-      {
-         instance.setValue(i);
-         assertTrue(instance.getValue() == i);
-      }
-   }
-
-   /**
-    Test of setPosition method, of class Food.
-    */
-   @Test
-   public void testSetPosition()
-   {
-      System.out.println("setPosition");
-      assertTrue(instance.getPosition().equals(new Point2D.Double(10, 20)));
-      instance.setPosition(new Point2D.Double(5, 10));
-      assertTrue(instance.getPosition().equals(new Point2D.Double(5, 10)));
-   }
-
-   /**
     Test of equals method, of class Food.
     */
    @Test
    public void testEquals()
    {
       System.out.println("equals");
-      assertTrue(instance.equals(new Food(1, new Point2D.Double(10, 20))));
-      assertFalse(instance.equals(new Food(1, new Point2D.Double(20, 20))));
-      assertFalse(instance.equals(new Food(2, new Point2D.Double(10, 20))));
+      assertTrue(instance.equals(new Food(1, new Point2D.Double(10, 20),0)));
+      assertFalse(instance.equals(new Food(1, new Point2D.Double(20, 20),0)));
+      assertFalse(instance.equals(new Food(2, new Point2D.Double(10, 20),0)));
       assertFalse(instance.equals(null));
+   }
+
+   /**
+    * Test of hashCode method, of class Food.
+    */
+   @Test
+   public void testHashCode()
+   {
+      System.out.println("hashCode");
+      Random random = new Random();
+      Food[] foods = new Food[500];
+      for (int i=0;i<foods.length;i++)
+         foods[i]=new Food(random.nextInt(), new Point2D.Double(random.nextDouble(), random.nextDouble()), random.nextInt(2));
+      for (int i=0;i<foods.length;i++)
+         for (int j=i+1;j<foods.length;j++)
+      assertFalse(foods[i].hashCode()==foods[j].hashCode());
+   }
+
+   /**
+    * Test of draw method, of class Food.
+    */
+   @Test
+   public void testDraw()
+   {
+      System.out.println("draw");
+      Graphics2D g = null;
+      int xPos = 0;
+      int yPos = 0;
+      Food instance = null;
+      instance.draw(g, xPos, yPos);
+      // TODO review the generated test code and remove the default call to fail.
+      fail("The test case is a prototype.");
    }
 }

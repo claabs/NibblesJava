@@ -66,7 +66,7 @@ public class LevelTest
          for (int j = 0; j < tempGrid[i].length; j++)
             tempGrid[i][j] = GamePanel.CellContents.EMPTY;
 
-      Level instance = new Level();
+      /*Level instance = new Level();
       assertTrue(instance.equals(new Level()));
       instance.setLevelGrid(tempGrid);
       Level newLevel = new Level(tempGrid, new Snake.Direction[]
@@ -76,7 +76,8 @@ public class LevelTest
       {
          new Point2D.Double(0, 0), new Point2D.Double(0, 0)
       });
-      assertTrue(newLevel.equals(instance));
+      assertTrue(newLevel.equals(instance));*/
+      fail("not done");
    }
 
    /**
@@ -87,7 +88,7 @@ public class LevelTest
    {
       System.out.println("getLevelGrid");
 
-      Point2D[] tempSpawns = new Point2D[2];
+      /*Point2D[] tempSpawns = new Point2D[2];
       GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
       Snake.Direction[] tempOrientations = new Snake.Direction[2];
       tempOrientations[0] = Snake.Direction.RIGHT;
@@ -112,7 +113,8 @@ public class LevelTest
       {
          new Point2D.Double(0, 0), new Point2D.Double(0, 0)
       });
-      assertTrue(newLevel.getLevelGrid().equals(tempGrid));
+      assertTrue(newLevel.getLevelGrid().equals(tempGrid));*/
+      fail("not done");
 
    }
 
@@ -124,7 +126,7 @@ public class LevelTest
    {
       System.out.println("setSnakeOrientations");
 
-      Point2D[] tempSpawns = new Point2D[2];
+      /*Point2D[] tempSpawns = new Point2D[2];
       GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
       Snake.Direction[] tempOrientations = new Snake.Direction[2];
       tempOrientations[0] = Snake.Direction.RIGHT;
@@ -146,7 +148,8 @@ public class LevelTest
       {
          new Point2D.Double(0, 0), new Point2D.Double(0, 0)
       });
-      assertTrue(newLevel.equals(instance));
+      assertTrue(newLevel.equals(instance));*/
+      fail("not done");
    }
 
    /**
@@ -157,7 +160,7 @@ public class LevelTest
    {
       System.out.println("getSnakeOrientations");
 
-      Point2D[] tempSpawns = new Point2D[2];
+      /*Point2D[] tempSpawns = new Point2D[2];
       GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
       Snake.Direction[] tempOrientations = new Snake.Direction[2];
       tempOrientations[0] = Snake.Direction.RIGHT;
@@ -176,7 +179,8 @@ public class LevelTest
       assertTrue(instance.equals(new Level()));
       instance.setSnakeOrientations(tempOrientations);
 
-      assertTrue(instance.getSnakeOrientations().equals(tempOrientations));
+      assertTrue(instance.getSnakeOrientations().equals(tempOrientations));*/
+      fail("not done");
    }
 
    /**
@@ -187,7 +191,7 @@ public class LevelTest
    {
       System.out.println("setSnakeSpawns");
 
-      Point2D.Double[] tempSpawns = new Point2D.Double[2];
+      /*Point2D.Double[] tempSpawns = new Point2D.Double[2];
       GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
       Snake.Direction[] tempOrientations = new Snake.Direction[2];
       tempOrientations[0] = Snake.Direction.RIGHT;
@@ -209,7 +213,8 @@ public class LevelTest
       {
          Snake.Direction.RIGHT,Snake.Direction.RIGHT
       }, tempSpawns);
-      assertTrue(newLevel.equals(instance));
+      assertTrue(newLevel.equals(instance));*/
+      fail("not done");
 
    }
 
@@ -221,7 +226,7 @@ public class LevelTest
    {
       System.out.println("getSnakeSpawns");
 
-      Point2D.Double[] tempSpawns = new Point2D.Double[2];
+      /*Point2D.Double[] tempSpawns = new Point2D.Double[2];
       GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
       Snake.Direction[] tempOrientations = new Snake.Direction[2];
       tempOrientations[0] = Snake.Direction.RIGHT;
@@ -245,7 +250,8 @@ public class LevelTest
          Snake.Direction.RIGHT, Snake.Direction.RIGHT
       }, tempSpawns
       );
-      assertTrue(newLevel.equals(instance));
+      assertTrue(newLevel.equals(instance));*/
+      fail("not done");
 
    }
 
@@ -256,7 +262,7 @@ public class LevelTest
    public void testEquals()
    {
       System.out.println("equals");
-      Object o = null;
+      /*Object o = null;
 
       Point2D[] tempSpawns = new Point2D[2];
       GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
@@ -282,7 +288,68 @@ public class LevelTest
       });
       assertFalse(instance.equals(o));
       assertTrue(newLevel.equals(instance));
-      assertFalse(newLevel.equals(new Level()));
+      assertFalse(newLevel.equals(new Level()));*/
+      fail("not done");
+   }
+
+   /**
+    * Test of getStartingDirections method, of class Level.
+    */
+   @Test
+   public void testGetStartingDirections()
+   {
+      System.out.println("getStartingDirections");
+      Level instance = null;
+      Snake.Direction[] expResult = null;
+      Snake.Direction[] result = instance.getStartingDirections();
+      assertArrayEquals(expResult, result);
+      // TODO review the generated test code and remove the default call to fail.
+      fail("The test case is a prototype.");
+   }
+
+   /**
+    * Test of getSpawnPoints method, of class Level.
+    */
+   @Test
+   public void testGetSpawnPoints()
+   {
+      System.out.println("getSpawnPoints");
+      Level instance = null;
+      Point2D.Double[] expResult = null;
+      Point2D.Double[] result = instance.getSpawnPoints();
+      assertArrayEquals(expResult, result);
+      // TODO review the generated test code and remove the default call to fail.
+      fail("The test case is a prototype.");
+   }
+
+   /**
+    * Test of getLevelNumber method, of class Level.
+    */
+   @Test
+   public void testGetLevelNumber()
+   {
+      System.out.println("getLevelNumber");
+      Level instance = null;
+      int expResult = 0;
+      int result = instance.getLevelNumber();
+      assertEquals(expResult, result);
+      // TODO review the generated test code and remove the default call to fail.
+      fail("The test case is a prototype.");
+   }
+
+   /**
+    * Test of hashCode method, of class Level.
+    */
+   @Test
+   public void testHashCode()
+   {
+      System.out.println("hashCode");
+      Level instance = null;
+      int expResult = 0;
+      int result = instance.hashCode();
+      assertEquals(expResult, result);
+      // TODO review the generated test code and remove the default call to fail.
+      fail("The test case is a prototype.");
    }
 
 }
