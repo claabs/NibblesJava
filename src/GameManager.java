@@ -5,17 +5,17 @@ import java.awt.geom.*;
 import javax.swing.*;
 
 /**
- Course: SE-3860 Spring 2017 Project: Reengineering Project (Part 2) | Nibbles
- Purpose: This class manages all of the game's primary functions. It will
- handle functions like progressing the state of the game, killing players,
- setting skill levels, increasing game speed, switching levels, pausing the
- game and acquiring food.
-
- @author Nick Sosinski
- @author Charlie Laabs
- @author Noah Moss
- @author Jake Ira
- @author Ed VanDerJagt
+ * Course: SE-3860 Spring 2017 Project: Reengineering Project (Part 2) |
+ * Nibbles Purpose: This class manages all of the game's primary
+ * functions. It will handle functions like progressing the state of the
+ * game, killing players, setting skill levels, increasing game speed,
+ * switching levels, pausing the game and acquiring food.
+ *
+ * @author Nick Sosinski
+ * @author Charlie Laabs
+ * @author Noah Moss
+ * @author Jake Ira
+ * @author Ed VanDerJagt
  */
 public class GameManager
 {
@@ -47,9 +47,9 @@ public class GameManager
    private static final int NUM_COLUMNS = 80;
 
    private final ActionListener taskPerformer = (ActionEvent)
-         -> 
-         {
-            updateGame();
+      ->
+   {
+      updateGame();
    };
 
    public enum playerEnum
@@ -72,9 +72,11 @@ public class GameManager
    }
 
    /**
-    This is the constructor that will create, display, and start the game.
-
-    @param inWindow The window that the game will start, run, and display on.
+    * This is the constructor that will create, display, and start the
+    * game.
+    *
+    * @param inWindow The window that the game will start, run, and
+    * display on.
     */
    public GameManager(JFrame inWindow)
    {
@@ -100,9 +102,9 @@ public class GameManager
    }
 
    /**
-    This method will set the number of players.
-
-    @param inNumberOfPlayers The number of players.
+    * This method will set the number of players.
+    *
+    * @param inNumberOfPlayers The number of players.
     */
    public void setNumberOfPlayers(int inNumberOfPlayers)
    {
@@ -110,9 +112,9 @@ public class GameManager
    }
 
    /**
-    This method will return the skill level.
-
-    @return The skill level.
+    * This method will return the skill level.
+    *
+    * @return The skill level.
     */
    public int getSkill()
    {
@@ -120,9 +122,9 @@ public class GameManager
    }
 
    /**
-    This method will set the skill level.
-
-    @param inSkill The skill level.
+    * This method will set the skill level.
+    *
+    * @param inSkill The skill level.
     */
    public void setSkill(int inSkill)
    {
@@ -130,9 +132,9 @@ public class GameManager
    }
 
    /**
-    This method will return the games current state.
-
-    @return The current state of the game.
+    * This method will return the games current state.
+    *
+    * @return The current state of the game.
     */
    public eventEnum getCurrentState()
    {
@@ -140,10 +142,10 @@ public class GameManager
    }
 
    /**
-    This method will return the amount of speed to increase the speed of the
-    game by.
-
-    @return The amount of speed to increase the speed of the game by.
+    * This method will return the amount of speed to increase the speed
+    * of the game by.
+    *
+    * @return The amount of speed to increase the speed of the game by.
     */
    public boolean getIncreaseSpeed()
    {
@@ -151,11 +153,11 @@ public class GameManager
    }
 
    /**
-    This method takes in a speed to increase the game by and sets the increase
-    speed value to be equal to that passed in value.
-
-    @param inIncreaseSpeed The amount of speed to increase the speed of the
-                           game by.
+    * This method takes in a speed to increase the game by and sets the
+    * increase speed value to be equal to that passed in value.
+    *
+    * @param inIncreaseSpeed The amount of speed to increase the speed
+    * of the game by.
     */
    public void setIncreaseSpeed(boolean inIncreaseSpeed)
    {
@@ -163,9 +165,10 @@ public class GameManager
    }
 
    /**
-    This method returns whether the game is in a monochrome color or not.
-
-    @return Whether the game is in a monochrome color or not.
+    * This method returns whether the game is in a monochrome color or
+    * not.
+    *
+    * @return Whether the game is in a monochrome color or not.
     */
    public boolean getMonochrome()
    {
@@ -173,10 +176,10 @@ public class GameManager
    }
 
    /**
-    This method will set the color of the game to monochrome.
-
-    @param isInMonochrome Sets the color of the game to be monochrome if true,
-                          color if false.
+    * This method will set the color of the game to monochrome.
+    *
+    * @param isInMonochrome Sets the color of the game to be monochrome
+    * if true, color if false.
     */
    public void setMonochrome(boolean isInMonochrome)
    {
@@ -184,7 +187,7 @@ public class GameManager
    }
 
    /**
-    This method will restart the game with the initial settings.
+    * This method will restart the game with the initial settings.
     */
    public void restart()
    {
@@ -194,58 +197,71 @@ public class GameManager
    }
 
    /**
-    This method will get the game ready to play the current level.
+    * This method will get the game ready to play the current level.
     */
    private void prepGame()
    {
       for (int i = 0; i < numberOfPlayers; i++)
+      {
          players[i] = new Snake(new Point2D.Double(5, 5), Snake.Direction.UP, i + 1);
+      }
       loadLevel(currentLevel);
       food = spawnFood(1);
       numTimesEaten = 0;
    }
 
    /**
-    This method will spawn the food randomly.
-
-    @param foodValue The value of the food.
-
-    @return One food instance composed of two food objects, one on top of the
-            other.
+    * This method will spawn the food randomly.
+    *
+    * @param foodValue The value of the food.
+    *
+    * @return One food instance composed of two food objects, one on top
+    * of the other.
     */
    private Food[] spawnFood(int foodValue)
    {
       Food food1 = new Food(foodValue, getRandomPosition(), 0);
       Food food2 = new Food(foodValue, new Point2D.Double(food1.position.x, food1.position.y - 1), 1);
       if (canFoodSpawn(food1) && canFoodSpawn(food2))
+      {
          return new Food[]
          {
             food1, food2
          };
+      }
       else
+      {
          return spawnFood(foodValue);
+      }
    }
 
    /**
-    This method checks for obstacles in the way of a food spawn.
-
-    @param food A food being checked for placement.
-
-    @return Whether or not the space is clear and the food can spawn there.
+    * This method checks for obstacles in the way of a food spawn.
+    *
+    * @param food A food being checked for placement.
+    *
+    * @return Whether or not the space is clear and the food can spawn
+    * there.
     */
    private boolean canFoodSpawn(Food food)
    {
       if (level.getLevelGrid()[(int) food.position.x][(int) food.position.y].getClass() != EmptyCell.class)
+      {
          return false;
+      }
       for (int i = 0; i < players.length; i++)
+      {
          if (players[i].collidedWithCollidable(food))
+         {
             return false;
+         }
+      }
       return true;
    }
 
    /**
-    This method will progress the games state to the next from its current
-    state.
+    * This method will progress the games state to the next from its
+    * current state.
     */
    public void progressState()
    {
@@ -277,8 +293,12 @@ public class GameManager
             break;
          case playerDied:
             for (int i = 0; i < numberOfPlayers; i++)
+            {
                if (players[i].getLives() == 0)
+               {
                   currentState = eventEnum.gameOver;
+               }
+            }
             if (currentState == eventEnum.playerDied)
             {
                currentState = eventEnum.gameplayScreen;
@@ -290,9 +310,9 @@ public class GameManager
    }
 
    /**
-    This method will return the number of players.
-
-    @return The number of players.
+    * This method will return the number of players.
+    *
+    * @return The number of players.
     */
    public int getNumberOfPlayers()
    {
@@ -300,18 +320,20 @@ public class GameManager
    }
 
    /**
-    This method will re-spawn both players without penalizing them.
+    * This method will re-spawn both players without penalizing them.
     */
    private void respawn()
    {
       for (Snake player : players)
+      {
          player.respawn();
+      }
    }
 
    /**
-    This method will load the level using the level index.
-
-    @param levelIndex The level index.
+    * This method will load the level using the level index.
+    *
+    * @param levelIndex The level index.
     */
    private void loadLevel(int levelIndex)
    {
@@ -326,9 +348,9 @@ public class GameManager
    }
 
    /**
-    This method will return the current level that is being played.
-
-    @return The current level that is being played.
+    * This method will return the current level that is being played.
+    *
+    * @return The current level that is being played.
     */
    public Level getLevel()
    {
@@ -336,18 +358,21 @@ public class GameManager
    }
 
    /**
-    This method checks player collisions in regards as to whether the player
-    has collided with food, collided with a wall, or collided with another
-    player. It will be called by the timer only if the game is not paused.
+    * This method checks player collisions in regards as to whether the
+    * player has collided with food, collided with a wall, or collided
+    * with another player. It will be called by the timer only if the
+    * game is not paused.
     */
    private void updateGame()
    {
       if (currentState == eventEnum.gameplayScreen)
+      {
          for (int i = 0; i < players.length; i++)
          {
             Point2D.Double headPos = players[i].getHeadLocation();
             Collidable contents = gameBoard.getContents((int) headPos.x, (int) headPos.y);
             if (players[i].checkCollison(contents))
+            {
                if (contents.getClass() == Food.class)
                {
                   players[i].eat(food[0]);
@@ -364,19 +389,23 @@ public class GameManager
                   killPlayer(i);
                   return;
                }
+            }
             players[i].iterateForward();
             for (Snake otherPlayer : players)
+            {
                if (players[i].collidedWithOtherSnake(otherPlayer))
                {
                   killPlayer(i);
                   return;
                }
+            }
          }
+      }
    }
 
    /**
-    This method will put the game into the start of level state and load the
-    next level.
+    * This method will put the game into the start of level state and
+    * load the next level.
     */
    private void nextLevel()
    {
@@ -388,29 +417,33 @@ public class GameManager
    }
 
    /**
-    This method will return a random position on the level that is an
-    EmptyCell.
-
-    @return
+    * This method will return a random position on the level that is an
+    * EmptyCell.
+    *
+    * @return
     */
    private Point2D.Double getRandomPosition()
    {
       Point2D.Double possiblePosition
-            = new Point2D.Double(
-                  (double) (int) (random.nextDouble() * NUM_COLUMNS),
-                  (double) (int) (random.nextDouble() * NUM_ROWS)
-            );
+         = new Point2D.Double(
+            (double) (int) (random.nextDouble() * NUM_COLUMNS),
+            (double) (int) (random.nextDouble() * NUM_ROWS)
+         );
       if (level.getLevelGrid()[(int) possiblePosition.x][(int) possiblePosition.y].getClass() == EmptyCell.class)
+      {
          return possiblePosition;
+      }
       else
+      {
          return getRandomPosition();
+      }
    }
 
    /**
-    This method will stop the game, kill the player, and set the game into the
-    player died state.
-
-    @param playerIndex The index of the player to kill.
+    * This method will stop the game, kill the player, and set the game
+    * into the player died state.
+    *
+    * @param playerIndex The index of the player to kill.
     */
    private void killPlayer(int playerIndex)
    {
@@ -422,9 +455,9 @@ public class GameManager
    }
 
    /**
-    This method will return the index of the player who last died.
-
-    @return The index of the player who last died.
+    * This method will return the index of the player who last died.
+    *
+    * @return The index of the player who last died.
     */
    public int getLastDeath()
    {
@@ -432,9 +465,9 @@ public class GameManager
    }
 
    /**
-    This method will return the snakes of the game.
-
-    @return The snakes of the game.
+    * This method will return the snakes of the game.
+    *
+    * @return The snakes of the game.
     */
    public Snake[] getSnakes()
    {
@@ -442,7 +475,7 @@ public class GameManager
    }
 
    /**
-    This method will pause the game engine.
+    * This method will pause the game engine.
     */
    public void pause()
    {
@@ -450,7 +483,7 @@ public class GameManager
    }
 
    /**
-    This method will un-pause the game.
+    * This method will un-pause the game.
     */
    public void unpause()
    {
@@ -458,9 +491,9 @@ public class GameManager
    }
 
    /**
-    This method will return the food.
-
-    @return The food.
+    * This method will return the food.
+    *
+    * @return The food.
     */
    public Food[] getFood()
    {

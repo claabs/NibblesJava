@@ -14,8 +14,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
-
- @author Noah Moss
+ *
+ * @author Noah Moss
  */
 public class GameManagerTest
 {
@@ -54,7 +54,7 @@ public class GameManagerTest
    }
 
    /**
-    Test of run method, of class GameManager.
+    * Test of run method, of class GameManager.
     */
    @Test
    public void testRun() throws InterruptedException
@@ -65,7 +65,7 @@ public class GameManagerTest
    }
 
    /**
-    Test of pause method, of class GameManager.
+    * Test of pause method, of class GameManager.
     */
    @Test
    public void testPause() throws InterruptedException
@@ -77,7 +77,7 @@ public class GameManagerTest
    }
 
    /**
-    Test of unpause method, of class GameManager.
+    * Test of unpause method, of class GameManager.
     */
    @Test
    public void testUnpause() throws InterruptedException
@@ -89,7 +89,7 @@ public class GameManagerTest
    }
 
    /**
-    Test of getSnakes method, of class GameManager.
+    * Test of getSnakes method, of class GameManager.
     */
    @Test
    public void testGetSnakes()
@@ -111,7 +111,7 @@ public class GameManagerTest
    }
 
    /**
-    Test of getFood method, of class GameManager.
+    * Test of getFood method, of class GameManager.
     */
    @Test
    public void testGetFood()
@@ -121,7 +121,7 @@ public class GameManagerTest
    }
 
    /**
-    Test of getNumberOfPlayers method, of class GameManager.
+    * Test of getNumberOfPlayers method, of class GameManager.
     */
    @Test
    public void testGetNumberOfPlayers()
@@ -130,9 +130,8 @@ public class GameManagerTest
       assertTrue(instance.getNumberOfPlayers() == 1);
    }
 
-
    /**
-    Test of getLevel method, of class GameManager.
+    * Test of getLevel method, of class GameManager.
     */
    @Test
    public void testGetLevel()
@@ -162,12 +161,10 @@ public class GameManagerTest
    public void testGetSkill()
    {
       System.out.println("getSkill");
-      GameManager instance = null;
-      int expResult = 0;
+      instance.setSkill(1);
+      int expResult = 1;
       int result = instance.getSkill();
       assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
    }
 
    /**
@@ -191,12 +188,10 @@ public class GameManagerTest
    public void testGetCurrentState()
    {
       System.out.println("getCurrentState");
-      GameManager instance = null;
-      GameManager.eventEnum expResult = null;
-      GameManager.eventEnum result = instance.getCurrentState();
+      boolean expResult = true;
+      boolean result = instance.getCurrentState()
+         == GameManager.eventEnum.introScreen;
       assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
    }
 
    /**
@@ -277,10 +272,15 @@ public class GameManagerTest
    public void testProgressState()
    {
       System.out.println("progressState");
-      GameManager instance = null;
+      instance.getCurrentState();
+      // Game Manager starts with currentState = eventEnum.introScreen
       instance.progressState();
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      // this will change the current state to numberOfPlayersScreen
+
+      boolean expResult = true;
+      boolean result = instance.getCurrentState()
+         == GameManager.eventEnum.numberOfPlayersScreen;
+      assertEquals(expResult, result);
    }
 
    /**
