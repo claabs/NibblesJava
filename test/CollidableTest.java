@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import java.awt.geom.Point2D;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,26 +18,32 @@ import static org.junit.Assert.*;
  */
 public class CollidableTest
 {
-   
+
+   private Food instanceF;
+   private Snake instanceS;
+
    public CollidableTest()
    {
    }
-   
+
    @BeforeClass
    public static void setUpClass()
    {
    }
-   
+
    @AfterClass
    public static void tearDownClass()
    {
    }
-   
+
    @Before
    public void setUp()
    {
+      instanceF = new Food(1, new Point2D.Double(10, 20), 0);
+      instanceS = new Snake(new Point2D.Double(10, 20), Snake.Direction.UP, 1);
+
    }
-   
+
    @After
    public void tearDown()
    {
@@ -49,13 +56,9 @@ public class CollidableTest
    public void testCollided()
    {
       System.out.println("collided");
-      Collidable c = null;
-      Collidable instance = null;
-      boolean expResult = false;
-      boolean result = instance.collided(c);
-      assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      boolean expResult = true;
+      boolean result = instanceS.checkCollison(instanceF);
+      assertEquals(expResult, result); 
    }
 
    /**
@@ -65,13 +68,10 @@ public class CollidableTest
    public void testEquals()
    {
       System.out.println("equals");
-      Object o = null;
-      Collidable instance = null;
-      boolean expResult = false;
-      boolean result = instance.equals(o);
+       
+      boolean expResult = true;
+      boolean result = (instanceS.equals(instanceF));
       assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
    }
 
    /**
@@ -81,21 +81,11 @@ public class CollidableTest
    public void testHashCode()
    {
       System.out.println("hashCode");
-      Collidable instance = null;
-      int expResult = 0;
-      int result = instance.hashCode();
+      boolean expResult = true;
+      boolean result = (instanceF.hashCode() != 0);
       assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
-   }
+    }
 
-   public class CollidableImpl extends Collidable
-   {
+ 
 
-      public CollidableImpl()
-      {
-         super(null, 0, 0, null, null);
-      }
-   }
-   
 }
