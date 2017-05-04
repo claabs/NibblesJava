@@ -105,11 +105,9 @@ public class FoodTest
    {
       System.out.println("draw");
       Graphics2D g = null;
-      int xPos = 0;
-      int yPos = 0;
-      Food instance = null;
+      int xPos = 1;
+      int yPos = 1;
       instance.draw(g, xPos, yPos);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
-   }
+       System.out.println("Verify \"Food\" is displayed in upper left.");
+    }
 }
