@@ -242,10 +242,9 @@ public class SnakeTest
    public void testRespawn()
    {
       System.out.println("respawn");
-      Snake instance = null;
       instance.respawn();
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+
+      assertTrue(instance.getSnakeSegments().isEmpty());
    }
 
    /**
@@ -271,13 +270,15 @@ public class SnakeTest
    public void testDraw()
    {
       System.out.println("draw");
-      Graphics2D g = null;
-      int xOffset = 0;
-      int yOffset = 0;
-      Snake instance = null;
-      instance.draw(g, xOffset, yOffset);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+
+      JFrame frame = new JFrame();
+      frame.setSize(150, 150);
+      frame.setVisible(true);
+      Graphics2D g = (Graphics2D) frame.getGraphics();
+      int xPos = 1;
+      int yPos = 1;
+      instance.draw(g, xPos, yPos);
+      System.out.println("Verify \"snake\" is displayed in upper left.");
    }
 
    /**
