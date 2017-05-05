@@ -47,7 +47,7 @@ public class NibblesTest
    @Test
    public void testMain()
    {
-      System.out.println("main");
+      System.out.println("Nibbles:main");
       StackTraceElement element = Thread.currentThread().getStackTrace()[0];
       System.out.println(element);
       System.out.println("Verify the game started");

@@ -57,7 +57,7 @@ public class CollidableTest
    @Test
    public void testCollided()
    {
-      System.out.println("collided");
+      System.out.println("Colldiable:collided");
       boolean expResult = true;
       boolean result = instanceS.checkCollison(instanceF);
       assertEquals(expResult, result); 
@@ -69,7 +69,7 @@ public class CollidableTest
    @Test
    public void testEquals()
    {
-      System.out.println("equals");
+      System.out.println("Colldiable:equals");
        
       boolean expResult = true;
       boolean result = (instanceF.equals(instanceF2));
@@ -82,7 +82,7 @@ public class CollidableTest
    @Test
    public void testHashCode()
    {
-      System.out.println("hashCode");
+      System.out.println("Colldiable:hashCode");
       boolean expResult = true;
       boolean result = (instanceF.hashCode() != 0);
       assertEquals(expResult, result);

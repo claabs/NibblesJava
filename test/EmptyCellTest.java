@@ -64,7 +64,7 @@ public class EmptyCellTest
    @Test
    public void testCollided()
    {
-      System.out.println("collided");
+      System.out.println("EmptyCell:collided");
       boolean expResult = false;
       boolean result = instanceS.collidedWithCollidable(instanceC);
       assertEquals(expResult, result);
@@ -76,7 +76,7 @@ public class EmptyCellTest
    @Test
    public void testGetDrawColor()
    {
-      System.out.println("getDrawColor");
+      System.out.println("EmptyCell:getDrawColor");
       Color expResult = COLOR_COLOR;
       instanceG.monochrome = false;
       Color result = EmptyCell.getDrawColor();
@@ -93,9 +93,7 @@ public class EmptyCellTest
    @Test
    public void testDraw() throws InterruptedException
    {
-      System.out.println("draw");
-      StackTraceElement element = new Exception().getStackTrace()[0];
-      System.out.println(element);
+      System.out.println("EmptyCell:draw");
       GameManager.monochrome = false;
       JFrame frame = new JFrame()
       {
@@ -114,6 +112,8 @@ public class EmptyCellTest
       frame.setSize(300, 300);
       frame.setVisible(true);
       frame.invalidate();
+      StackTraceElement element = Thread.currentThread().getStackTrace()[0];
+      System.out.println(element);
       System.out.println("Verify empty cell is drawn");
       for (int i = 0; i < 10; i++)
       {

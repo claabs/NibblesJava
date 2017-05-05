@@ -72,7 +72,6 @@ public class GameManagerTest
       }
       catch (InterruptedException ex)
       {
-         Logger.getLogger(GameManagerTest.class.getName()).log(Level.SEVERE, null, ex);
       }
    }
 
@@ -218,7 +217,6 @@ public class GameManagerTest
       instance.setIncreaseSpeed(inIncreaseSpeed);
       boolean result = instance.getIncreaseSpeed() == inIncreaseSpeed;
       assertTrue(result);
-
    }
 
    /**
@@ -267,8 +265,6 @@ public class GameManagerTest
       System.out.println("GameManager:restart");
       instance.restart();
       int result = instance.getLevel().getLevelNumber();
-
-      //  boolean result = instance.getCurrentState() == GameManager.eventEnum.startOfLevel;
       assertTrue(result == 1);
    }
 
@@ -283,7 +279,6 @@ public class GameManagerTest
       // Game Manager starts with currentState = eventEnum.introScreen
       instance.progressState();
       // this will change the current state to numberOfPlayersScreen
-
       boolean expResult = true;
       boolean result = instance.getCurrentState()
             == GameManager.eventEnum.numberOfPlayersScreen;

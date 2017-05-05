@@ -61,7 +61,7 @@ public class FoodTest
    @Test
    public void testGetValue()
    {
-      System.out.println("getValue");
+      System.out.println("Food:getValue");
       assertTrue(instance.getValue() == 1);
    }
 
@@ -71,7 +71,7 @@ public class FoodTest
    @Test
    public void testGetPosition()
    {
-      System.out.println("getPosition");
+      System.out.println("Food:getPosition");
       assertTrue(instance.getPosition().equals(new Point2D.Double(10, 20)));
    }
 
@@ -81,7 +81,7 @@ public class FoodTest
    @Test
    public void testEquals()
    {
-      System.out.println("equals");
+      System.out.println("Food:equals");
       assertTrue(instance.equals(new Food(1, new Point2D.Double(10, 20), 0)));
       assertFalse(instance.equals(new Food(1, new Point2D.Double(20, 20), 0)));
       assertFalse(instance.equals(new Food(2, new Point2D.Double(10, 20), 0)));
@@ -94,7 +94,7 @@ public class FoodTest
    @Test
    public void testHashCode()
    {
-      System.out.println("hashCode");
+      System.out.println("Food:hashCode");
       Random random = new Random();
       Food[] foods = new Food[500];
       for (int i = 0; i < foods.length; i++)
@@ -114,7 +114,7 @@ public class FoodTest
    public void testDraw() throws InterruptedException
    {
 
-      System.out.println("draw");
+      System.out.println("Food:draw");
       StackTraceElement element = new Exception().getStackTrace()[0];
       System.out.println(element);
       GameManager.monochrome = false;

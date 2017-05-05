@@ -117,19 +117,23 @@ public class KeyboardListenerTest
    @Test
    public void testKeyPressed()
    {
-      System.out.println("keyPressed");
+      System.out.println("KeyboardListener:keyPressed");
       StackTraceElement element = new Exception().getStackTrace()[0];
       System.out.println(element);
       startGame(2, 1, false, true);
       robot.delay(250);
       robot.keyPress(KeyEvent.VK_P);
       robot.delay(250);
+      element = Thread.currentThread().getStackTrace()[0];
+      System.out.println(element);
       System.out.println("Verify game is paused.");
       robot.keyRelease(KeyEvent.VK_P);
 
       robot.delay(250);
       robot.keyPress(KeyEvent.VK_SPACE);
       robot.delay(250);
+      element = Thread.currentThread().getStackTrace()[0];
+      System.out.println(element);
       System.out.println("Verify game is not paused.");
       robot.keyRelease(KeyEvent.VK_SPACE);
 
@@ -183,8 +187,8 @@ public class KeyboardListenerTest
 
       for (int i = 0; i < 5; i++)
       {
-         robot.delay(2000);
-         System.out.println("pressing space");
+         robot.delay(3000);
+         
          robot.keyPress(KeyEvent.VK_SPACE);
          robot.delay(250);
          robot.keyRelease(KeyEvent.VK_SPACE);
@@ -194,6 +198,8 @@ public class KeyboardListenerTest
       robot.keyPress(KeyEvent.VK_Y);
       robot.delay(250);
       robot.keyRelease(KeyEvent.VK_Y);
+      element = Thread.currentThread().getStackTrace()[0];
+      System.out.println(element);
       System.out.println("Verify Game restarted");
       robot.delay(250);
       robot.keyPress(KeyEvent.VK_SPACE);
@@ -202,8 +208,8 @@ public class KeyboardListenerTest
 
       for (int i = 0; i < 5; i++)
       {
-         robot.delay(2000);
-         System.out.println("pressing space");
+         robot.delay(3000);
+         
          robot.keyPress(KeyEvent.VK_SPACE);
          robot.delay(250);
          robot.keyRelease(KeyEvent.VK_SPACE);
@@ -212,6 +218,8 @@ public class KeyboardListenerTest
       robot.keyPress(KeyEvent.VK_SPACE);
       robot.delay(250);
       robot.keyRelease(KeyEvent.VK_SPACE);
+      element = Thread.currentThread().getStackTrace()[0];
+      System.out.println(element);
       System.out.println("Verify Game closes");
       robot.delay(250);
       robot.keyPress(KeyEvent.VK_N);

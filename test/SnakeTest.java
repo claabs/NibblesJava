@@ -5,6 +5,7 @@
  */
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.List;
@@ -28,7 +29,7 @@ public class SnakeTest
    private static final Color PLAYER_1_MONOCOLOR = new Color(255, 255, 255);
    private static final Color PLAYER_2_COLORCOLOR = new Color(255, 85, 255);
    private static final Color PLAYER_2_MONOCOLOR = new Color(170, 170, 170);
-   private Snake instance, instance2;
+   private Snake[] instance = new Snake[2];
    private JFrame window;
    private GameManager instanceG;
 
@@ -53,8 +54,8 @@ public class SnakeTest
       window.setTitle("Nibbles - .min.jHawks V2");
       window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       window.setVisible(true);
-      instance = new Snake(new Point2D.Double(20, 20), Snake.Direction.UP, 1);
-      instance2 = new Snake(new Point2D.Double(10, 10), Snake.Direction.UP, 2);
+      instance[0] = new Snake(new Point2D.Double(20, 20), Snake.Direction.UP, 1);
+      instance[1] = new Snake(new Point2D.Double(10, 10), Snake.Direction.UP, 2);
 
       instanceG = new GameManager(window);
 
@@ -71,9 +72,9 @@ public class SnakeTest
    @Test
    public void testIterateForward()
    {
-      System.out.println("iterateForward");
-      instance.iterateForward();
-      assertTrue(instance.getHeadLocation().equals(new Point2D.Double(20, 19)));
+      System.out.println("Snake:iterateForward");
+      instance[0].iterateForward();
+      assertTrue(instance[0].getHeadLocation().equals(new Point2D.Double(20, 19)));
    }
 
    /**
@@ -82,8 +83,8 @@ public class SnakeTest
    @Test
    public void testGetHeadLocation()
    {
-      System.out.println("getHeadLocation");
-      assertTrue(instance.getHeadLocation().equals(new Point2D.Double(20, 20)));
+      System.out.println("Snake:getHeadLocation");
+      assertTrue(instance[0].getHeadLocation().equals(new Point2D.Double(20, 20)));
    }
 
    /**
@@ -92,8 +93,8 @@ public class SnakeTest
    @Test
    public void testGetSnakeSegments()
    {
-      System.out.println("getSnakeSegments");
-      assertTrue(instance.getSnakeSegments().size() == 1);
+      System.out.println("Snake:getSnakeSegments");
+      assertTrue(instance[0].getSnakeSegments().size() == 1);
    }
 
    /**
@@ -102,8 +103,8 @@ public class SnakeTest
    @Test
    public void testCheckCollison()
    {
-      System.out.println("checkCollison");
-      assertTrue(instance.checkCollison(new SnakeHead(new Point2D.Double(20, 20), Snake.Direction.UP, instance)));
+      System.out.println("Snake:checkCollison");
+      assertTrue(instance[0].checkCollison(new SnakeHead(new Point2D.Double(20, 20), Snake.Direction.UP, instance[0])));
    }
 
    /**
@@ -112,9 +113,9 @@ public class SnakeTest
    @Test
    public void testSetDirection()
    {
-      System.out.println("setDirection");
-      instance.setDirection(Snake.Direction.RIGHT);
-      boolean result = instance.getDirection() == Snake.Direction.RIGHT;
+      System.out.println("Snake:setDirection");
+      instance[0].setDirection(Snake.Direction.RIGHT);
+      boolean result = instance[0].getDirection() == Snake.Direction.RIGHT;
       assertTrue(result);
    }
 
@@ -124,12 +125,12 @@ public class SnakeTest
    @Test
    public void testDie()
    {
-      System.out.println("die");
-      assertTrue(instance.getLives() == 5);
-      instance.die();
-      assertTrue(instance.getLives() == 4);
-      instance.die();
-      assertTrue(instance.getLives() == 3);
+      System.out.println("Snake:die");
+      assertTrue(instance[0].getLives() == 5);
+      instance[0].die();
+      assertTrue(instance[0].getLives() == 4);
+      instance[0].die();
+      assertTrue(instance[0].getLives() == 3);
    }
 
    /**
@@ -138,16 +139,16 @@ public class SnakeTest
    @Test
    public void testEat()
    {
-      System.out.println("eat");
-      assertTrue(instance.getScore() == 0);
-      instance.eat(new Food(1, new Point2D.Double(20, 20), 0));
-      assertTrue(instance.getScore() == 100);
-      instance.eat(new Food(2, new Point2D.Double(20, 20), 0));
-      assertTrue(instance.getScore() == 300);
-      instance.eat(new Food(3, new Point2D.Double(20, 20), 0));
-      assertTrue(instance.getScore() == 600);
-      instance.eat(new Food(4, new Point2D.Double(20, 20), 0));
-      assertTrue(instance.getScore() == 1000);
+      System.out.println("Snake:eat");
+      assertTrue(instance[0].getScore() == 0);
+      instance[0].eat(new Food(1, new Point2D.Double(20, 20), 0));
+      assertTrue(instance[0].getScore() == 100);
+      instance[0].eat(new Food(2, new Point2D.Double(20, 20), 0));
+      assertTrue(instance[0].getScore() == 300);
+      instance[0].eat(new Food(3, new Point2D.Double(20, 20), 0));
+      assertTrue(instance[0].getScore() == 600);
+      instance[0].eat(new Food(4, new Point2D.Double(20, 20), 0));
+      assertTrue(instance[0].getScore() == 1000);
    }
 
    /**
@@ -156,16 +157,16 @@ public class SnakeTest
    @Test
    public void testGetScore()
    {
-      System.out.println("getScore");
-      assertTrue(instance.getScore() == 0);
-      instance.eat(new Food(1, new Point2D.Double(20, 20), 0));
-      assertTrue(instance.getScore() == 100);
-      instance.eat(new Food(2, new Point2D.Double(20, 20), 0));
-      assertTrue(instance.getScore() == 300);
-      instance.eat(new Food(3, new Point2D.Double(20, 20), 0));
-      assertTrue(instance.getScore() == 600);
-      instance.eat(new Food(4, new Point2D.Double(20, 20), 0));
-      assertTrue(instance.getScore() == 1000);
+      System.out.println("Snake:getScore");
+      assertTrue(instance[0].getScore() == 0);
+      instance[0].eat(new Food(1, new Point2D.Double(20, 20), 0));
+      assertTrue(instance[0].getScore() == 100);
+      instance[0].eat(new Food(2, new Point2D.Double(20, 20), 0));
+      assertTrue(instance[0].getScore() == 300);
+      instance[0].eat(new Food(3, new Point2D.Double(20, 20), 0));
+      assertTrue(instance[0].getScore() == 600);
+      instance[0].eat(new Food(4, new Point2D.Double(20, 20), 0));
+      assertTrue(instance[0].getScore() == 1000);
    }
 
    /**
@@ -174,12 +175,12 @@ public class SnakeTest
    @Test
    public void testGetLives()
    {
-      System.out.println("getLives");
-      assertTrue(instance.getLives() == 5);
-      instance.die();
-      assertTrue(instance.getLives() == 4);
-      instance.die();
-      assertTrue(instance.getLives() == 3);
+      System.out.println("Snake:getLives");
+      assertTrue(instance[0].getLives() == 5);
+      instance[0].die();
+      assertTrue(instance[0].getLives() == 4);
+      instance[0].die();
+      assertTrue(instance[0].getLives() == 3);
    }
 
    /**
@@ -188,10 +189,10 @@ public class SnakeTest
    @Test
    public void testEquals()
    {
-      System.out.println("equals");
-      assertTrue(instance.equals(new Snake(new Point2D.Double(20, 20), Snake.Direction.UP, 0)));
-      assertFalse(instance.equals(new Snake(new Point2D.Double(20, 40), Snake.Direction.UP, 0)));
-      assertFalse(instance.equals(null));
+      System.out.println("Snake:equals");
+      assertTrue(instance[0].equals(new Snake(new Point2D.Double(20, 20), Snake.Direction.UP, 0)));
+      assertFalse(instance[0].equals(new Snake(new Point2D.Double(20, 40), Snake.Direction.UP, 0)));
+      assertFalse(instance[0].equals(null));
    }
 
    /**
@@ -200,17 +201,11 @@ public class SnakeTest
    @Test
    public void testMoveSpawn()
    {
-      System.out.println("moveSpawn");
-      Point2D.Double p1 = instance.getHeadLocation();
-
-      Point2D.Double p2 = new Point2D.Double(5, 5);
-      instance.moveSpawn(p2, Snake.Direction.LEFT);
-      Point2D.Double p3 = instance.getHeadLocation();
-      System.out.println("p1: " + p1.x + p1.y);
-      System.out.println("p2: " + p2.x + p2.y);
-      System.out.println("p3: " + p3.x + p3.y);
-      boolean result = p3.equals(p2);
-
+      System.out.println("Snake:moveSpawn");
+      Point2D.Double p1 = new Point2D.Double(5, 5);
+      instance[0].moveSpawn(p1, Snake.Direction.LEFT);
+      Point2D.Double p2 = instance[0].getHeadLocation();
+      boolean result = p2.equals(p1);
       assertFalse(result);
    }
 
@@ -220,10 +215,10 @@ public class SnakeTest
    @Test
    public void testGetColorColor()
    {
-      System.out.println("getColorColor");
+      System.out.println("Snake:getColorColor");
       instanceG.setMonochrome(false);
       instanceG.setNumberOfPlayers(1);
-      Color a = instance.getColor();
+      Color a = instance[0].getColor();
       Color b = new Color(255, 255, 85);
       boolean result = (a.equals(b));
 
@@ -236,10 +231,10 @@ public class SnakeTest
    @Test
    public void testGetMonoColor()
    {
-      System.out.println("getMonoColor");
+      System.out.println("Snake:getMonoColor");
       instanceG.setMonochrome(true);
       instanceG.setNumberOfPlayers(1);
-      Color a = instance.getColor();
+      Color a = instance[0].getColor();
       Color b = new Color(255, 255, 255);
       boolean result = (a.equals(b));
       assertTrue(result);
@@ -251,10 +246,10 @@ public class SnakeTest
    @Test
    public void testGetColor()
    {
-      System.out.println("getColor");
+      System.out.println("Snake:getColor");
       instanceG.setMonochrome(true);
       instanceG.setNumberOfPlayers(1);
-      Color a = instance.getColor();
+      Color a = instance[0].getColor();
       Color b = new Color(255, 255, 255);
       boolean result = (a.equals(b));
       assertTrue(result);
@@ -266,28 +261,44 @@ public class SnakeTest
    @Test
    public void testRespawn()
    {
-      System.out.println("respawn");
-      instance.respawn();
-      assertFalse(instance.getSnakeSegments().isEmpty());
+      System.out.println("Snake:respawn");
+      instance[0].respawn();
+      assertFalse(instance[0].getSnakeSegments().isEmpty());
    }
 
    /**
     Test of draw method, of class Snake.
     */
    @Test
-   public void testDraw()
+   public void testDraw() throws InterruptedException
    {
-      System.out.println("draw");
+      System.out.println("Snake:draw");
+      GameManager.monochrome = false;
+      JFrame frame = new JFrame()
+      {
+         @Override
+         public void update(Graphics g)
+         {
+            Graphics2D g2 = (Graphics2D) g;
+            int xPos = 50;
+            int yPos = 50;
+            GameManager.monochrome = !GameManager.monochrome;
+            for (int i = 0; i < instance.length; i++)
+               instance[i].draw(g2, 50 + i * xPos, 50 + i * yPos);
+         }
+
+      };
+      frame.setSize(300, 300);
+      frame.setVisible(true);
+      frame.invalidate();
       StackTraceElement element = new Exception().getStackTrace()[0];
       System.out.println(element);
-      JFrame frame = new JFrame();
-      frame.setSize(150, 150);
-      frame.setVisible(true);
-      Graphics2D g = (Graphics2D) frame.getGraphics();
-      int xPos = 1;
-      int yPos = 1;
-      instance.draw(g, xPos, yPos);
-      System.out.println("Verify \"snake\" is displayed in upper left.");
+      System.out.println("Verify both snakes are drawn");
+      for (int i = 0; i < 10; i++)
+      {
+         frame.update(frame.getGraphics());
+         Thread.sleep(250);
+      }
    }
 
    /**
@@ -296,8 +307,8 @@ public class SnakeTest
    @Test
    public void testCollidedWithOtherSnake()
    {
-      System.out.println("collidedWithOtherSnake");
-      boolean result = instance.collidedWithOtherSnake(instance2);
+      System.out.println("Snake:collidedWithOtherSnake");
+      boolean result = instance[0].collidedWithOtherSnake(instance[1]);
       boolean expResult = false;
       assertEquals(expResult, result);
    }
@@ -308,9 +319,9 @@ public class SnakeTest
    @Test
    public void testGameOver()
    {
-      System.out.println("gameOver");
+      System.out.println("Snake:gameOver");
       boolean expResult = false;
-      boolean result = instance.gameOver();
+      boolean result = instance[0].gameOver();
       assertEquals(expResult, result);
    }
 
@@ -320,8 +331,9 @@ public class SnakeTest
    @Test
    public void testHashCode()
    {
-      System.out.println("hashCode");
-      assertFalse(instance.hashCode() == instance2.hashCode());
+      System.out.println("Snake:hashCode");
+      for (int i = 0; i < instance.length; i++)
+         assertTrue(instance[i].hashCode() != 0);
    }
 
 }

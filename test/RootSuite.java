@@ -30,7 +30,7 @@ import org.junit.runners.Suite;
          SnakeHeadTest.class,
          LevelConstructorTest.class, 
          WallTest.class, 
-         //LevelTest.class, 
+         LevelTest.class, 
          GamePanelTest.class,
          AudioEffectPlayerTest.class,
          CollidableTest.class,

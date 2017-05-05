@@ -67,7 +67,7 @@ public class GamePanelTest
    @Test
    public void testGetContents()
    {
-      System.out.println("getContents");
+      System.out.println("GamePanel:getContents");
       manager.progressState();
       manager.setNumberOfPlayers(1);
       manager.progressState();
@@ -78,21 +78,26 @@ public class GamePanelTest
       manager.setMonochrome(false);
       manager.progressState();
       manager.progressState();
-      Collidable contents=null;
+      Collidable contents = null;
       while (contents == null)
          contents = manager.gameBoard.getContents(5, 5);
-      assertTrue(contents.getClass()==EmptyCell.class);
+      assertTrue(contents.getClass() == EmptyCell.class);
    }
 
    /**
     Test of slowTimerDown method, of class GamePanel.
     */
    @Test
-   public void testSlowTimerDown()
+   public void testSlowTimerDown() throws InterruptedException
    {
-      System.out.println("slowTimerDown");
+      System.out.println("GamePanel:slowTimerDown");
+      manager.progressState();
+      StackTraceElement element = Thread.currentThread().getStackTrace()[0];
+      System.out.println(element);
+      System.out.println("Verify cursor slowed in flashing rate");
+      Thread.sleep(3000);
       manager.gameBoard.slowTimerDown();
-      //Test passes on screen.
+      Thread.sleep(3000);
       assertTrue(true);
    }
 
@@ -100,11 +105,16 @@ public class GamePanelTest
     Test of speedUpTimer method, of class GamePanel.
     */
    @Test
-   public void testSpeedUpTimer()
+   public void testSpeedUpTimer() throws InterruptedException
    {
-      System.out.println("speedUpTimer");
+      System.out.println("GamePanel:speedUpTimer");
+      manager.progressState();
+      StackTraceElement element = Thread.currentThread().getStackTrace()[0];
+      System.out.println(element);
+      System.out.println("Verify cursor sped up in flashing rate");
+      Thread.sleep(3000);
       manager.gameBoard.speedUpTimer();
-      //Test passes on screen.
+      Thread.sleep(3000);
       assertTrue(true);
    }
 
@@ -112,10 +122,13 @@ public class GamePanelTest
     Test of paintComponent method, of class GamePanel.
     */
    @Test
-   public void testPaintComponent()
+   public void testPaintComponent() throws InterruptedException
    {
-      System.out.println("paintComponent");
-      //Game displays, tests pass
+      System.out.println("GamePanel:paintComponent");
+      StackTraceElement element = Thread.currentThread().getStackTrace()[0];
+      System.out.println(element);
+      System.out.println("Verify you can see the games starting screen");
+      Thread.sleep(3000);
       assertTrue(true);
    }
 }

@@ -49,7 +49,7 @@ public class LevelConstructorTest
    @Test
    public void testGetLevel()
    {
-      System.out.println("getLevel");
+      System.out.println("LevelConstructor:getLevel");
       LevelConstructor instance = new LevelConstructor();
       Snake.Direction[] tempOrientations = new Snake.Direction[2];
       Point2D.Double[] tempSpawns = new Point2D.Double[2];
