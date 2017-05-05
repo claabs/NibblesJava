@@ -28,7 +28,6 @@ public class GameManager
    private GamePanel gameBoard;
    private final LevelConstructor levelConstructor = new LevelConstructor();
    private Level level = null;
-   private Snake players[];
    private Timer timer;
    private int updateInterval = 55;  // ms
    private JFrame window;
@@ -43,6 +42,7 @@ public class GameManager
 
    private final AudioEffectPlayer audio = new AudioEffectPlayer();
 
+   private static final Snake players[] = new Snake[2];
    private static final int NUM_ROWS = 48;
    private static final int NUM_COLUMNS = 80;
 
@@ -249,7 +249,7 @@ public class GameManager
       {
          return false;
       }
-      for (int i = 0; i < players.length; i++)
+      for (int i = 0; i < numberOfPlayers; i++)
       {
          if (players[i].collidedWithCollidable(food))
          {
@@ -273,7 +273,7 @@ public class GameManager
             break;
          case numberOfPlayersScreen:
             currentState = eventEnum.skillLevelScreen;
-            players = new Snake[numberOfPlayers];
+            //players = new Snake[numberOfPlayers];
             prepGame();
             break;
          case skillLevelScreen:

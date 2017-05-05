@@ -7,6 +7,7 @@
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.Random;
+import javax.swing.JFrame;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -104,10 +105,27 @@ public class FoodTest
    public void testDraw()
    {
       System.out.println("draw");
-      Graphics2D g = null;
+      JFrame frame = new JFrame();
+      frame.setSize(150,150);
+      frame.setVisible(true);
+      Graphics2D g = (Graphics2D)frame.getGraphics();
       int xPos = 1;
       int yPos = 1;
       instance.draw(g, xPos, yPos);
-       System.out.println("Verify \"Food\" is displayed in upper left.");
+      System.out.println("Verify \"Food\" is displayed in upper left.");
+      
+       
+       
+//       System.out.println("draw");
+//      JFrame frame  = new JFrame();
+//      frame.setSize(150,150);
+//      frame.setVisible(true);
+//      Graphics2D g = (Graphics2D)frame.getGraphics();
+//      int xPos = 0;
+//      int yPos = 0;
+//      Wall instance = new Wall(new Point2D.Double(xPos, yPos));
+//      instance.draw(g, xPos, yPos);
+//      System.out.println("Verify ");
+//      Thread.sleep(2500);
     }
 }

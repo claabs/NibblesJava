@@ -477,9 +477,11 @@ public class GamePanel extends JPanel
     This method will load the level, set by the game manager, onto the game
     board.
     */
-   private void loadLevel()
+   private void loadLevel() throws Exception
    {
       level = manager.getLevel();
+      if (level == null)
+         throw new Exception("Level not loaded");
       Collidable[][] tempGrid = level.getLevelGrid();
       for (int column = 0; column < gameBoard.length; column++)
          System.arraycopy(tempGrid[column], 0, gameBoard[column], 0, gameBoard[column].length);
@@ -492,7 +494,14 @@ public class GamePanel extends JPanel
     */
    private void drawGameBoard(Graphics2D g)
    {
-      loadLevel();
+      try
+      {
+loadLevel();
+      }
+      catch (Exception e)
+      {
+         level = new Level();
+      }
       for (int column = 0; column < gameBoard.length; column++)
          for (int row = 0; row < gameBoard[column].length; row++)
          {
@@ -514,7 +523,14 @@ public class GamePanel extends JPanel
     */
    private void drawGameBoardWithFood(Graphics2D g)
    {
-      loadLevel();
+       try
+      {
+loadLevel();
+      }
+      catch (Exception e)
+      {
+         level = new Level();
+      }
       Food[] foods = manager.getFood();
       for (Food food : foods)
          setContents(food.position.x, food.position.y, food);

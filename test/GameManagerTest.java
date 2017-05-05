@@ -45,7 +45,7 @@ public class GameManagerTest
       window.setTitle("Nibbles - .min.jHawks V2");
       window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       window.setVisible(true);
-      instance = new GameManager(window);
+      instance = new GameManager(window, 5);
    }
 
    @After
@@ -96,11 +96,11 @@ public class GameManagerTest
    {
       System.out.println("getSnakes");
       Snake expectedSnake1 = new Snake(new Point2D.Double(20, 20), Snake.Direction.UP, 3);
-      Snake snArray[] = new Snake[1];
-      snArray[0] = expectedSnake1;
+      Snake snakeArray[] = new Snake[1];
+      snakeArray[0] = expectedSnake1;
       instance.setNumberOfPlayers(2);
       instance.restart();
-      boolean result = instance.getSnakes() == snArray;
+      boolean result = instance.getSnakes() == snakeArray;
       assertFalse(result);
       /*
       Snake[] expectedSnakes = new Snake[]
@@ -124,7 +124,13 @@ public class GameManagerTest
    public void testGetFood()
    {
       System.out.println("getFood");
-      assertTrue(instance.getFood().equals(new Food(1, new Point2D.Double(30, 30), 0)));
+      instance.restart();
+      Food createdFood[] = new Food[2];
+      createdFood[0] = new Food(1, new Point2D.Double(58, 4), 0);
+      createdFood[1] = new Food(1, new Point2D.Double(58, 3), 1);
+      Food someFood[] = instance.getFood();
+      assertTrue(createdFood[0].equals(someFood[0]));
+      assertTrue(createdFood[1].equals(someFood[1]));
    }
 
    /**
@@ -259,10 +265,10 @@ public class GameManagerTest
    {
       System.out.println("restart");
       instance.restart();
-      boolean result = instance.getLevel().getLevelNumber() == 0;
+      int result = instance.getLevel().getLevelNumber();
 
       //  boolean result = instance.getCurrentState() == GameManager.eventEnum.startOfLevel;
-      assertTrue(result);
+      assertTrue(result == 1);
    }
 
    /**
