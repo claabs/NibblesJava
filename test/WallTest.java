@@ -49,11 +49,6 @@ public class WallTest
    {
    }
 
-   @Test
-   public void testSomeMethod()
-   {
-   }
-
    /**
     Test of draw method, of class Wall.
     */
@@ -61,6 +56,8 @@ public class WallTest
    public void testDraw() throws InterruptedException
    {
       System.out.println("draw");
+      StackTraceElement element = new Exception().getStackTrace()[0];
+      System.out.println(element);
       GameManager.monochrome = false;
       JFrame frame = new JFrame()
       {

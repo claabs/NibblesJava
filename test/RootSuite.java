@@ -63,7 +63,6 @@ public class RootSuite
    {
       try
       {
-
          Robot robot = new Robot();
          int delay = 250;
          robot.delay(100);

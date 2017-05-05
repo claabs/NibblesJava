@@ -94,6 +94,8 @@ public class EmptyCellTest
    public void testDraw() throws InterruptedException
    {
       System.out.println("draw");
+      StackTraceElement element = new Exception().getStackTrace()[0];
+      System.out.println(element);
       GameManager.monochrome = false;
       JFrame frame = new JFrame()
       {

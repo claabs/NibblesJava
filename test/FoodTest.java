@@ -4,8 +4,14 @@
  and open the template in the editor.
  */
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 import javax.swing.JFrame;
 import org.junit.After;
@@ -76,14 +82,14 @@ public class FoodTest
    public void testEquals()
    {
       System.out.println("equals");
-      assertTrue(instance.equals(new Food(1, new Point2D.Double(10, 20),0)));
-      assertFalse(instance.equals(new Food(1, new Point2D.Double(20, 20),0)));
-      assertFalse(instance.equals(new Food(2, new Point2D.Double(10, 20),0)));
+      assertTrue(instance.equals(new Food(1, new Point2D.Double(10, 20), 0)));
+      assertFalse(instance.equals(new Food(1, new Point2D.Double(20, 20), 0)));
+      assertFalse(instance.equals(new Food(2, new Point2D.Double(10, 20), 0)));
       assertFalse(instance.equals(null));
    }
 
    /**
-    * Test of hashCode method, of class Food.
+    Test of hashCode method, of class Food.
     */
    @Test
    public void testHashCode()
@@ -91,41 +97,65 @@ public class FoodTest
       System.out.println("hashCode");
       Random random = new Random();
       Food[] foods = new Food[500];
-      for (int i=0;i<foods.length;i++)
-         foods[i]=new Food(random.nextInt(), new Point2D.Double(random.nextDouble(), random.nextDouble()), random.nextInt(2));
-      for (int i=0;i<foods.length;i++)
-         for (int j=i+1;j<foods.length;j++)
-      assertFalse(foods[i].hashCode()==foods[j].hashCode());
+      for (int i = 0; i < foods.length; i++)
+         foods[i] = new Food(random.nextInt(), new Point2D.Double(random.nextDouble(), random.nextDouble()), random.nextInt(2));
+      for (int i = 0; i < foods.length; i++)
+         for (int j = i + 1; j < foods.length; j++)
+            if (foods[i].equals(foods[j]))
+               assertTrue(foods[i].hashCode() == foods[j].hashCode());
+            else
+               assertTrue(foods[i].hashCode() != foods[j].hashCode());
    }
 
    /**
-    * Test of draw method, of class Food.
+    Test of draw method, of class Food.
     */
    @Test
-   public void testDraw()
+   public void testDraw() throws InterruptedException
    {
+
       System.out.println("draw");
-      JFrame frame = new JFrame();
-      frame.setSize(150,150);
+      StackTraceElement element = new Exception().getStackTrace()[0];
+      System.out.println(element);
+      GameManager.monochrome = false;
+      JFrame frame = new JFrame()
+      {
+         @Override
+         public void update(Graphics g)
+         {
+            Graphics2D g2 = (Graphics2D) g;
+            try
+            {
+               File fontFile = new File(getClass().getClassLoader().getResource("LessPerfectDOSVGA.ttf").getFile());
+               Font displayFont = Font.createFont(Font.TRUETYPE_FONT, fontFile);
+               displayFont = displayFont.deriveFont(16f);
+               g2.setFont(displayFont);
+            }
+            catch (FontFormatException | IOException ex)
+            {
+               System.out.println("Error: Font not found.");
+            }
+            int xPos = 16;
+            int yPos = 16;
+            GameManager.monochrome = !GameManager.monochrome;
+            g2.setColor(Color.red);
+            g2.fillRect(0, 0, getWidth(), getHeight());
+            for (int i = 0; i < 10; i++)
+            {
+               new Food(1, new Point2D.Double(50 + xPos * i, 50 + yPos * i), 1).draw(g2, 50 + xPos * i, 50 + yPos * i);
+               new Food(1, new Point2D.Double(50 + xPos * i, 50 + yPos * (i + 1)), 0).draw(g2, 50 + xPos * i, 50 + yPos * (i + 1));
+            }
+         }
+
+      };
+      frame.setSize(300, 300);
       frame.setVisible(true);
-      Graphics2D g = (Graphics2D)frame.getGraphics();
-      int xPos = 1;
-      int yPos = 1;
-      instance.draw(g, xPos, yPos);
-      System.out.println("Verify \"Food\" is displayed in upper left.");
-      
-       
-       
-//       System.out.println("draw");
-//      JFrame frame  = new JFrame();
-//      frame.setSize(150,150);
-//      frame.setVisible(true);
-//      Graphics2D g = (Graphics2D)frame.getGraphics();
-//      int xPos = 0;
-//      int yPos = 0;
-//      Wall instance = new Wall(new Point2D.Double(xPos, yPos));
-//      instance.draw(g, xPos, yPos);
-//      System.out.println("Verify ");
-//      Thread.sleep(2500);
-    }
+      frame.invalidate();
+      System.out.println("Verify food is drawn");
+      for (int i = 0; i < 10; i++)
+      {
+         frame.update(frame.getGraphics());
+         Thread.sleep(250);
+      }
+   }
 }

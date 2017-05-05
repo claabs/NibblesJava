@@ -13,8 +13,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
- * @author User
+
+ @author User
  */
 public class AudioEffectPlayerTest
 {
@@ -44,12 +44,14 @@ public class AudioEffectPlayerTest
    }
 
    /**
-    * Test of playSound method, of class AudioEffectPlayer.
+    Test of playSound method, of class AudioEffectPlayer.
     */
    @Test
    public void testPlaySound() throws InterruptedException
    {
-      System.out.println("playSound");
+      System.out.println("AudioEffectPlayer:playSound");
+      StackTraceElement element = new Exception().getStackTrace()[0];
+      System.out.println(element);
       String soundFile = "theme-slow.wav";
       AudioEffectPlayer instance = new AudioEffectPlayer();
       instance.playSound(soundFile);
@@ -59,12 +61,14 @@ public class AudioEffectPlayerTest
    }
 
    /**
-    * Test of update method, of class AudioEffectPlayer.
+    Test of update method, of class AudioEffectPlayer.
     */
    @Test
    public void testUpdate() throws InterruptedException
    {
-      System.out.println("update");
+      System.out.println("AudioEffectPlayer:update");
+      StackTraceElement element = new Exception().getStackTrace()[0];
+      System.out.println(element);
       String soundFile1 = "theme-fast.wav";
       String soundFile2 = "crash.wav";
       AudioEffectPlayer instance = new AudioEffectPlayer();

@@ -5,6 +5,7 @@
  */
 
 import java.awt.geom.Point2D;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -16,8 +17,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
- * @author Noah Moss
+
+ @author Noah Moss
  */
 public class GameManagerTest
 {
@@ -56,12 +57,14 @@ public class GameManagerTest
    }
 
    /**
-    * Test of run method, of class GameManager.
+    Test of run method, of class GameManager.
     */
    @Test
    public void testRun()
    {
-      System.out.println("run");
+      System.out.println("GameManager:run");
+      StackTraceElement element = new Exception().getStackTrace()[0];
+      System.out.println(element);
       System.out.println("Verify running.");
       try
       {
@@ -74,50 +77,54 @@ public class GameManagerTest
    }
 
    /**
-    * Test of pause method, of class GameManager.
+    Test of pause method, of class GameManager.
     */
    @Test
    public void testPause()
    {
-      System.out.println("pause");
+      System.out.println("GameManager:pause");
+      StackTraceElement element = new Exception().getStackTrace()[0];
+      System.out.println(element);
       System.out.println("Verify \"Pause\" screen is showing.");
       instance.pause();
    }
 
    /**
-    * Test of unpause method, of class GameManager.
+    Test of unpause method, of class GameManager.
     */
    @Test
    public void testUnpause()
    {
-      System.out.println("unpause");
+      System.out.println("GameManager:unpause");
+      StackTraceElement element = new Exception().getStackTrace()[0];
+      System.out.println(element);
       System.out.println("Verify \"Pause\" screen is no longer showing.");
       instance.unpause();
    }
 
    /**
-    * Test of getSnakes method, of class GameManager.
+    Test of getSnakes method, of class GameManager.
     */
    @Test
    public void testGetSnakes()
    {
-      System.out.println("getSnakes");
+      System.out.println("GameManager:getSnakes");
       Snake expectedSnake1 = new Snake(new Point2D.Double(20, 20), Snake.Direction.UP, 3);
-      Snake snakeArray[] = new Snake[1];
+      Snake snakeArray[] = new Snake[2];
       snakeArray[0] = expectedSnake1;
       instance.setNumberOfPlayers(2);
       instance.restart();
-      boolean result = instance.getSnakes() == snakeArray;
+      boolean result = Arrays.equals(instance.getSnakes(), snakeArray);
       assertFalse(result);
    }
 
    /**
-    * Test of getFood method, of class GameManager.
+    Test of getFood method, of class GameManager.
     */
    @Test
    public void testGetFood()
    {
-      System.out.println("getFood");
+      System.out.println("GameManager:getFood");
       instance.restart();
       Food createdFood[] = new Food[2];
       createdFood[0] = new Food(1, new Point2D.Double(58, 4), 0);
@@ -128,33 +135,33 @@ public class GameManagerTest
    }
 
    /**
-    * Test of getNumberOfPlayers method, of class GameManager.
+    Test of getNumberOfPlayers method, of class GameManager.
     */
    @Test
    public void testGetNumberOfPlayers()
    {
-      System.out.println("getNumberOfPlayers");
+      System.out.println("GameManager:getNumberOfPlayers");
       instance.setNumberOfPlayers(1);
       assertTrue(instance.getNumberOfPlayers() == 1);
    }
 
    /**
-    * Test of getLevel method, of class GameManager.
+    Test of getLevel method, of class GameManager.
     */
    @Test
    public void testGetLevel()
    {
-      System.out.println("getLevel");
+      System.out.println("GameManager:getLevel");
       assertTrue(instance.getLevel() == null);
    }
 
    /**
-    * Test of setNumberOfPlayers method, of class GameManager.
+    Test of setNumberOfPlayers method, of class GameManager.
     */
    @Test
    public void testSetNumberOfPlayers()
    {
-      System.out.println("setNumberOfPlayers");
+      System.out.println("GameManager:setNumberOfPlayers");
       int inNumberOfPlayers = 1;
       instance.setNumberOfPlayers(inNumberOfPlayers);
       boolean result = inNumberOfPlayers == instance.getNumberOfPlayers();
@@ -162,12 +169,12 @@ public class GameManagerTest
    }
 
    /**
-    * Test of getSkill method, of class GameManager.
+    Test of getSkill method, of class GameManager.
     */
    @Test
    public void testGetSkill()
    {
-      System.out.println("getSkill");
+      System.out.println("GameManager:getSkill");
       instance.setSkill(1);
       int expResult = 1;
       int result = instance.getSkill();
@@ -175,12 +182,12 @@ public class GameManagerTest
    }
 
    /**
-    * Test of setSkill method, of class GameManager.
+    Test of setSkill method, of class GameManager.
     */
    @Test
    public void testSetSkill()
    {
-      System.out.println("setSkill");
+      System.out.println("GameManager:setSkill");
       instance.setSkill(1);
       int expResult = 1;
       int result = instance.getSkill();
@@ -188,39 +195,39 @@ public class GameManagerTest
    }
 
    /**
-    * Test of getCurrentState method, of class GameManager.
+    Test of getCurrentState method, of class GameManager.
     */
    @Test
    public void testGetCurrentState()
    {
-      System.out.println("getCurrentState");
+      System.out.println("GameManager:getCurrentState");
       boolean expResult = true;
       boolean result = instance.getCurrentState()
-         == GameManager.eventEnum.introScreen;
+            == GameManager.eventEnum.introScreen;
       assertEquals(expResult, result);
    }
 
    /**
-    * Test of getIncreaseSpeed method, of class GameManager.
+    Test of getIncreaseSpeed method, of class GameManager.
     */
    @Test
    public void testGetIncreaseSpeed()
    {
-      System.out.println("getIncreaseSpeed");
+      System.out.println("GameManager:getIncreaseSpeed");
       boolean inIncreaseSpeed = false;
       instance.setIncreaseSpeed(inIncreaseSpeed);
       boolean result = instance.getIncreaseSpeed() == inIncreaseSpeed;
       assertTrue(result);
-      
+
    }
 
    /**
-    * Test of setIncreaseSpeed method, of class GameManager.
+    Test of setIncreaseSpeed method, of class GameManager.
     */
    @Test
    public void testSetIncreaseSpeed()
    {
-      System.out.println("setIncreaseSpeed");
+      System.out.println("GameManager:setIncreaseSpeed");
       boolean inIncreaseSpeed = false;
       instance.setIncreaseSpeed(inIncreaseSpeed);
       boolean result = instance.getIncreaseSpeed() == inIncreaseSpeed;
@@ -228,36 +235,36 @@ public class GameManagerTest
    }
 
    /**
-    * Test of getMonochrome method, of class GameManager.
+    Test of getMonochrome method, of class GameManager.
     */
    @Test
    public void testGetMonochrome()
    {
-      System.out.println("getMonochrome");
+      System.out.println("GameManager:getMonochrome");
       instance.setMonochrome(true);
       boolean result = instance.getMonochrome();
       assertTrue(result);
    }
 
    /**
-    * Test of setMonochrome method, of class GameManager.
+    Test of setMonochrome method, of class GameManager.
     */
    @Test
    public void testSetMonochrome()
    {
-      System.out.println("setMonochrome");
+      System.out.println("GameManager:setMonochrome");
       instance.setMonochrome(true);
       boolean result = instance.getMonochrome();
       assertTrue(result);
    }
 
    /**
-    * Test of restart method, of class GameManager.
+    Test of restart method, of class GameManager.
     */
    @Test
    public void testRestart()
    {
-      System.out.println("restart");
+      System.out.println("GameManager:restart");
       instance.restart();
       int result = instance.getLevel().getLevelNumber();
 
@@ -266,12 +273,12 @@ public class GameManagerTest
    }
 
    /**
-    * Test of progressState method, of class GameManager.
+    Test of progressState method, of class GameManager.
     */
    @Test
    public void testProgressState()
    {
-      System.out.println("progressState");
+      System.out.println("GameManager:progressState");
       instance.getCurrentState();
       // Game Manager starts with currentState = eventEnum.introScreen
       instance.progressState();
@@ -279,17 +286,17 @@ public class GameManagerTest
 
       boolean expResult = true;
       boolean result = instance.getCurrentState()
-         == GameManager.eventEnum.numberOfPlayersScreen;
+            == GameManager.eventEnum.numberOfPlayersScreen;
       assertEquals(expResult, result);
    }
 
    /**
-    * Test of getLastDeath method, of class GameManager.
+    Test of getLastDeath method, of class GameManager.
     */
    @Test
    public void testGetLastDeath()
    {
-      System.out.println("getLastDeath");
+      System.out.println("GameManager:getLastDeath");
       instance.getLastDeath();
       int expResult = 0;
       boolean result = instance.getLastDeath() == expResult;

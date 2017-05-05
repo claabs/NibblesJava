@@ -20,7 +20,6 @@ public class KeyboardListenerTest
 {
 
    private JFrame window;
-   private Lock sequential = new ReentrantLock();
 
    private GameManager manager;
    private Robot robot;
@@ -42,7 +41,6 @@ public class KeyboardListenerTest
    @Before
    public void setUp() throws AWTException
    {
-      sequential.lock();
       window = new JFrame();
       window.setTitle("Nibbles - .min.jHawks V2");
       window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,7 +51,6 @@ public class KeyboardListenerTest
    @After
    public void tearDown()
    {
-      sequential.unlock();
    }
 
    private void startGame(int numPlayers, int skillLevel, boolean increaseSpeed, boolean color)
@@ -121,6 +118,8 @@ public class KeyboardListenerTest
    public void testKeyPressed()
    {
       System.out.println("keyPressed");
+      StackTraceElement element = new Exception().getStackTrace()[0];
+      System.out.println(element);
       startGame(2, 1, false, true);
       robot.delay(250);
       robot.keyPress(KeyEvent.VK_P);

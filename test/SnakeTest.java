@@ -18,8 +18,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
- * @author Noah Moss
+
+ @author Noah Moss
  */
 public class SnakeTest
 {
@@ -66,7 +66,7 @@ public class SnakeTest
    }
 
    /**
-    * Test of iterateForward method, of class Snake.
+    Test of iterateForward method, of class Snake.
     */
    @Test
    public void testIterateForward()
@@ -77,7 +77,7 @@ public class SnakeTest
    }
 
    /**
-    * Test of getHeadLocation method, of class Snake.
+    Test of getHeadLocation method, of class Snake.
     */
    @Test
    public void testGetHeadLocation()
@@ -87,7 +87,7 @@ public class SnakeTest
    }
 
    /**
-    * Test of getSnakeSegments method, of class Snake.
+    Test of getSnakeSegments method, of class Snake.
     */
    @Test
    public void testGetSnakeSegments()
@@ -97,7 +97,7 @@ public class SnakeTest
    }
 
    /**
-    * Test of checkCollison method, of class Snake.
+    Test of checkCollison method, of class Snake.
     */
    @Test
    public void testCheckCollison()
@@ -107,7 +107,7 @@ public class SnakeTest
    }
 
    /**
-    * Test of setDirection method, of class Snake.
+    Test of setDirection method, of class Snake.
     */
    @Test
    public void testSetDirection()
@@ -119,7 +119,7 @@ public class SnakeTest
    }
 
    /**
-    * Test of die method, of class Snake.
+    Test of die method, of class Snake.
     */
    @Test
    public void testDie()
@@ -133,7 +133,7 @@ public class SnakeTest
    }
 
    /**
-    * Test of eat method, of class Snake.
+    Test of eat method, of class Snake.
     */
    @Test
    public void testEat()
@@ -151,7 +151,7 @@ public class SnakeTest
    }
 
    /**
-    * Test of getScore method, of class Snake.
+    Test of getScore method, of class Snake.
     */
    @Test
    public void testGetScore()
@@ -169,7 +169,7 @@ public class SnakeTest
    }
 
    /**
-    * Test of getLives method, of class Snake.
+    Test of getLives method, of class Snake.
     */
    @Test
    public void testGetLives()
@@ -183,7 +183,7 @@ public class SnakeTest
    }
 
    /**
-    * Test of equals method, of class Snake.
+    Test of equals method, of class Snake.
     */
    @Test
    public void testEquals()
@@ -195,7 +195,7 @@ public class SnakeTest
    }
 
    /**
-    * Test of moveSpawn method, of class Snake.
+    Test of moveSpawn method, of class Snake.
     */
    @Test
    public void testMoveSpawn()
@@ -215,7 +215,7 @@ public class SnakeTest
    }
 
    /**
-    * Test of getColorColor method, of class Snake.
+    Test of getColorColor method, of class Snake.
     */
    @Test
    public void testGetColorColor()
@@ -231,7 +231,7 @@ public class SnakeTest
    }
 
    /**
-    * Test of getMonoColor method, of class Snake.
+    Test of getMonoColor method, of class Snake.
     */
    @Test
    public void testGetMonoColor()
@@ -246,7 +246,7 @@ public class SnakeTest
    }
 
    /**
-    * Test of getColor method, of class Snake.
+    Test of getColor method, of class Snake.
     */
    @Test
    public void testGetColor()
@@ -261,7 +261,7 @@ public class SnakeTest
    }
 
    /**
-    * Test of respawn method, of class Snake.
+    Test of respawn method, of class Snake.
     */
    @Test
    public void testRespawn()
@@ -272,13 +272,14 @@ public class SnakeTest
    }
 
    /**
-    * Test of draw method, of class Snake.
+    Test of draw method, of class Snake.
     */
    @Test
    public void testDraw()
    {
       System.out.println("draw");
-
+      StackTraceElement element = new Exception().getStackTrace()[0];
+      System.out.println(element);
       JFrame frame = new JFrame();
       frame.setSize(150, 150);
       frame.setVisible(true);
@@ -290,7 +291,7 @@ public class SnakeTest
    }
 
    /**
-    * Test of collidedWithOtherSnake method, of class Snake.
+    Test of collidedWithOtherSnake method, of class Snake.
     */
    @Test
    public void testCollidedWithOtherSnake()
@@ -302,7 +303,7 @@ public class SnakeTest
    }
 
    /**
-    * Test of gameOver method, of class Snake.
+    Test of gameOver method, of class Snake.
     */
    @Test
    public void testGameOver()
@@ -314,7 +315,7 @@ public class SnakeTest
    }
 
    /**
-    * Test of hashCode method, of class Snake.
+    Test of hashCode method, of class Snake.
     */
    @Test
    public void testHashCode()

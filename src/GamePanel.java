@@ -42,8 +42,6 @@ public class GamePanel extends JPanel
             repaint();
    };
 
-   
-   
    public enum CellContents
    {
       EMPTY, WALL, FOOD, SNAKE, SNAKEHEAD
@@ -465,7 +463,7 @@ public class GamePanel extends JPanel
    {
       level = manager.getLevel();
       if (level == null)
-         level  = new Level();
+         level = new Level();
       Collidable[][] tempGrid = level.getLevelGrid();
       for (int column = 0; column < gameBoard.length; column++)
          System.arraycopy(tempGrid[column], 0, gameBoard[column], 0, gameBoard[column].length);
@@ -480,7 +478,7 @@ public class GamePanel extends JPanel
    {
       try
       {
-loadLevel();
+         loadLevel();
       }
       catch (Exception e)
       {
@@ -507,17 +505,18 @@ loadLevel();
     */
    private void drawGameBoardWithFood(Graphics2D g)
    {
-       try
+      try
       {
-loadLevel();
+         loadLevel();
       }
       catch (Exception e)
       {
          level = new Level();
       }
       Food[] foods = manager.getFood();
-      for (Food food : foods)
-         setContents(food.position.x, food.position.y, food);
+      for (int i = 0; i < foods.length; i++)
+         if (foods[i] != null)
+            setContents(foods[i].position.x, foods[i].position.y, foods[i]);
       for (int column = 0; column < gameBoard.length; column++)
          for (int row = 0; row < gameBoard[column].length; row++)
          {
@@ -536,8 +535,8 @@ loadLevel();
     */
    private void drawSnakes(Graphics2D g)
    {
-       Snake[] snakes = manager.getSnakes();
-       for (int i=0;i<manager.getNumberOfPlayers();i++)
+      Snake[] snakes = manager.getSnakes();
+      for (int i = 0; i < manager.getNumberOfPlayers(); i++)
          snakes[i].draw(g, xOffset, yOffset);
    }
 
@@ -587,24 +586,27 @@ loadLevel();
    private void paintPlayerInfoHeader(Graphics2D g)
    {
       Snake[] snakes = manager.getSnakes();
-      g.setColor(new Color(0, 0, 170));
-      g.fillRect(MARGIN_SIZE, MARGIN_SIZE, GameManager.CHAR_WIDTH * gameBoard.length, GameManager.CHAR_HEIGHT);
-      g.setColor(new Color(255, 255, 255));
-      int yPos = yOffset - 2;
-      String sammyString = "SAMMY-->  Lives: "
-            + Integer.toString(snakes[0].getLives())
-            + "     "
-            + Integer.toString(snakes[0].getScore());
-      int xPos = xOffset + 48 * GameManager.CHAR_WIDTH;
-      g.drawString(sammyString, xPos, yPos);
-      if (manager.getNumberOfPlayers() == 2)
+      if (snakes[0] != null)
       {
-         String jakeString = Integer.toString(snakes[1].getScore())
-               + "  Lives: "
-               + Integer.toString(snakes[1].getLives())
-               + "  <--JAKE";
-         xPos = xOffset + GameManager.CHAR_WIDTH;
-         g.drawString(jakeString, xPos, yPos);
+         g.setColor(new Color(0, 0, 170));
+         g.fillRect(MARGIN_SIZE, MARGIN_SIZE, GameManager.CHAR_WIDTH * gameBoard.length, GameManager.CHAR_HEIGHT);
+         g.setColor(new Color(255, 255, 255));
+         int yPos = yOffset - 2;
+         String sammyString = "SAMMY-->  Lives: "
+               + Integer.toString(snakes[0].getLives())
+               + "     "
+               + Integer.toString(snakes[0].getScore());
+         int xPos = xOffset + 48 * GameManager.CHAR_WIDTH;
+         g.drawString(sammyString, xPos, yPos);
+         if (manager.getNumberOfPlayers() == 2)
+         {
+            String jakeString = Integer.toString(snakes[1].getScore())
+                  + "  Lives: "
+                  + Integer.toString(snakes[1].getLives())
+                  + "  <--JAKE";
+            xPos = xOffset + GameManager.CHAR_WIDTH;
+            g.drawString(jakeString, xPos, yPos);
+         }
       }
    }
 }
