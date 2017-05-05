@@ -22,6 +22,8 @@ public class GameManager
 
    public static final int CHAR_WIDTH = 8;
    public static final int CHAR_HEIGHT = 2 * CHAR_WIDTH;
+   public static final int TIMES_EATEN_FOR_WIN = 9;
+   public static final int MAX_LEVEL_INDEX = 9;
 
    private static Random random;
    private int currentLevel = 0;
@@ -377,7 +379,7 @@ public class GameManager
                {
                   players[i].eat(food[0]);
                   numTimesEaten++;
-                  if (numTimesEaten == 9)
+                  if (numTimesEaten == TIMES_EATEN_FOR_WIN)
                   {
                      nextLevel();
                      return;
@@ -408,7 +410,8 @@ public class GameManager
    private void nextLevel()
    {
       currentState = eventEnum.startOfLevel;
-      currentLevel++;
+      if (currentLevel < MAX_LEVEL_INDEX)
+         currentLevel++;
       loadLevel(currentLevel);
       food = spawnFood(1);
       numTimesEaten = 0;
