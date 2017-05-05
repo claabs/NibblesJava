@@ -47,13 +47,14 @@ public class AudioEffectPlayerTest
     * Test of playSound method, of class AudioEffectPlayer.
     */
    @Test
-   public void testPlaySound()
+   public void testPlaySound() throws InterruptedException
    {
       System.out.println("playSound");
-      String soundFile = "";
+      String soundFile = "theme-slow.wav";
       AudioEffectPlayer instance = new AudioEffectPlayer();
       instance.playSound(soundFile);
-      System.out.println("Verify \"Sound\" is playing.");
+      Thread.sleep(1000);
+      System.out.println("Verify " + soundFile + " is playing.");
 
    }
 
@@ -61,13 +62,17 @@ public class AudioEffectPlayerTest
     * Test of update method, of class AudioEffectPlayer.
     */
    @Test
-   public void testUpdate()
+   public void testUpdate() throws InterruptedException
    {
       System.out.println("update");
-      LineEvent event = null;
+      String soundFile1 = "theme-fast.wav";
+      String soundFile2 = "crash.wav";
       AudioEffectPlayer instance = new AudioEffectPlayer();
-      instance.update(event);
-      System.out.println("Verify only one audio is playing.");
+      Thread.sleep(1000);
+      instance.playSound(soundFile1);
+      instance.playSound(soundFile2);
+      Thread.sleep(1250);
+      System.out.println("Verify one sound plays after the other.");
    }
 
 }
