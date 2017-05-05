@@ -461,11 +461,11 @@ public class GamePanel extends JPanel
     This method will load the level, set by the game manager, onto the game
     board.
     */
-   private void loadLevel() throws Exception
+   private void loadLevel()
    {
       level = manager.getLevel();
       if (level == null)
-         throw new Exception("Level not loaded");
+         level  = new Level();
       Collidable[][] tempGrid = level.getLevelGrid();
       for (int column = 0; column < gameBoard.length; column++)
          System.arraycopy(tempGrid[column], 0, gameBoard[column], 0, gameBoard[column].length);

@@ -82,14 +82,6 @@ public class GameManagerTest
       System.out.println("pause");
       System.out.println("Verify \"Pause\" screen is showing.");
       instance.pause();
-      try
-      {
-         Thread.sleep(2500);
-      }
-      catch (InterruptedException ex)
-      {
-         Logger.getLogger(GameManagerTest.class.getName()).log(Level.SEVERE, null, ex);
-      }
    }
 
    /**
@@ -101,14 +93,6 @@ public class GameManagerTest
       System.out.println("unpause");
       System.out.println("Verify \"Pause\" screen is no longer showing.");
       instance.unpause();
-      try
-      {
-         Thread.sleep(2500);
-      }
-      catch (InterruptedException ex)
-      {
-         Logger.getLogger(GameManagerTest.class.getName()).log(Level.SEVERE, null, ex);
-      }
    }
 
    /**
