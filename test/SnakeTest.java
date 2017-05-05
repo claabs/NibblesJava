@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.List;
+import javax.swing.JFrame;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -21,8 +22,13 @@ import static org.junit.Assert.*;
  */
 public class SnakeTest
 {
-
+   private static final Color PLAYER_1_COLORCOLOR = new Color(255, 255, 85);
+   private static final Color PLAYER_1_MONOCOLOR = new Color(255, 255, 255);
+   private static final Color PLAYER_2_COLORCOLOR = new Color(255, 85, 255);
+   private static final Color PLAYER_2_MONOCOLOR = new Color(170, 170, 170);
    private Snake instance;
+   private JFrame window;
+   private GameManager instanceG;
 
    public SnakeTest()
    {
@@ -41,7 +47,13 @@ public class SnakeTest
    @Before
    public void setUp()
    {
+      window = new JFrame();
+      window.setTitle("Nibbles - .min.jHawks V2");
+      window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      window.setVisible(true);
       instance = new Snake(new Point2D.Double(20, 20), Snake.Direction.UP, 1);
+      instanceG = new GameManager(window);
+
    }
 
    @After
@@ -220,12 +232,10 @@ public class SnakeTest
    public void testGetColorColor()
    {
       System.out.println("getColorColor");
-      Snake instance = null;
-      Color expResult = null;
-      Color result = instance.getColorColor();
-      assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      instanceG.setMonochrome(false);
+      instanceG.setNumberOfPlayers(1);
+      boolean result = instance.getColor() == PLAYER_1_COLORCOLOR;
+      assertTrue(result);       
    }
 
    /**
@@ -263,12 +273,10 @@ public class SnakeTest
    public void testGetColor()
    {
       System.out.println("getColor");
-      Snake instance = null;
-      Color expResult = null;
-      Color result = instance.getColor();
-      assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      instanceG.setMonochrome(true);
+      instanceG.setNumberOfPlayers(1);
+      boolean result = instance.getColor() == PLAYER_1_MONOCOLOR;
+      assertTrue(result);
    }
 
    /**
