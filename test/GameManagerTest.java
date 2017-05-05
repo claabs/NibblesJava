@@ -127,6 +127,7 @@ public class GameManagerTest
    public void testGetNumberOfPlayers()
    {
       System.out.println("getNumberOfPlayers");
+      instance.setNumberOfPlayers(1);
       assertTrue(instance.getNumberOfPlayers() == 1);
    }
 
@@ -147,11 +148,10 @@ public class GameManagerTest
    public void testSetNumberOfPlayers()
    {
       System.out.println("setNumberOfPlayers");
-      int inNumberOfPlayers = 0;
-      GameManager instance = null;
+      int inNumberOfPlayers = 1;
       instance.setNumberOfPlayers(inNumberOfPlayers);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      boolean result = inNumberOfPlayers == instance.getNumberOfPlayers();
+      assertTrue(result);
    }
 
    /**
@@ -219,8 +219,8 @@ public class GameManagerTest
       boolean inIncreaseSpeed = false;
       GameManager instance = null;
       instance.setIncreaseSpeed(inIncreaseSpeed);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      boolean result = instance.getIncreaseSpeed() == inIncreaseSpeed;
+      assertTrue(result); 
    }
 
    /**
@@ -230,12 +230,9 @@ public class GameManagerTest
    public void testGetMonochrome()
    {
       System.out.println("getMonochrome");
-      GameManager instance = null;
-      boolean expResult = false;
+      instance.setMonochrome(true);
       boolean result = instance.getMonochrome();
-      assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      assertTrue(result);
    }
 
    /**
@@ -245,11 +242,9 @@ public class GameManagerTest
    public void testSetMonochrome()
    {
       System.out.println("setMonochrome");
-      boolean isInMonochrome = false;
-      GameManager instance = null;
-      instance.setMonochrome(isInMonochrome);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      instance.setMonochrome(true);
+      boolean result = instance.getMonochrome();
+      assertTrue(result);
    }
 
    /**
@@ -259,10 +254,10 @@ public class GameManagerTest
    public void testRestart()
    {
       System.out.println("restart");
-      GameManager instance = null;
+      
       instance.restart();
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      boolean result = instance.getCurrentState() == GameManager.eventEnum.startOfLevel;
+    assertTrue(result);
    }
 
    /**
@@ -290,12 +285,10 @@ public class GameManagerTest
    public void testGetLastDeath()
    {
       System.out.println("getLastDeath");
-      GameManager instance = null;
+      instance.getLastDeath();
       int expResult = 0;
-      int result = instance.getLastDeath();
-      assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      boolean result = instance.getLastDeath() == expResult;
+      assertFalse(result);
    }
 
 }
