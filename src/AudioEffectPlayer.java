@@ -61,7 +61,8 @@ public class AudioEffectPlayer implements LineListener
    {
       try
       {
-         audioClip.open(AudioSystem.getAudioInputStream(new File(getClass().getClassLoader().getResource(soundFile).getFile())));
+         File soundPath = new File("resources/" + soundFile);
+         audioClip.open(AudioSystem.getAudioInputStream(soundPath));
          audioClip.start();
       }
       catch (UnsupportedAudioFileException | LineUnavailableException | IOException e )

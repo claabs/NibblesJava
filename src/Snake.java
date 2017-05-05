@@ -381,7 +381,7 @@ public class Snake
       int foodValue = food.getValue();
       growSnake(foodValue);
       score += 100 * foodValue;
-      audio.playSound("get-food-2.wav");
+      audio.playSound("get-food.wav");
    }
 
    /**

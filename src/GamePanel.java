@@ -1,13 +1,8 @@
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.font.TextAttribute;
-import java.awt.geom.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -33,7 +28,7 @@ public class GamePanel extends JPanel
    private final int xOffset;
    private final int yOffset;
    private boolean flashState;
-   private final File fontFile = new File(getClass().getClassLoader().getResource("LessPerfectDOSVGA.ttf").getFile());
+   private final File fontFile = new File("resources/LessPerfectDOSVGA.ttf");
    private final GameManager manager;
    private final AudioEffectPlayer audio = new AudioEffectPlayer();
    private ActionListener taskPerformer = (ActionEvent)
