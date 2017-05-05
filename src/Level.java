@@ -119,7 +119,7 @@ public class Level
       Level level = (Level) o;
       for (int i = 0; i < levelGrid.length; i++)
          for (int j = 0; j < levelGrid[i].length; j++)
-            if (level.levelGrid[i][j] != levelGrid[i][j])
+            if (level.levelGrid[i][j].getClass() != levelGrid[i][j].getClass())
                return false;
       for (int i = 0; i < snakeDirections.length; i++)
          if (level.snakeDirections[i] != snakeDirections[i])

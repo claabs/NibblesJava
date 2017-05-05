@@ -68,7 +68,7 @@ public class LevelConstructor
    */
    private Collidable[][] createBlankLevelWithWalls()
    {
-       Collidable[][] newGrid = new Collidable[WIDTH][HEIGHT];
+      Collidable[][] newGrid = new Collidable[WIDTH][HEIGHT];
       //Create 4 walls
       for (int row = 0; row < 48; row++)
          newGrid[0][row] = new Wall(new Point2D.Double(0, row));

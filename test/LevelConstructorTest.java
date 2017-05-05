@@ -53,30 +53,32 @@ public class LevelConstructorTest
       LevelConstructor instance = new LevelConstructor();
       Snake.Direction[] tempOrientations = new Snake.Direction[2];
       Point2D.Double[] tempSpawns = new Point2D.Double[2];
-      GamePanel.CellContents[][] tempGrid = new GamePanel.CellContents[80][48];
+      Collidable[][] tempGrid = new Collidable[LevelConstructor.WIDTH][LevelConstructor.HEIGHT];
+      
       tempOrientations[0] = Snake.Direction.RIGHT;
       tempOrientations[1] = Snake.Direction.LEFT;
 
       //SET SPAWNS                       COL ROW
-      tempSpawns[0] = new Point2D.Double(50, 23);
-      tempSpawns[1] = new Point2D.Double(30, 23);
+      tempSpawns[0] = new Point2D.Double(49, 22);
+      tempSpawns[1] = new Point2D.Double(29, 22);
 
+       
+      //Create 4 walls
       for (int row = 0; row < 48; row++)
-         tempGrid[0][row] = GamePanel.CellContents.WALL;
+         tempGrid[0][row] = new Wall(new Point2D.Double(0, row));
       for (int row = 0; row < 48; row++)
-         tempGrid[79][row] = GamePanel.CellContents.WALL;
+         tempGrid[79][row] = new Wall(new Point2D.Double(79, row));
       for (int col = 0; col < 80; col++)
-         tempGrid[col][0] = GamePanel.CellContents.WALL;
+         tempGrid[col][0] = new Wall(new Point2D.Double(col, 0));
       for (int col = 0; col < 80; col++)
-         tempGrid[col][47] = GamePanel.CellContents.WALL;
-
+         tempGrid[col][47] = new Wall(new Point2D.Double(col, 47));
+      //Fill inside with empty
       for (int col = 1; col < 79; col++)
          for (int row = 1; row < 47; row++)
-            tempGrid[col][row] = GamePanel.CellContents.EMPTY;
+            tempGrid[col][row] = new EmptyCell(new Point2D.Double(col, row));
 
-      //Level level = new Level(tempGrid, tempOrientations, tempSpawns);
-      //assertTrue(level.equals(instance.getLevel(0)));
-      fail("Not done");
+      Level level = new Level(tempGrid, tempOrientations, tempSpawns, 1);
+      assertTrue(level.equals(instance.getLevel(0)));
    }
 
 }
