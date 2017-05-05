@@ -18,7 +18,8 @@ import static org.junit.Assert.*;
  */
 public class LevelTest
 {
-
+   Level instance;
+   
    public LevelTest()
    {
    }
@@ -36,6 +37,7 @@ public class LevelTest
    @Before
    public void setUp()
    {
+      instance = new Level();
    }
 
    @After

@@ -201,12 +201,17 @@ public class SnakeTest
    public void testMoveSpawn()
    {
       System.out.println("moveSpawn");
-      Point2D.Double newSpawn = null;
-      Snake.Direction newDir = null;
-      Snake instance = null;
-      instance.moveSpawn(newSpawn, newDir);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      Point2D.Double p1 = instance.getHeadLocation();
+
+      Point2D.Double p2 = new Point2D.Double(5, 5);
+      instance.moveSpawn(p2, Snake.Direction.LEFT);
+      Point2D.Double p3 = instance.getHeadLocation();
+      System.out.println("p1: " + p1.x + p1.y);
+      System.out.println("p2: " + p2.x + p2.y);
+      System.out.println("p3: " + p3.x + p3.y);
+      boolean result = p3.equals(p2);
+
+      assertFalse(result);
    }
 
    /**
@@ -220,8 +225,8 @@ public class SnakeTest
       instanceG.setNumberOfPlayers(1);
       Color a = instance.getColor();
       Color b = new Color(255, 255, 85);
-      boolean result = (a.equals(b));  
-      
+      boolean result = (a.equals(b));
+
       assertTrue(result);
    }
 
@@ -236,11 +241,10 @@ public class SnakeTest
       instanceG.setNumberOfPlayers(1);
       Color a = instance.getColor();
       Color b = new Color(255, 255, 255);
-      boolean result = (a.equals(b));  
+      boolean result = (a.equals(b));
       assertTrue(result);
    }
 
-   
    /**
     * Test of getColor method, of class Snake.
     */
@@ -252,9 +256,10 @@ public class SnakeTest
       instanceG.setNumberOfPlayers(1);
       Color a = instance.getColor();
       Color b = new Color(255, 255, 255);
-      boolean result = (a.equals(b));  
+      boolean result = (a.equals(b));
       assertTrue(result);
    }
+
    /**
     * Test of respawn method, of class Snake.
     */
@@ -265,7 +270,6 @@ public class SnakeTest
       instance.respawn();
       assertFalse(instance.getSnakeSegments().isEmpty());
    }
-
 
    /**
     * Test of draw method, of class Snake.
@@ -292,13 +296,9 @@ public class SnakeTest
    public void testCollidedWithOtherSnake()
    {
       System.out.println("collidedWithOtherSnake");
-      Snake snake = null;
-      Snake instance = null;
+      boolean result = instance.collidedWithOtherSnake(instance2);
       boolean expResult = false;
-      boolean result = instance.collidedWithOtherSnake(snake);
       assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
    }
 
    /**
@@ -320,8 +320,6 @@ public class SnakeTest
    public void testHashCode()
    {
       System.out.println("hashCode");
-      Random random = new Random();
-
       assertFalse(instance.hashCode() == instance2.hashCode());
    }
 
