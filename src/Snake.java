@@ -247,6 +247,8 @@ public class Snake
          newSegments--;
    }
 
+    
+   
    /**
     This method will return the location of the snake head.
 
@@ -291,6 +293,19 @@ public class Snake
       return lives == 0;
    }
 
+   /**
+    * This method determines what direction Sammy is moving at the moment
+    * @return currentDirection
+    */
+   public Direction getDirection()
+   {
+      SnakeHead head = (SnakeHead) body.get(0);
+      Direction currentDirection = head.getDirection();
+      return currentDirection;
+   }
+   
+   
+   
    /**
     This method will process a direction from user input. The direction will
     be added if it is legitimate, otherwise it will not.

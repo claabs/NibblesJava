@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.List;
+import java.util.Random;
 import javax.swing.JFrame;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -17,16 +18,17 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
-
- @author Noah Moss
+ *
+ * @author Noah Moss
  */
 public class SnakeTest
 {
+
    private static final Color PLAYER_1_COLORCOLOR = new Color(255, 255, 85);
    private static final Color PLAYER_1_MONOCOLOR = new Color(255, 255, 255);
    private static final Color PLAYER_2_COLORCOLOR = new Color(255, 85, 255);
    private static final Color PLAYER_2_MONOCOLOR = new Color(170, 170, 170);
-   private Snake instance;
+   private Snake instance, instance2;
    private JFrame window;
    private GameManager instanceG;
 
@@ -52,6 +54,8 @@ public class SnakeTest
       window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       window.setVisible(true);
       instance = new Snake(new Point2D.Double(20, 20), Snake.Direction.UP, 1);
+      instance2 = new Snake(new Point2D.Double(10, 10), Snake.Direction.UP, 2);
+
       instanceG = new GameManager(window);
 
    }
@@ -62,7 +66,7 @@ public class SnakeTest
    }
 
    /**
-    Test of iterateForward method, of class Snake.
+    * Test of iterateForward method, of class Snake.
     */
    @Test
    public void testIterateForward()
@@ -73,7 +77,7 @@ public class SnakeTest
    }
 
    /**
-    Test of getHeadLocation method, of class Snake.
+    * Test of getHeadLocation method, of class Snake.
     */
    @Test
    public void testGetHeadLocation()
@@ -83,7 +87,7 @@ public class SnakeTest
    }
 
    /**
-    Test of getSnakeSegments method, of class Snake.
+    * Test of getSnakeSegments method, of class Snake.
     */
    @Test
    public void testGetSnakeSegments()
@@ -93,7 +97,7 @@ public class SnakeTest
    }
 
    /**
-    Test of checkCollison method, of class Snake.
+    * Test of checkCollison method, of class Snake.
     */
    @Test
    public void testCheckCollison()
@@ -103,39 +107,19 @@ public class SnakeTest
    }
 
    /**
-    Test of setDirection method, of class Snake.
+    * Test of setDirection method, of class Snake.
     */
    @Test
    public void testSetDirection()
    {
       System.out.println("setDirection");
-      assertTrue(instance.getDirectionLastMoved() == Snake.Direction.UP);
-      instance.setDirection(Snake.Direction.LEFT);
-      assertTrue(instance.getDirectionLastMoved() == Snake.Direction.LEFT);
-      instance.setDirection(Snake.Direction.DOWN);
-      assertTrue(instance.getDirectionLastMoved() == Snake.Direction.DOWN);
       instance.setDirection(Snake.Direction.RIGHT);
-      assertTrue(instance.getDirectionLastMoved() == Snake.Direction.RIGHT);
+      boolean result = instance.getDirection() == Snake.Direction.RIGHT;
+      assertTrue(result);
    }
 
    /**
-    Test of getDirectionLastMoved method, of class Snake.
-    */
-   @Test
-   public void testGetDirection()
-   {
-      System.out.println("getDirection");
-      assertTrue(instance.getDirectionLastMoved() == Snake.Direction.UP);
-      instance.setDirection(Snake.Direction.LEFT);
-      assertTrue(instance.getDirectionLastMoved() == Snake.Direction.LEFT);
-      instance.setDirection(Snake.Direction.DOWN);
-      assertTrue(instance.getDirectionLastMoved() == Snake.Direction.DOWN);
-      instance.setDirection(Snake.Direction.RIGHT);
-      assertTrue(instance.getDirectionLastMoved() == Snake.Direction.RIGHT);
-   }
-
-   /**
-    Test of die method, of class Snake.
+    * Test of die method, of class Snake.
     */
    @Test
    public void testDie()
@@ -149,7 +133,7 @@ public class SnakeTest
    }
 
    /**
-    Test of eat method, of class Snake.
+    * Test of eat method, of class Snake.
     */
    @Test
    public void testEat()
@@ -157,17 +141,17 @@ public class SnakeTest
       System.out.println("eat");
       assertTrue(instance.getScore() == 0);
       instance.eat(new Food(1, new Point2D.Double(20, 20), 0));
-      assertTrue(instance.getScore()== 100);
+      assertTrue(instance.getScore() == 100);
       instance.eat(new Food(2, new Point2D.Double(20, 20), 0));
-      assertTrue(instance.getScore()== 300);
+      assertTrue(instance.getScore() == 300);
       instance.eat(new Food(3, new Point2D.Double(20, 20), 0));
-      assertTrue(instance.getScore()== 600);
+      assertTrue(instance.getScore() == 600);
       instance.eat(new Food(4, new Point2D.Double(20, 20), 0));
-      assertTrue(instance.getScore()== 1000);
+      assertTrue(instance.getScore() == 1000);
    }
 
    /**
-    Test of getScore method, of class Snake.
+    * Test of getScore method, of class Snake.
     */
    @Test
    public void testGetScore()
@@ -175,17 +159,17 @@ public class SnakeTest
       System.out.println("getScore");
       assertTrue(instance.getScore() == 0);
       instance.eat(new Food(1, new Point2D.Double(20, 20), 0));
-      assertTrue(instance.getScore()== 100);
+      assertTrue(instance.getScore() == 100);
       instance.eat(new Food(2, new Point2D.Double(20, 20), 0));
-      assertTrue(instance.getScore()== 300);
+      assertTrue(instance.getScore() == 300);
       instance.eat(new Food(3, new Point2D.Double(20, 20), 0));
-      assertTrue(instance.getScore()== 600);
+      assertTrue(instance.getScore() == 600);
       instance.eat(new Food(4, new Point2D.Double(20, 20), 0));
-      assertTrue(instance.getScore()== 1000);
+      assertTrue(instance.getScore() == 1000);
    }
 
    /**
-    Test of getLives method, of class Snake.
+    * Test of getLives method, of class Snake.
     */
    @Test
    public void testGetLives()
@@ -235,7 +219,7 @@ public class SnakeTest
       instanceG.setMonochrome(false);
       instanceG.setNumberOfPlayers(1);
       boolean result = (instance.getColor() == PLAYER_1_COLORCOLOR) || (instance.getColor() == PLAYER_2_COLORCOLOR);
-      assertTrue(result); 
+      assertTrue(result);
    }
 
    /**
@@ -248,7 +232,7 @@ public class SnakeTest
       instanceG.setMonochrome(true);
       instanceG.setNumberOfPlayers(1);
       boolean result = (instance.getColor() == PLAYER_1_MONOCOLOR) || (instance.getColor() == PLAYER_2_MONOCOLOR);
-      assertTrue(result);    
+      assertTrue(result);
    }
 
    /**
@@ -273,9 +257,9 @@ public class SnakeTest
       System.out.println("getColor");
       instanceG.setMonochrome(true);
       instanceG.setNumberOfPlayers(1);
-      boolean result = (instance.getColorColor()== PLAYER_1_COLORCOLOR) 
-         || (instance.getColorColor() == PLAYER_2_COLORCOLOR) 
-         || (instance.getColor() == PLAYER_1_MONOCOLOR) 
+      boolean result = (instance.getColorColor() == PLAYER_1_COLORCOLOR)
+         || (instance.getColorColor() == PLAYER_2_COLORCOLOR)
+         || (instance.getColor() == PLAYER_1_MONOCOLOR)
          || (instance.getColor() == PLAYER_2_MONOCOLOR);
       assertTrue(result);
    }
@@ -325,37 +309,15 @@ public class SnakeTest
    }
 
    /**
-    * Test of getDirectionLastMoved method, of class Snake.
-    */
-   @Test
-   public void testGetDirectionLastMoved()
-   {
-      System.out.println("getDirectionLastMoved");
-      instance.setDirection(Snake.Direction.RIGHT);
-      instance.setDirection(Snake.Direction.DOWN);
-      instance.setDirection(Snake.Direction.RIGHT);
-      instance.iterateForward();
-      Snake.Direction expResult = Snake.Direction.RIGHT;
-      Snake.Direction result = instance.getDirectionLastMoved();
-      instance.`
-      
-      assertEquals(expResult, result);
-
-   }
-
-   /**
     * Test of hashCode method, of class Snake.
     */
    @Test
    public void testHashCode()
    {
       System.out.println("hashCode");
-      Snake instance = null;
-      int expResult = 0;
-      int result = instance.hashCode();
-      assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      Random random = new Random();
+
+      assertFalse(instance.hashCode() == instance2.hashCode());
    }
 
 }
