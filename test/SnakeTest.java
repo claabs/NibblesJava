@@ -233,8 +233,10 @@ public class SnakeTest
    {
       System.out.println("getColorColor");
       instanceG.setMonochrome(false);
+      
       instanceG.setNumberOfPlayers(1);
-      boolean result = instance.getColor() == PLAYER_1_COLORCOLOR;
+      boolean result;
+      result = (instance.getColorColor()== PLAYER_1_COLORCOLOR) || (instance.getColorColor() == PLAYER_2_COLORCOLOR) || (instance.getColor() == PLAYER_1_MONOCOLOR) || (instance.getColor() == PLAYER_2_MONOCOLOR);
       assertTrue(result);       
    }
 
@@ -245,12 +247,10 @@ public class SnakeTest
    public void testGetMonoColor()
    {
       System.out.println("getMonoColor");
-      Snake instance = null;
-      Color expResult = null;
-      Color result = instance.getMonoColor();
-      assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+       instanceG.setMonochrome(true);
+      instanceG.setNumberOfPlayers(1);
+      boolean result = (instance.getColor() == PLAYER_1_MONOCOLOR) || (instance.getColor() == PLAYER_2_MONOCOLOR);
+      assertTrue(result);    
    }
 
    /**
