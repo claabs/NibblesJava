@@ -5,6 +5,8 @@
  */
 
 import java.awt.geom.Point2D;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -57,35 +59,56 @@ public class GameManagerTest
     * Test of run method, of class GameManager.
     */
    @Test
-   public void testRun() throws InterruptedException
+   public void testRun()
    {
       System.out.println("run");
       System.out.println("Verify running.");
-      Thread.sleep(2500);
+      try
+      {
+         Thread.sleep(2500);
+      }
+      catch (InterruptedException ex)
+      {
+         Logger.getLogger(GameManagerTest.class.getName()).log(Level.SEVERE, null, ex);
+      }
    }
 
    /**
     * Test of pause method, of class GameManager.
     */
    @Test
-   public void testPause() throws InterruptedException
+   public void testPause()
    {
       System.out.println("pause");
       System.out.println("Verify \"Pause\" screen is showing.");
       instance.pause();
-      Thread.sleep(2500);
+      try
+      {
+         Thread.sleep(2500);
+      }
+      catch (InterruptedException ex)
+      {
+         Logger.getLogger(GameManagerTest.class.getName()).log(Level.SEVERE, null, ex);
+      }
    }
 
    /**
     * Test of unpause method, of class GameManager.
     */
    @Test
-   public void testUnpause() throws InterruptedException
+   public void testUnpause()
    {
       System.out.println("unpause");
       System.out.println("Verify \"Pause\" screen is no longer showing.");
       instance.unpause();
-      Thread.sleep(2500);
+      try
+      {
+         Thread.sleep(2500);
+      }
+      catch (InterruptedException ex)
+      {
+         Logger.getLogger(GameManagerTest.class.getName()).log(Level.SEVERE, null, ex);
+      }
    }
 
    /**
@@ -102,19 +125,6 @@ public class GameManagerTest
       instance.restart();
       boolean result = instance.getSnakes() == snakeArray;
       assertFalse(result);
-      /*
-      Snake[] expectedSnakes = new Snake[]
-      {
-         new Snake(new Point2D.Double(20, 20), Snake.Direction.UP),
-         new Snake(new Point2D.Double(40, 40), Snake.Direction.UP)
-      };
-      Snake[] result = instance.getSnakes();
-      assertTrue(expectedSnakes.length == result.length);
-      for (int i = 0; i < expectedSnakes.length; i++)
-         assertTrue(expectedSnakes[i].equals(result[i]));
-       */
-      //Snake[] result = instance.getSnakes();
-      //assertTrue(new Snake(new Point2D.Double(20, 20), Snake.Direction.UP, 0).equals(result[0]));
    }
 
    /**
