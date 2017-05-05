@@ -233,11 +233,9 @@ public class SnakeTest
    {
       System.out.println("getColorColor");
       instanceG.setMonochrome(false);
-      
       instanceG.setNumberOfPlayers(1);
-      boolean result;
-      result = (instance.getColorColor()== PLAYER_1_COLORCOLOR) || (instance.getColorColor() == PLAYER_2_COLORCOLOR) || (instance.getColor() == PLAYER_1_MONOCOLOR) || (instance.getColor() == PLAYER_2_MONOCOLOR);
-      assertTrue(result);       
+      boolean result = (instance.getColor() == PLAYER_1_COLORCOLOR) || (instance.getColor() == PLAYER_2_COLORCOLOR);
+      assertTrue(result); 
    }
 
    /**
@@ -247,7 +245,7 @@ public class SnakeTest
    public void testGetMonoColor()
    {
       System.out.println("getMonoColor");
-       instanceG.setMonochrome(true);
+      instanceG.setMonochrome(true);
       instanceG.setNumberOfPlayers(1);
       boolean result = (instance.getColor() == PLAYER_1_MONOCOLOR) || (instance.getColor() == PLAYER_2_MONOCOLOR);
       assertTrue(result);    
@@ -275,7 +273,10 @@ public class SnakeTest
       System.out.println("getColor");
       instanceG.setMonochrome(true);
       instanceG.setNumberOfPlayers(1);
-      boolean result = instance.getColor() == PLAYER_1_MONOCOLOR;
+      boolean result = (instance.getColorColor()== PLAYER_1_COLORCOLOR) 
+         || (instance.getColorColor() == PLAYER_2_COLORCOLOR) 
+         || (instance.getColor() == PLAYER_1_MONOCOLOR) 
+         || (instance.getColor() == PLAYER_2_MONOCOLOR);
       assertTrue(result);
    }
 
@@ -318,12 +319,9 @@ public class SnakeTest
    public void testGameOver()
    {
       System.out.println("gameOver");
-      Snake instance = null;
       boolean expResult = false;
       boolean result = instance.gameOver();
       assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
    }
 
    /**
@@ -333,12 +331,16 @@ public class SnakeTest
    public void testGetDirectionLastMoved()
    {
       System.out.println("getDirectionLastMoved");
-      Snake instance = null;
-      Snake.Direction expResult = null;
+      instance.setDirection(Snake.Direction.RIGHT);
+      instance.setDirection(Snake.Direction.DOWN);
+      instance.setDirection(Snake.Direction.RIGHT);
+      instance.iterateForward();
+      Snake.Direction expResult = Snake.Direction.RIGHT;
       Snake.Direction result = instance.getDirectionLastMoved();
+      instance.`
+      
       assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+
    }
 
    /**

@@ -112,8 +112,7 @@ public class KeyboardListener extends KeyAdapter
             break;
          case gameplayScreen:
             Snake[] snakes = manager.getSnakes();
-            Snake.Direction directionLastMoved = snakes[0].getDirectionLastMoved();
-            switch (e.getKeyCode())
+             switch (e.getKeyCode())
             {
                case KeyEvent.VK_RIGHT:
                      snakes[0].setDirection(Snake.Direction.RIGHT);
@@ -132,8 +131,7 @@ public class KeyboardListener extends KeyAdapter
             }
             if (manager.getNumberOfPlayers() == 2)
             {
-               directionLastMoved = snakes[1].getDirectionLastMoved();
-               switch (e.getKeyCode())
+                switch (e.getKeyCode())
                {
                   case KeyEvent.VK_D:
                         snakes[1].setDirection(Snake.Direction.RIGHT);

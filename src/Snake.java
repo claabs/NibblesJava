@@ -34,7 +34,6 @@ public class Snake
    private final AudioEffectPlayer audio = new AudioEffectPlayer();
    private Point2D.Double initialSpawn;
    private Direction initialDirection;
-   private Direction directionLastMoved;
    private final Color color;
    private final Color monoColor;
 
@@ -312,16 +311,6 @@ public class Snake
    }
 
    /**
-    This method returns the last direction the snake has moved.
-
-    @return The last direction the snake has moved.
-    */
-   public Direction getDirectionLastMoved()
-   {
-      return directionLastMoved;
-   }
-
-   /**
     This method will trigger what will occur when the snake dies during
     gameplay.
     */
@@ -407,7 +396,6 @@ public class Snake
       hash = 53 * hash + this.newSegments;
       hash = 53 * hash + Objects.hashCode(this.initialSpawn);
       hash = 53 * hash + Objects.hashCode(this.initialDirection);
-      hash = 53 * hash + Objects.hashCode(this.directionLastMoved);
       return hash;
    }
 }
