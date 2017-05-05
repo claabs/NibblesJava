@@ -82,37 +82,34 @@ public class LevelTest
    public void testGetLevelGrid()
    {
       System.out.println("getLevelGrid");
-      LevelConstructor lc = new LevelConstructor();
-      Collidable[][] lg = lc.getLevel(0).getLevelGrid();
+      //LevelConstructor lc = new LevelConstructor();
+      //Level emptyLevel = new Level();
+      //Collidable[][] lg = lc.getLevel(0).getLevelGrid();
 
       //assertTrue(instance.getLevelGrid().equals(lg));
       
-      /*Point2D[] tempSpawns = new Point2D[2];
-      GameSpace.SpaceType[][] tempGrid = new GameSpace.SpaceType[80][48];
-      Snake.Direction[] tempOrientations = new Snake.Direction[2];
-      tempOrientations[0] = Snake.Direction.RIGHT;
-      tempOrientations[1] = Snake.Direction.LEFT;
-      ;
-
-      //SET SPAWNS                       COL ROW
-      tempSpawns[0] = new Point2D.Double(50, 23);
-      tempSpawns[1] = new Point2D.Double(30, 23);
-
-      for (int i = 0; i < tempGrid.length; i++)
-         for (int j = 0; j < tempGrid[i].length; j++)
-            tempGrid[i][j] = GameSpace.SpaceType.EMPTY;
-
-      Level instance = new Level();
-      assertTrue(instance.equals(new Level()));
-      instance.setLevelGrid(tempGrid);
-      Level newLevel = new Level(tempGrid, new Snake.Direction[]
-      {
-         Snake.Direction.RIGHT,Snake.Direction.RIGHT
-      }, new Point2D.Double[]
-      {
-         new Point2D.Double(0, 0), new Point2D.Double(0, 0)
-      });
-      assertTrue(newLevel.getLevelGrid().equals(tempGrid));*/
+      Collidable[][] newGrid = new Collidable[LevelConstructor.WIDTH][LevelConstructor.HEIGHT];
+      //Create 4 walls
+      for (int row = 0; row < 48; row++)
+         newGrid[0][row] = new Wall(new Point2D.Double(0, row));
+      for (int row = 0; row < 48; row++)
+         newGrid[79][row] = new Wall(new Point2D.Double(79, row));
+      for (int col = 0; col < 80; col++)
+         newGrid[col][0] = new Wall(new Point2D.Double(col, 0));
+      for (int col = 0; col < 80; col++)
+         newGrid[col][47] = new Wall(new Point2D.Double(col, 47));
+      //Fill inside with empty
+      for (int col = 1; col < 79; col++)
+         for (int row = 1; row < 47; row++)
+            newGrid[col][row] = new EmptyCell(new Point2D.Double(col, row));
+      
+      Collidable[][] instanceGrid = instance.getLevelGrid();
+      boolean result = true;
+      for (int i = 0; i < newGrid.length; i++)
+         for (int j = 0; j < newGrid[i].length; j++)
+            if (instanceGrid[i][j].getClass() != newGrid[i][j].getClass())
+               result = false;
+      assertTrue(result);
 
    }
 
