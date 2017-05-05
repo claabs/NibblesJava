@@ -4,7 +4,13 @@
  * and open the template in the editor.
  */
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -18,26 +24,26 @@ import static org.junit.Assert.*;
  */
 public class WallTest
 {
-   
+
    public WallTest()
    {
    }
-   
+
    @BeforeClass
    public static void setUpClass()
    {
    }
-   
+
    @AfterClass
    public static void tearDownClass()
    {
    }
-   
+
    @Before
    public void setUp()
    {
    }
-   
+
    @After
    public void tearDown()
    {
@@ -49,19 +55,36 @@ public class WallTest
    }
 
    /**
-    * Test of draw method, of class Wall.
+    Test of draw method, of class Wall.
     */
    @Test
-   public void testDraw()
+   public void testDraw() throws InterruptedException
    {
       System.out.println("draw");
-      Graphics2D g = null;
-      int xPos = 0;
-      int yPos = 0;
-      Wall instance = null;
-      instance.draw(g, xPos, yPos);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      GameManager.monochrome = false;
+      JFrame frame = new JFrame()
+      {
+         @Override
+         public void update(Graphics g)
+         {
+            Graphics2D g2 = (Graphics2D) g;
+            int xPos = 16;
+            int yPos = 16;
+            GameManager.monochrome = !GameManager.monochrome;
+            for (int i = 0; i < 10; i++)
+               new Wall(new Point2D.Double(50 + xPos * i, 50 + yPos * i)).draw(g2, 50 + xPos * i, 50 + yPos * i);
+         }
+
+      };
+      frame.setSize(300, 300);
+      frame.setVisible(true);
+      frame.invalidate();
+      System.out.println("Verify wall is drawn");
+      for (int i = 0; i < 10; i++)
+      {
+         frame.update(frame.getGraphics());
+         Thread.sleep(250);
+      }
    }
-   
+
 }
