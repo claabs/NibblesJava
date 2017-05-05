@@ -536,8 +536,9 @@ loadLevel();
     */
    private void drawSnakes(Graphics2D g)
    {
-      for (Snake snake : manager.getSnakes())
-         snake.draw(g, xOffset, yOffset);
+       Snake[] snakes = manager.getSnakes();
+       for (int i=0;i<manager.getNumberOfPlayers();i++)
+         snakes[i].draw(g, xOffset, yOffset);
    }
 
    /**

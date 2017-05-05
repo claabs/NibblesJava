@@ -367,7 +367,7 @@ public class GameManager
    {
       if (currentState == eventEnum.gameplayScreen)
       {
-         for (int i = 0; i < players.length; i++)
+         for (int i = 0; i < numberOfPlayers; i++)
          {
             Point2D.Double headPos = players[i].getHeadLocation();
             Collidable contents = gameBoard.getContents((int) headPos.x, (int) headPos.y);
@@ -391,15 +391,13 @@ public class GameManager
                }
             }
             players[i].iterateForward();
-            for (Snake otherPlayer : players)
-            {
-               if (players[i].collidedWithOtherSnake(otherPlayer))
+            for (int j=0;j<numberOfPlayers;j++)
+               if (players[i].collidedWithOtherSnake(players[j]))
                {
                   killPlayer(i);
                   return;
-               }
-            }
-         }
+                }
+        }
       }
    }
 
