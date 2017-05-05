@@ -28,10 +28,10 @@ import org.junit.runners.Suite;
          SnakeBodyTest.class, 
          KeyboardListenerTest.class,
          SnakeHeadTest.class,
-         LevelConstructorTest.class, 
+         //LevelConstructorTest.class, 
          WallTest.class, 
-         LevelTest.class, 
-         GamePanelTest.class,
+         //LevelTest.class, 
+         //GamePanelTest.class,
          AudioEffectPlayerTest.class
          //CollidableTest.class,
          //EmptyCellTest.class         

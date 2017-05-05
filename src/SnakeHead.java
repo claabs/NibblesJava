@@ -56,8 +56,7 @@ public class SnakeHead extends SnakeSegment
    @Override
    public int hashCode()
    {
-      int hash = 5;
-      return hash;
+      return super.hashCode();
    }
 
 }

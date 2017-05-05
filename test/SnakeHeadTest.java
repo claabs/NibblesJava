@@ -4,6 +4,7 @@
  and open the template in the editor.
  */
 
+import java.awt.geom.Point2D;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -21,6 +22,8 @@ public class SnakeHeadTest
    public SnakeHeadTest()
    {
    }
+   private Snake papa;
+   private SnakeHead instance;
 
    @BeforeClass
    public static void setUpClass()
@@ -35,6 +38,8 @@ public class SnakeHeadTest
    @Before
    public void setUp()
    {
+      papa = new Snake(new Point2D.Double(20, 20), Snake.Direction.UP, 1);
+      instance = new SnakeHead(new Point2D.Double(50, 50), Snake.Direction.UP, papa);
    }
 
    @After
@@ -42,40 +47,33 @@ public class SnakeHeadTest
    {
    }
 
-   @Test
-   public void someTestMethod()
-   {
-
-   }
-
    /**
-    * Test of equals method, of class SnakeHead.
+    Test of equals method, of class SnakeHead.
     */
    @Test
    public void testEquals()
    {
       System.out.println("equals");
       Object o = null;
-      SnakeHead instance = null;
       boolean expResult = false;
       boolean result = instance.equals(o);
-      assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      assertTrue(expResult == result);
+      expResult = true;
+      o = new SnakeHead(new Point2D.Double(50, 50), Snake.Direction.UP, papa);
+      result = instance.equals(o);
+      assertTrue(expResult == result);
    }
 
    /**
-    * Test of hashCode method, of class SnakeHead.
+    Test of hashCode method, of class SnakeHead.
     */
    @Test
    public void testHashCode()
    {
       System.out.println("hashCode");
-      SnakeHead instance = null;
-      int expResult = 0;
+
+      int expResult = 796533938;
       int result = instance.hashCode();
       assertEquals(expResult, result);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
    }
 }
