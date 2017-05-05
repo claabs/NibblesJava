@@ -31,10 +31,10 @@ import org.junit.runners.Suite;
          //LevelConstructorTest.class, 
          WallTest.class, 
          //LevelTest.class, 
-         //GamePanelTest.class,
-         AudioEffectPlayerTest.class
-         //CollidableTest.class,
-         //EmptyCellTest.class         
+         GamePanelTest.class,
+         AudioEffectPlayerTest.class,
+         CollidableTest.class,
+         EmptyCellTest.class         
       })
 public class RootSuite
 {

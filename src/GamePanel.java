@@ -458,22 +458,6 @@ public class GamePanel extends JPanel
    }
 
    /**
-    This method will stop the timer.
-    */
-   public void stopTimer()
-   {
-      timer.stop();
-   }
-
-   /**
-    This method will start the timer.
-    */
-   public void startTimer()
-   {
-      timer.start();
-   }
-
-   /**
     This method will load the level, set by the game manager, onto the game
     board.
     */

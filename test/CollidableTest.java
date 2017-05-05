@@ -20,6 +20,7 @@ public class CollidableTest
 {
 
    private Food instanceF;
+   private Food instanceF2;
    private Snake instanceS;
 
    public CollidableTest()
@@ -40,6 +41,7 @@ public class CollidableTest
    public void setUp()
    {
       instanceF = new Food(1, new Point2D.Double(10, 20), 0);
+      instanceF2 = new Food(1, new Point2D.Double(10, 20), 0);
       instanceS = new Snake(new Point2D.Double(10, 20), Snake.Direction.UP, 1);
 
    }
@@ -70,7 +72,7 @@ public class CollidableTest
       System.out.println("equals");
        
       boolean expResult = true;
-      boolean result = (instanceS.equals(instanceF));
+      boolean result = (instanceF.equals(instanceF2));
       assertEquals(expResult, result);
    }
 

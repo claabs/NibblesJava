@@ -5,6 +5,7 @@
  */
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import javax.swing.JFrame;
@@ -16,8 +17,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
- * @author User
+
+ @author User
  */
 public class EmptyCellTest
 {
@@ -46,6 +47,7 @@ public class EmptyCellTest
    @Before
    public void setUp()
    {
+      window  = new JFrame();
       instanceC = new EmptyCell(new Point2D.Double(10, 20));
       instanceS = new Snake(new Point2D.Double(10, 20), Snake.Direction.UP, 1);
       instanceG = new GameManager(window);
@@ -57,7 +59,7 @@ public class EmptyCellTest
    }
 
    /**
-    * Test of collided method, of class EmptyCell.
+    Test of collided method, of class EmptyCell.
     */
    @Test
    public void testCollided()
@@ -69,32 +71,53 @@ public class EmptyCellTest
    }
 
    /**
-    * Test of getDrawColor method, of class EmptyCell.
+    Test of getDrawColor method, of class EmptyCell.
     */
    @Test
    public void testGetDrawColor()
    {
       System.out.println("getDrawColor");
       Color expResult = COLOR_COLOR;
-      instanceG.setMonochrome(false);
+      instanceG.monochrome = false;
       Color result = EmptyCell.getDrawColor();
-      assertEquals(expResult, result);
+      assertTrue(expResult.equals(result));
+      expResult = MONO_COLOR;
+      instanceG.monochrome = true;
+      result = EmptyCell.getDrawColor();
+      assertTrue(expResult.equals(result));
    }
 
    /**
-    * Test of draw method, of class EmptyCell.
+    Test of draw method, of class EmptyCell.
     */
    @Test
-   public void testDraw()
+   public void testDraw() throws InterruptedException
    {
       System.out.println("draw");
-      Graphics2D g = null;
-      int xPos = 0;
-      int yPos = 0;
-      EmptyCell instance = null;
-      instance.draw(g, xPos, yPos);
-      // TODO review the generated test code and remove the default call to fail.
-      fail("The test case is a prototype.");
+      GameManager.monochrome = false;
+      JFrame frame = new JFrame()
+      {
+         @Override
+         public void update(Graphics g)
+         {
+            Graphics2D g2 = (Graphics2D) g;
+            int xPos = 16;
+            int yPos = 16;
+            GameManager.monochrome = !GameManager.monochrome;
+            for (int i = 0; i < 10; i++)
+               new EmptyCell(new Point2D.Double(50 + xPos * i, 50 + yPos * i)).draw(g2, 50 + xPos * i, 50 + yPos * i);
+         }
+
+      };
+      frame.setSize(300, 300);
+      frame.setVisible(true);
+      frame.invalidate();
+      System.out.println("Verify empty cell is drawn");
+      for (int i = 0; i < 10; i++)
+      {
+         frame.update(frame.getGraphics());
+         Thread.sleep(250);
+      }
    }
 
 }

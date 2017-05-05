@@ -25,7 +25,7 @@ public class GameManager
 
    private static Random random;
    private int currentLevel = 0;
-   private GamePanel gameBoard;
+   public GamePanel gameBoard;
    private final LevelConstructor levelConstructor = new LevelConstructor();
    private Level level = null;
    private Timer timer;
@@ -324,9 +324,9 @@ public class GameManager
     */
    private void respawn()
    {
-      for (Snake player : players)
+      for (int i = 0; i < numberOfPlayers;i++)
       {
-         player.respawn();
+         players[i].respawn();
       }
    }
 
