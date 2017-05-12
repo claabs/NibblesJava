@@ -583,7 +583,10 @@ public class GamePanel extends JPanel
       Snake[] snakes = manager.getSnakes();
       if (snakes[0] != null)
       {
-         g.setColor(new Color(0, 0, 170));
+         if (manager.getMonochrome())
+            g.setColor(new Color(0, 0, 0));
+         else
+            g.setColor(new Color(0, 0, 170));
          g.fillRect(MARGIN_SIZE, MARGIN_SIZE, GameManager.CHAR_WIDTH * gameBoard.length, GameManager.CHAR_HEIGHT);
          g.setColor(new Color(255, 255, 255));
          int yPos = yOffset - 2;
